@@ -2,11 +2,13 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
 import {
   KeyboardAvoidingView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Image
 } from 'react-native';
 import { auth } from '../../../firebase';
 
@@ -41,8 +43,16 @@ const Login = () => {
   };
 
   return (
+    // <ScrollView style = {{backgroundColor: 'white'}}>
     <View style={styles.container} behavior="padding">
-      <View style={styles.inputContainer}>
+        <Image 
+          source={require('../../assets/meowlogo.png')} 
+          resizeMode = "center" 
+          style = {styles.image}/>
+        <View style={styles.inputContainer}>
+        <Text style = {styles.textTitle}>Welcome back!</Text>
+        <Text style = {styles.textBody}>Log in to your account</Text>
+        <View style = {{marginTop: 20}}/>
         <TextInput
           placeholder="Email"
           value={email}
@@ -56,20 +66,30 @@ const Login = () => {
           style={styles.input}
           secureTextEntry
         />
+        {/* <View style = {{width: '90%'}}>
+          <Text style = {[styles.textBody, {alignSelf: 'flex-end'}]}
+          >Forgot Password?</Text>
+        </View> */}
       </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity>
+        {/* <TouchableOpacity */}
+        <Text style = {[styles.textBody, {paddingTop: 20}, {fontSize: 13}]}>
+          Don't have an account?</Text>
+        <Text
+          style = {[styles.textBody, {color: '#e8a468'}, {fontSize: 13}]}
+          onPress={handleSignUp}>Create one!</Text>
+          {/* style={[styles.button, styles.buttonOutline]} */}
+        
+          {/* <Text style={styles.buttonOutlineText}>Register</Text> */}
+        {/* </TouchableOpacity> */}
+       
       </View>
     </View>
+    // </ScrollView>
   );
 };
 
@@ -121,4 +141,20 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+  image: {
+    width: 400,
+    height: 150,
+    marginVertical: 10,
+  },
+  textTitle: {
+    fontFamily: 'sans-serif-medium',
+    color: '#665444',
+    fontSize: 35,
+    marginVertical: 10,
+  },
+  textBody: {
+    fontFamily: 'sans-serif-medium',
+    color: '#665444',
+    fontSize: 15,
+  }
 });

@@ -35,7 +35,7 @@ const Homepage = () => {
   };
 
   // const categories = ['All', 'Popular', 'Top Rated', 'Featured', 'Luxury'];
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+  // const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -93,7 +93,7 @@ const Homepage = () => {
       <TouchableOpacity
         disabled={activeCardIndex != index}
         activeOpacity={1}
-        onPress={() => navigation.navigate('DetailsScreen', hotel)}>
+        onPress={() => navigation.navigate('RoomDetails', hotel)}>
         <Animated.View style={{...style.card, transform: [{scale}]}}>
           <Animated.View style={{...style.cardOverLay, opacity}} />
           <View style={style.priceTag}>
@@ -165,10 +165,10 @@ const Homepage = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.background}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.background, paddingTop: 20}}>
       <View style={style.header}>
-        <View style={{paddingBottom: 15}}>
-          <Text style={{fontSize: 30, fontWeight: 'bold'}}>
+        <View style={{paddingBottom: 0}}>
+          <Text style={{fontSize: 30, fontWeight: 'bold', color: '#665444'}}>
             Neko Suites
           </Text>
           {/* <View style={{flexDirection: 'row'}}>
