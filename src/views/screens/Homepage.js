@@ -127,9 +127,9 @@ const Homepage = () => {
                 <Icon name="star" size={15} color={COLORS.orange} />
                 <Icon name="star" size={15} color={COLORS.orange} />
                 <Icon name="star" size={15} color={COLORS.orange} />
-                <Icon name="star" size={15} color={COLORS.grey} />
+                <Icon name="star" size={15} color={COLORS.orange} />
               </View>
-              <Text style={{fontSize: 10, color: COLORS.grey}}>365reviews</Text>
+              {/* <Text style={{fontSize: 10, color: COLORS.grey}}>365reviews</Text> */}
             </View>
           </View>
         </Animated.View>
@@ -234,19 +234,20 @@ const Homepage = () => {
           }}
           renderItem={({item}) => <TopHotelCard hotel={item} />}
         />
+        <View style={style.container}>
+          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+          <TouchableOpacity onPress={handleSignOut} style={style.button}>
+          <Text style={style.buttonText}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-  // return (
-  //   <View style={styles.container}>
-  //     <Text>Email: {auth.currentUser?.email}</Text>
-  //     <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-  //       <Text style={styles.buttonText}>Sign out</Text>
-  //     </TouchableOpacity>
-  //   </View>
-  // );
+//   return (
+    
+//   );
 //};
 
 export default Homepage;
@@ -258,12 +259,12 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#0782F9',
-    width: '60%',
+    backgroundColor: '#e8a468',
+    width: '40%',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 10,
   },
   buttonText: {
     color: 'white',
