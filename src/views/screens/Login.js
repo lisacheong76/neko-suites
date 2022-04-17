@@ -46,7 +46,7 @@ const Login = () => {
     // <ScrollView style = {{backgroundColor: 'white'}}>
     <View style={styles.container} behavior="padding">
         <Image 
-          source={require('../../assets/meowlogo.png')} 
+          source={require('../../assets/nekosuiteslogo.png')} 
           resizeMode = "center" 
           style = {styles.image}/>
         <View style={styles.inputContainer}>
