@@ -36,6 +36,8 @@ const Register = () => {
           console.log('Registered with:', user.email);
         })
         .catch((error) => alert(error.message));
+    } else {
+      alert('different pass');
     }
   };
 
@@ -90,6 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff5ed',
   },
   inputContainer: {
     width: '80%',
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#e8a468',
     width: '100%',
     padding: 15,
     borderRadius: 10,
@@ -117,7 +120,7 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: 'white',
     marginTop: 5,
-    borderColor: '#0782F9',
+    borderColor: '#e8a468',
     borderWidth: 2,
   },
   buttonText: {
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#e8a468',
     fontWeight: '700',
     fontSize: 16,
   },
