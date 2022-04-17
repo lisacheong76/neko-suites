@@ -46,7 +46,7 @@ const Register = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <View style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -81,7 +81,7 @@ const Register = () => {
           <Text style={styles.buttonOutlineText}>Back</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

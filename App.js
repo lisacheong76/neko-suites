@@ -24,10 +24,11 @@ export default function App() {
           component={Register}
         />
 
-        <Stack.Screen 
+        <Stack.Screen
           options={{ headerShown: false }}
-          name="Homepage" 
-          component={Homepage} />
+          name="Homepage"
+          component={Homepage}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
