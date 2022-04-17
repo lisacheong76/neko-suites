@@ -7,12 +7,12 @@ import 'firebase/compat/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCp86tG33Ag17Nw6hUXn2PkGkqE8aqSVj4',
-  authDomain: 'neko-9b891.firebaseapp.com',
-  projectId: 'neko-9b891',
-  storageBucket: 'neko-9b891.appspot.com',
-  messagingSenderId: '274260486608',
-  appId: '1:274260486608:web:4d3830ae4a8d0c0b48b1d5',
+  apiKey: 'AIzaSyAA8MFaOnFdZDMteCZjJRnzbucPLWHpt1M',
+  authDomain: 'neko-suites.firebaseapp.com',
+  projectId: 'neko-suites',
+  storageBucket: 'neko-suites.appspot.com',
+  messagingSenderId: '682947082082',
+  appId: '1:682947082082:web:d6eade046842551d53de3b',
 };
 
 // Initialize Firebase
