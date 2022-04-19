@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Image
+  Image,
 } from 'react-native';
 import { auth } from '../../../firebase';
 
@@ -45,14 +45,15 @@ const Login = () => {
   return (
     // <ScrollView style = {{backgroundColor: 'white'}}>
     <View style={styles.container} behavior="padding">
-        <Image 
-          source={require('../../assets/nekosuiteslogo.png')} 
-          resizeMode = "center" 
-          style = {styles.image}/>
-        <View style={styles.inputContainer}>
-        <Text style = {styles.textTitle}>Welcome back!</Text>
-        <Text style = {styles.textBody}>Log in to your account</Text>
-        <View style = {{marginTop: 20}}/>
+      <Image
+        source={require('../../assets/nekosuiteslogo.png')}
+        resizeMode="center"
+        style={styles.image}
+      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.textTitle}>Welcome back!</Text>
+        <Text style={styles.textBody}>Log in to your account</Text>
+        <View style={{ marginTop: 20 }} />
         <TextInput
           placeholder="Email"
           value={email}
@@ -77,16 +78,19 @@ const Login = () => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity */}
-        <Text style = {[styles.textBody, {paddingTop: 20}, {fontSize: 13}]}>
-          Don't have an account?</Text>
+        <Text style={[styles.textBody, { paddingTop: 20 }, { fontSize: 13 }]}>
+          Don't have an account?
+        </Text>
         <Text
-          style = {[styles.textBody, {color: '#e8a468'}, {fontSize: 13}]}
-          onPress={handleSignUp}>Create one!</Text>
-          {/* style={[styles.button, styles.buttonOutline]} */}
-        
-          {/* <Text style={styles.buttonOutlineText}>Register</Text> */}
+          style={[styles.textBody, { color: '#e8a468' }, { fontSize: 13 }]}
+          onPress={handleSignUp}
+        >
+          Create one!
+        </Text>
+        {/* style={[styles.button, styles.buttonOutline]} */}
+
+        {/* <Text style={styles.buttonOutlineText}>Register</Text> */}
         {/* </TouchableOpacity> */}
-       
       </View>
     </View>
     // </ScrollView>
@@ -156,5 +160,5 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif-medium',
     color: '#665444',
     fontSize: 15,
-  }
+  },
 });

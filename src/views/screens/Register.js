@@ -7,11 +7,13 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Image
+  Image,
 } from 'react-native';
 import { auth } from '../../../firebase';
+import { firestore } from '../../../firebase';
 
 const Register = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -35,6 +37,10 @@ const Register = () => {
         .then((userCredentials) => {
           const user = userCredentials.user;
           console.log('Registered with:', user.email);
+
+          firestore.collection('users').doc(user.uid).set({
+            username: username,
+          });
         })
         .catch((error) => alert(error.message));
     } else {
@@ -48,13 +54,20 @@ const Register = () => {
 
   return (
     <View style={styles.container} behavior="padding">
-      <Image 
-          source={require('../../assets/nekosuiteslogo.png')} 
-          resizeMode = "center" 
-          style = {styles.image}/>
-        <View style={styles.inputContainer}>
-        <Text style = {styles.textTitle}>Create new account</Text>
-        <View style = {{marginTop: 10}}/>
+      <Image
+        source={require('../../assets/nekosuiteslogo.png')}
+        resizeMode="center"
+        style={styles.image}
+      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.textTitle}>Create new account</Text>
+        <View style={{ marginTop: 10 }} />
+        <TextInput
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+          style={styles.input}
+        />
         <TextInput
           placeholder="Email"
           value={email}
@@ -82,13 +95,17 @@ const Register = () => {
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity */}
-        <Text style = {[styles.textBody, {paddingTop: 20}, {fontSize: 13}]}>
-          Already have an account?</Text>
+        <Text style={[styles.textBody, { paddingTop: 20 }, { fontSize: 13 }]}>
+          Already have an account?
+        </Text>
         <Text
-          style = {[styles.textBody, {color: '#e8a468'}, {fontSize: 13}]}
-          onPress={handleBack}>Click here</Text>
-          {/* style={[styles.button, styles.buttonOutline]} */}
-          {/* <Text style={styles.buttonOutlineText}>Back</Text> */}
+          style={[styles.textBody, { color: '#e8a468' }, { fontSize: 13 }]}
+          onPress={handleBack}
+        >
+          Click here
+        </Text>
+        {/* style={[styles.button, styles.buttonOutline]} */}
+        {/* <Text style={styles.buttonOutlineText}>Back</Text> */}
         {/* </TouchableOpacity> */}
       </View>
     </View>
@@ -158,5 +175,5 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif-medium',
     color: '#665444',
     fontSize: 15,
-  }
+  },
 });
