@@ -9,8 +9,7 @@ import {
   View,
   Image,
 } from 'react-native';
-import { auth, firestore } from '../../../firebase';
-import { updateProfile } from 'firebase/auth';
+import { auth, firestore, updateProfile } from '../../../firebase';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -48,7 +47,7 @@ const Register = () => {
         })
         .catch((error) => alert(error.message));
     } else {
-      alert('different pass');
+      alert('Different Password');
     }
   };
 

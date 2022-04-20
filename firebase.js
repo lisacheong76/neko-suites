@@ -2,6 +2,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { updateProfile } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,8 +26,5 @@ if (firebase.apps.length === 0) {
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-// const updateProfile = firebase.auth.updateProfile;
 
-export { auth };
-export { firestore };
-// export { updateProfile };
+export { auth, firestore, updateProfile };
