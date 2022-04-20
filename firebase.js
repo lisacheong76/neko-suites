@@ -25,6 +25,8 @@ if (firebase.apps.length === 0) {
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+// const updateProfile = firebase.auth.updateProfile;
 
 export { auth };
 export { firestore };
+// export { updateProfile };

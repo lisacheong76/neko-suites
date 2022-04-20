@@ -9,8 +9,8 @@ import {
   View,
   Image,
 } from 'react-native';
-import { auth } from '../../../firebase';
-import { firestore } from '../../../firebase';
+import { auth, firestore } from '../../../firebase';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -38,8 +38,12 @@ const Register = () => {
           const user = userCredentials.user;
           console.log('Registered with:', user.email);
 
+          updateProfile(auth.currentUser, {
+            displayName: username,
+          });
+
           firestore.collection('users').doc(user.uid).set({
-            username: username,
+            role: 'Customer',
           });
         })
         .catch((error) => alert(error.message));

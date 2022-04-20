@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import { auth } from '../../../firebase';
+import { firestore } from '../../../firebase';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +22,28 @@ const Login = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace('Homepage');
+        const getRole = async () => {
+          const roleRef = firestore.collection('users').doc(user.uid);
+          const doc = await roleRef.get();
+          if (!doc.exists) {
+            console.log('No such document!');
+          } else {
+            const role = doc.data().role;
+            return role;
+          }
+        };
+
+        (async function () {
+          let role = await getRole();
+
+          if (role == 'Admin') {
+            navigation.replace('Dashboard', {
+              paramKey: user.displayName,
+            });
+          } else {
+            navigation.replace('Homepage');
+          }
+        })();
       }
     });
 
