@@ -10,8 +10,7 @@ import {
   View,
   Image,
 } from 'react-native';
-import { auth } from '../../../firebase';
-import { firestore } from '../../../firebase';
+import { auth, firestore } from '../../../firebase';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -64,6 +63,10 @@ const Login = () => {
       .catch((error) => alert(error.message));
   };
 
+  const handleReset = () => {
+    navigation.replace('ResetPassword');
+  };
+
   return (
     // <ScrollView style = {{backgroundColor: 'white'}}>
     <View style={styles.container} behavior="padding">
@@ -89,9 +92,13 @@ const Login = () => {
           style={styles.input}
           secureTextEntry
         />
-        <View style = {{width: '100%'}}>
-          <Text style = {[styles.textBody2, {alignSelf: 'flex-end'}]}
-          >Forgot Password?</Text>
+        <View style={{ width: '100%' }}>
+          <Text
+            style={[styles.textBody2, { alignSelf: 'flex-end' }]}
+            onPress={handleReset}
+          >
+            Forgot Password?
+          </Text>
         </View>
       </View>
 

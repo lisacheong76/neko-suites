@@ -6,6 +6,7 @@ import Login from './src/views/screens/Login';
 import Homepage from './src/views/screens/Homepage';
 import Register from './src/views/screens/Register';
 import Dashboard from './src/views/screens/Dashboard';
+import ResetPassword from './src/views/screens/ResetPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,12 @@ export default function App() {
           options={{ headerShown: false }}
           name="Dashboard"
           component={Dashboard}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="ResetPassword"
+          component={ResetPassword}
         />
       </Stack.Navigator>
     </NavigationContainer>
