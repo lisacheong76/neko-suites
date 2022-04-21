@@ -68,7 +68,7 @@ const Login = () => {
     // <ScrollView style = {{backgroundColor: 'white'}}>
     <View style={styles.container} behavior="padding">
       <Image
-        source={require('../../assets/nekosuiteslogo.png')}
+        source={require('../../assets/nekosuites2.png')}
         resizeMode="center"
         style={styles.image}
       />
@@ -89,10 +89,10 @@ const Login = () => {
           style={styles.input}
           secureTextEntry
         />
-        {/* <View style = {{width: '90%'}}>
-          <Text style = {[styles.textBody, {alignSelf: 'flex-end'}]}
+        <View style = {{width: '100%'}}>
+          <Text style = {[styles.textBody2, {alignSelf: 'flex-end'}]}
           >Forgot Password?</Text>
-        </View> */}
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -182,5 +182,11 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif-medium',
     color: '#665444',
     fontSize: 15,
+  },
+  textBody2: {
+    fontFamily: 'sans-serif-medium',
+    color: '#665444',
+    fontSize: 13,
+    marginTop: 5,
   },
 });

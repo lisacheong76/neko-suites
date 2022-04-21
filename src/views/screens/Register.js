@@ -58,7 +58,7 @@ const Register = () => {
   return (
     <View style={styles.container} behavior="padding">
       <Image
-        source={require('../../assets/nekosuiteslogo.png')}
+        source={require('../../assets/nekosuites2.png')}
         resizeMode="center"
         style={styles.image}
       />

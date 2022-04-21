@@ -194,6 +194,7 @@ const Dashboard = ({ route }) => {
         <Icon name="person-outline" size={30} color={COLORS.grey} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Text>Admin Dashboard</Text>
         {/* <View style={style.searchInputContainer}>
           <Icon name="search" size={30} style={{marginLeft: 20}} />
           <TextInput
@@ -201,7 +202,7 @@ const Dashboard = ({ route }) => {
             style={{fontSize: 20, paddingLeft: 10}}
           />
         </View> */}
-        <View>
+        {/* <View>
           <Animated.FlatList
             onMomentumScrollEnd={(e) => {
               setActiveCardIndex(
@@ -225,8 +226,8 @@ const Dashboard = ({ route }) => {
             )}
             snapToInterval={cardWidth}
           />
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -235,10 +236,10 @@ const Dashboard = ({ route }) => {
         >
           <Text style={{ fontWeight: 'bold', color: COLORS.grey }}>
             Other Services
-          </Text>
+          </Text> */}
           {/* <Text style={{color: COLORS.grey}}>Show all</Text> */}
-        </View>
-        <FlatList
+       
+        {/* <FlatList
           data={services}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -248,7 +249,7 @@ const Dashboard = ({ route }) => {
             paddingBottom: 30,
           }}
           renderItem={({ item }) => <TopHotelCard hotel={item} />}
-        />
+        /> */}
         <View style={style.container}>
           {/* <Text>Email: {auth.currentUser?.email}</Text> */}
           <TouchableOpacity onPress={handleSignOut} style={style.button}>
