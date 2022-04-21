@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, {Component} from 'react';
 import {
   Dimensions,
-  FlatList,
+  SectionList,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -18,6 +18,7 @@ import COLORS from '../../consts/colors';
 import hotels from '../../consts/roomType';
 import services from '../../consts/otherServices';
 import { auth } from '../../../firebase';
+import { StatusBar } from 'expo-status-bar';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
@@ -75,6 +76,23 @@ const Dashboard = ({ route }) => {
   //     </View>
   //   );
   // };
+
+  const ListData = [
+    {
+      title: "Recent Booking",
+      data:[
+        "Allen 12 Apr 10:32a.m", "Jay 14 Apr 10:32a.m" 
+      ]
+    }
+  ];
+
+  const Item = ({title}) => (
+    <View style = {style.item}>
+      <Text style = {style.title}>{title}</Text>
+    </View>
+  );
+
+  
 
   const Card = ({ hotel, index }) => {
     const inputRange = [
@@ -176,7 +194,7 @@ const Dashboard = ({ route }) => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+    style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
       <View style={style.header}>
         <View style={{ paddingBottom: 0 }}>
@@ -194,7 +212,7 @@ const Dashboard = ({ route }) => {
         <Icon name="person-outline" size={30} color={COLORS.grey} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>Admin Dashboard</Text>
+
         {/* <View style={style.searchInputContainer}>
           <Icon name="search" size={30} style={{marginLeft: 20}} />
           <TextInput
@@ -250,29 +268,39 @@ const Dashboard = ({ route }) => {
           }}
           renderItem={({ item }) => <TopHotelCard hotel={item} />}
         /> */}
-        <View style={style.container}>
-          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-          <TouchableOpacity onPress={handleSignOut} style={style.button}>
-            <Text style={style.buttonText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
       </ScrollView>
+      
+      <SectionList 
+          style = {style.container2}
+          sections={ListData}
+          keyExtractor = {(item, index) => item + index}
+          renderItem = {({item}) => <Item title = {item}/>}
+          renderSectionHeader = {({section: {title}}) => (
+          <Text style = {style.header2}>{title}</Text>
+      )}/>
+
+      <View style={style.container1}>
+      {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+      <TouchableOpacity onPress={handleSignOut} style={style.button}>
+        <Text style={style.buttonText}>Sign out</Text>
+      </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
 
-//   return (
-
-//   );
-//};
-
 export default Dashboard;
 
 const style = StyleSheet.create({
-  container: {
+  container1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  container2: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    marginHorizontal: 16
   },
   button: {
     backgroundColor: '#e8a468',
@@ -292,6 +320,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+    fontSize: 32
   },
   searchInputContainer: {
     height: 50,
@@ -370,4 +399,15 @@ const style = StyleSheet.create({
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
+  header2: {
+    fontSize: 26
+  },
+  item: {
+    backgroundColor: "white",
+    padding: 15,
+    marginVertical: 8
+  },
+  title: {
+    fontSize: 16
+  }
 });
