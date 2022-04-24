@@ -52,9 +52,15 @@ const ResetPassword = () => {
         <TouchableOpacity onPress={resetPassword} style={styles.button}>
           <Text style={styles.buttonText}>Reset Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleBack} style={styles.button}>
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
+        <Text style={[styles.textBody, { paddingTop: 20 }, { fontSize: 13 }]}>
+          Recall your password?
+        </Text>
+        <Text
+          style={[styles.textBody, { color: '#e8a468' }, { fontSize: 13 }]}
+          onPress={handleBack}
+        >
+          Login here
+        </Text>
       </View>
     </View>
     // </ScrollView>
