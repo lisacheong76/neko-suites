@@ -5,7 +5,7 @@ const hotels = [
       location: 'Single cat',
       price: 30,
       image: require('../assets/mini-suite.jpeg'),
-      details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+      details: `The Mini Suite Room is suitable for single cat only and for 1-2 kittens. The room includes a cat litter along with a comfy bed cushion.`,
     },
     {
       id: '2',
@@ -13,7 +13,7 @@ const hotels = [
       location: 'Single cat',
       price: 40,
       image: require('../assets/mini-suite.jpeg'),
-      details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+      details: `The Mini Suite Room is suitable for single cat only and for 1-2 kittens. The room includes a cat litter along with a comfy bed cushion. This room comes with a package of cat foods too.`,
     },
     {
       id: '3',
@@ -21,7 +21,7 @@ const hotels = [
       location: '1-2 cats',
       price: 50,
       image: require('../assets/cozy-suite.jpg'),
-      details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+      details: `The Cozy Suite Room is suitable for up to 2 cats. The room includes a cat litter along with a comfy bed cushion.`,
     },
     {
       id: '4',
@@ -29,7 +29,7 @@ const hotels = [
       location: '1-2 cats',
       price: 60,
       image: require('../assets/cozy-suite.jpg'),
-      details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+      details: `The Cozy Suite Room is suitable for up to 2 cats. The room includes a cat litter along with a comfy bed cushion. This room comes with a package of cat foods too.`,
     },
     {
         id: '5',
@@ -37,7 +37,7 @@ const hotels = [
         location: '2 or more cats',
         price: 80,
         image: require('../assets/master-suite.webp'),
-        details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+        details: `The Master Suite Room is suitable for more than 2 cats. The room includes a cat litter along with a comfy bed cushion.`,
     },
     {
         id: '6',
@@ -45,7 +45,7 @@ const hotels = [
         location: '2 or more cats',
         price: 90,
         image: require('../assets/master-suite.webp'),
-        details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+        details: `The Master Suite Room is suitable for more than 2 cats. The room includes a cat litter along with a comfy bed cushion. This room comes with a package of cat foods too.`,
     },
     {
         id: '7',
@@ -53,7 +53,7 @@ const hotels = [
         location: 'Luxury and Premium Suite',
         price: 120,
         image: require('../assets/vic-suite.webp'),
-        details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
+        details: `The VIC Suite Room is a room installed with an air-conditioner. The room includes a cat litter, cat playground along with a comfy bed cushion. This room comes with a package of cat foods too`,
     },
   ];
   

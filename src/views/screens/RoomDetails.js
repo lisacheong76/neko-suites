@@ -33,16 +33,16 @@ const RoomDetails = ({navigation, route}) => {
             color={COLORS.white}
             onPress={navigation.goBack}
           />
-          <Icon name="bookmark-border" size={28} color={COLORS.white} />
+          {/* <Icon name="bookmark-border" size={28} color={COLORS.white} /> */}
         </View>
       </ImageBackground>
       <View>
-        <View style={style.iconContainer}>
+        {/* <View style={style.iconContainer}>
           <Icon name="place" color={COLORS.white} size={28} />
-        </View>
+        </View> */}
         <View style={{marginTop: 20, paddingHorizontal: 20}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>{item.name}</Text>
-          <Text
+          <Text style={{fontSize: 26, fontWeight: 'bold'}}>{item.name}</Text>
+          {/* <Text
             style={{
               fontSize: 12,
               fontWeight: '400',
@@ -50,14 +50,14 @@ const RoomDetails = ({navigation, route}) => {
               marginTop: 5,
             }}>
             {item.location}
-          </Text>
+          </Text> */}
           <View
             style={{
               marginTop: 10,
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <View style={{flexDirection: 'row'}}>
                 <Icon name="star" size={20} color={COLORS.orange} />
                 <Icon name="star" size={20} color={COLORS.orange} />
@@ -68,10 +68,10 @@ const RoomDetails = ({navigation, route}) => {
               <Text style={{fontWeight: 'bold', fontSize: 18, marginLeft: 5}}>
                 4.0
               </Text>
-            </View>
-            <Text style={{fontSize: 13, color: COLORS.grey}}>365reviews</Text>
+            </View> */}
+            {/* <Text style={{fontSize: 13, color: COLORS.grey}}>365reviews</Text> */}
           </View>
-          <View style={{marginTop: 20}}>
+          <View style={{marginTop: 5}}>
             <Text style={{lineHeight: 20, color: COLORS.grey}}>
               {item.details}
             </Text>
@@ -93,10 +93,10 @@ const RoomDetails = ({navigation, route}) => {
               style={{
                 fontSize: 16,
                 fontWeight: 'bold',
-                color: COLORS.grey,
+                color: '#665444',
                 marginLeft: 5,
               }}>
-              ${item.price}
+              RM {item.price}
             </Text>
             <Text
               style={{
@@ -105,7 +105,7 @@ const RoomDetails = ({navigation, route}) => {
                 color: COLORS.grey,
                 marginLeft: 5,
               }}>
-              +breakfast
+           
             </Text>
           </View>
         </View>
