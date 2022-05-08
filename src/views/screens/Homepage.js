@@ -12,6 +12,7 @@ import {
   View,
   Image,
   Animated,
+  ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
@@ -141,22 +142,14 @@ const Homepage = () => {
     );
   };
 
-  const TopHotelCard = ({ hotel }) => {
+  const TopHotelCard = ({ hotel, index }) => {
     return (
-      <View style={style.topHotelCard}>
-        {/* <View
-          style={{
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            zIndex: 1,
-            flexDirection: 'row',
-          }}>
-          <Icon name="star" size={15} color={COLORS.orange} />
-          <Text style={{color: COLORS.white, fontWeight: 'bold', fontSize: 15}}>
-            5.0
-          </Text>
-        </View> */}
+      <TouchableOpacity
+        disabled={activeCardIndex != index}
+        activeOpacity={1}
+        onPress={() => navigation.navigate("ServiceLists", hotel)}
+      >
+      <Animated.View style={style.topHotelCard}>
         <Image style={style.topHotelCardImage} source={hotel.image} />
         <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
           <Text style={{ fontSize: 10, fontWeight: "bold" }}>{hotel.name}</Text>
@@ -164,7 +157,8 @@ const Homepage = () => {
             {hotel.location}
           </Text>
         </View>
-      </View>
+      </Animated.View>
+      </TouchableOpacity>
     );
   };
 
@@ -185,12 +179,11 @@ const Homepage = () => {
             </Text>
           </View> */}
         </View>
-        <Icon
-          name="person-outline"
-          size={30}
-          color={"#665444"}
-          onPress={() => navigation.navigate("UserProfile")}
-        ></Icon>
+        <ImageBackground 
+          source = {require('../../assets/user-profile.jpg')} 
+          style = {{width:45, height: 45}}
+          imageStyle = {{borderRadius: 25}}
+          />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <View style={style.searchInputContainer}>
@@ -235,9 +228,8 @@ const Homepage = () => {
           <Text style={{ fontWeight: "bold", color: COLORS.grey }}>
             Other Services
           </Text>
-          {/* <Text style={{color: COLORS.grey}}>Show all</Text> */}
         </View>
-        <FlatList
+        <Animated.FlatList
           data={services}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -246,7 +238,9 @@ const Homepage = () => {
             marginTop: 20,
             paddingBottom: 30,
           }}
-          renderItem={({ item }) => <TopHotelCard hotel={item} />}
+          renderItem={({item, index}) => (
+            <TopHotelCard hotel={item} index={index} />
+          )}
         />
         <View style={style.container}>
           {/* <Text>Email: {auth.currentUser?.email}</Text> */}

@@ -11,6 +11,7 @@ import ResetPassword from './src/views/screens/ResetPassword';
 import RoomDetails from './src/views/screens/RoomDetails';
 import UserProfile from './src/views/screens/UserProfile';
 import EditUserProfile from './src/views/screens/EditUserProfile';
+import ServiceLists from './src/views/screens/ServiceLists';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,12 @@ export default function App() {
           options={{ headerShown: false }}
           name="EditUserProfile"
           component={EditUserProfile}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ServiceLists"
+          component={ServiceLists}
         />
       </Stack.Navigator>
     </NavigationContainer>
