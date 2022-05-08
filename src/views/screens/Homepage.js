@@ -177,11 +177,13 @@ const Homepage = () => {
             </Text>
           </View> */}
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
         <ImageBackground 
-          source = {require('../../assets/user-profile.jpg')} 
+          source = {require('../../assets/mypic.jpeg')} 
           style = {{width:45, height: 45}}
           imageStyle = {{borderRadius: 25}}
           />
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <View style={style.searchInputContainer}>
