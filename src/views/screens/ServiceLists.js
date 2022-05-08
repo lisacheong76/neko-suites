@@ -60,7 +60,7 @@ const ServiceLists = ({navigation, route}) => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Price per night
+            Price
           </Text>
           <View style={style.priceTag}>
             <Text
