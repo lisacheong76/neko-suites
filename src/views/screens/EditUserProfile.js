@@ -16,7 +16,7 @@ import Icon3 from "react-native-vector-icons/FontAwesome5";
 
 // import Share from 'react-native-share';
 
-import files from "../../assets/filesBase64";
+// import files from "../../assets/filesBase64";
 
 const EditUserProfile = () => {
   const navigation = useNavigation();
