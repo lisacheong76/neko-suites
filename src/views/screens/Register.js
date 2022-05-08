@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import { auth, firestore, updateProfile } from '../../../firebase';
+import firebaseErrors from '../../../firebaseErrors';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -45,9 +46,9 @@ const Register = () => {
             role: 'Customer',
           });
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => alert(firebaseErrors[error.code] || error.message));
     } else {
-      alert('Different Password');
+      alert('The passwords are different :<');
     }
   };
 

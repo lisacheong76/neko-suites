@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import { auth, firestore } from '../../../firebase';
+import firebaseErrors from '../../../firebaseErrors';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -60,7 +61,7 @@ const Login = () => {
         const user = userCredentials.user;
         console.log('Logged in with:', user.email);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert(firebaseErrors[error.code] || error.message));
   };
 
   const handleReset = () => {
