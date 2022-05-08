@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/core';
-import React from 'react';
-import { 
+import { useNavigation } from "@react-navigation/core";
+import React from "react";
+import {
   Dimensions,
   FlatList,
   SafeAreaView,
@@ -12,14 +12,14 @@ import {
   View,
   Image,
   Animated,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../../consts/colors';
-import hotels from '../../consts/roomType';
-import services from '../../consts/otherServices';
-import { auth } from '../../../firebase';
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import COLORS from "../../consts/colors";
+import hotels from "../../consts/roomType";
+import services from "../../consts/otherServices";
+import { auth } from "../../../firebase";
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get("screen");
 const cardWidth = width / 1.8;
 
 const Homepage = () => {
@@ -29,7 +29,7 @@ const Homepage = () => {
     auth
       .signOut()
       .then(() => {
-        navigation.replace('Login');
+        navigation.replace("Login");
       })
       .catch((error) => alert(error.message));
   };
@@ -75,7 +75,7 @@ const Homepage = () => {
   //   );
   // };
 
-  const Card = ({hotel, index}) => {
+  const Card = ({ hotel, index }) => {
     const inputRange = [
       (index - 1) * cardWidth,
       index * cardWidth,
@@ -93,24 +93,27 @@ const Homepage = () => {
       <TouchableOpacity
         disabled={activeCardIndex != index}
         activeOpacity={1}
-        onPress={() => navigation.navigate('RoomDetails', hotel)}>
-        <Animated.View style={{...style.card, transform: [{scale}]}}>
-          <Animated.View style={{...style.cardOverLay, opacity}} />
+        onPress={() => navigation.navigate("RoomDetails", hotel)}
+      >
+        <Animated.View style={{ ...style.card, transform: [{ scale }] }}>
+          <Animated.View style={{ ...style.cardOverLay, opacity }} />
           <View style={style.priceTag}>
             <Text
-              style={{color: COLORS.white, fontSize: 20, fontWeight: 'bold'}}>
+              style={{ color: COLORS.white, fontSize: 20, fontWeight: "bold" }}
+            >
               RM{hotel.price}
             </Text>
           </View>
           <Image source={hotel.image} style={style.cardImage} />
           <View style={style.cardDetails}>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <View>
-                <Text style={{fontWeight: 'bold', fontSize: 17}}>
+                <Text style={{ fontWeight: "bold", fontSize: 17 }}>
                   {hotel.name}
                 </Text>
-                <Text style={{color: COLORS.grey, fontSize: 12}}>
+                <Text style={{ color: COLORS.grey, fontSize: 12 }}>
                   {hotel.location}
                 </Text>
               </View>
@@ -118,11 +121,12 @@ const Homepage = () => {
             </View>
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexDirection: "row",
+                justifyContent: "space-between",
                 marginTop: 10,
-              }}>
-              <View style={{flexDirection: 'row'}}>
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
                 <Icon name="star" size={15} color={COLORS.orange} />
                 <Icon name="star" size={15} color={COLORS.orange} />
                 <Icon name="star" size={15} color={COLORS.orange} />
@@ -137,7 +141,7 @@ const Homepage = () => {
     );
   };
 
-  const TopHotelCard = ({hotel}) => {
+  const TopHotelCard = ({ hotel }) => {
     return (
       <View style={style.topHotelCard}>
         {/* <View
@@ -154,9 +158,9 @@ const Homepage = () => {
           </Text>
         </View> */}
         <Image style={style.topHotelCardImage} source={hotel.image} />
-        <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
-          <Text style={{fontSize: 10, fontWeight: 'bold'}}>{hotel.name}</Text>
-          <Text style={{fontSize: 7, fontWeight: 'bold', color: COLORS.grey}}>
+        <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+          <Text style={{ fontSize: 10, fontWeight: "bold" }}>{hotel.name}</Text>
+          <Text style={{ fontSize: 7, fontWeight: "bold", color: COLORS.grey }}>
             {hotel.location}
           </Text>
         </View>
@@ -165,10 +169,12 @@ const Homepage = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.background, paddingTop: 20}}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+    >
       <View style={style.header}>
-        <View style={{paddingBottom: 0}}>
-          <Text style={{fontSize: 30, fontWeight: 'bold', color: '#665444'}}>
+        <View style={{ paddingBottom: 0 }}>
+          <Text style={{ fontSize: 30, fontWeight: "bold", color: "#665444" }}>
             Neko Suites
           </Text>
           {/* <View style={{flexDirection: 'row'}}>
@@ -179,7 +185,12 @@ const Homepage = () => {
             </Text>
           </View> */}
         </View>
-        <Icon name="person-outline" size={30} color={COLORS.grey} />
+        <Icon
+          name="person-outline"
+          size={30}
+          color={"#665444"}
+          onPress={() => navigation.navigate("UserProfile")}
+        ></Icon>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <View style={style.searchInputContainer}>
@@ -193,12 +204,12 @@ const Homepage = () => {
           <Animated.FlatList
             onMomentumScrollEnd={(e) => {
               setActiveCardIndex(
-                Math.round(e.nativeEvent.contentOffset.x / cardWidth),
+                Math.round(e.nativeEvent.contentOffset.x / cardWidth)
               );
             }}
             onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {x: scrollX}}}],
-              {useNativeDriver: true},
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: true }
             )}
             horizontal
             data={hotels}
@@ -208,17 +219,20 @@ const Homepage = () => {
               paddingRight: cardWidth / 2 - 40,
             }}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item, index}) => <Card hotel={item} index={index} />}
+            renderItem={({ item, index }) => (
+              <Card hotel={item} index={index} />
+            )}
             snapToInterval={cardWidth}
           />
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             marginHorizontal: 20,
-          }}>
-          <Text style={{fontWeight: 'bold', color: COLORS.grey}}>
+          }}
+        >
+          <Text style={{ fontWeight: "bold", color: COLORS.grey }}>
             Other Services
           </Text>
           {/* <Text style={{color: COLORS.grey}}>Show all</Text> */}
@@ -232,12 +246,12 @@ const Homepage = () => {
             marginTop: 20,
             paddingBottom: 30,
           }}
-          renderItem={({item}) => <TopHotelCard hotel={item} />}
+          renderItem={({ item }) => <TopHotelCard hotel={item} />}
         />
         <View style={style.container}>
           {/* <Text>Email: {auth.currentUser?.email}</Text> */}
           <TouchableOpacity onPress={handleSignOut} style={style.button}>
-          <Text style={style.buttonText}>Sign out</Text>
+            <Text style={style.buttonText}>Sign out</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -246,7 +260,7 @@ const Homepage = () => {
 };
 
 //   return (
-    
+
 //   );
 //};
 
@@ -255,26 +269,26 @@ export default Homepage;
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
-    backgroundColor: '#e8a468',
-    width: '40%',
+    backgroundColor: "#e8a468",
+    width: "40%",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: '700',
+    color: "white",
+    fontWeight: "700",
     fontSize: 16,
   },
   header: {
     marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
   },
   searchInputContainer: {
@@ -284,18 +298,18 @@ const style = StyleSheet.create({
     marginLeft: 20,
     borderTopLeftRadius: 30,
     borderBottomLeftRadius: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   categoryListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 20,
     marginTop: 30,
   },
   categoryListText: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   card: {
     height: 280,
@@ -307,7 +321,7 @@ const style = StyleSheet.create({
   },
   cardImage: {
     height: 200,
-    width: '100%',
+    width: "100%",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
@@ -315,27 +329,27 @@ const style = StyleSheet.create({
     height: 60,
     width: 80,
     backgroundColor: COLORS.primary,
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1,
     right: 0,
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   cardDetails: {
     height: 100,
     borderRadius: 15,
     backgroundColor: COLORS.white,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     padding: 20,
-    width: '100%',
+    width: "100%",
   },
   cardOverLay: {
     height: 280,
     backgroundColor: COLORS.white,
-    position: 'absolute',
+    position: "absolute",
     zIndex: 100,
     width: cardWidth,
     borderRadius: 15,
@@ -350,7 +364,7 @@ const style = StyleSheet.create({
   },
   topHotelCardImage: {
     height: 80,
-    width: '100%',
+    width: "100%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },

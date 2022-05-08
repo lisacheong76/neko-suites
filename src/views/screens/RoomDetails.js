@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -6,11 +6,11 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import COLORS from '../../consts/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import COLORS from "../../consts/colors";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-const RoomDetails = ({navigation, route}) => {
+const RoomDetails = ({ navigation, route }) => {
   const item = route.params;
 
   return (
@@ -19,7 +19,8 @@ const RoomDetails = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
-      }}>
+      }}
+    >
       <StatusBar
         barStyle="light-content"
         translucent
@@ -40,8 +41,8 @@ const RoomDetails = ({navigation, route}) => {
         {/* <View style={style.iconContainer}>
           <Icon name="place" color={COLORS.white} size={28} />
         </View> */}
-        <View style={{marginTop: 20, paddingHorizontal: 20}}>
-          <Text style={{fontSize: 26, fontWeight: 'bold'}}>{item.name}</Text>
+        <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
+          <Text style={{ fontSize: 26, fontWeight: "bold" }}>{item.name}</Text>
           {/* <Text
             style={{
               fontSize: 12,
@@ -54,9 +55,10 @@ const RoomDetails = ({navigation, route}) => {
           <View
             style={{
               marginTop: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
             {/* <View style={{flexDirection: 'row'}}>
               <View style={{flexDirection: 'row'}}>
                 <Icon name="star" size={20} color={COLORS.orange} />
@@ -71,8 +73,8 @@ const RoomDetails = ({navigation, route}) => {
             </View> */}
             {/* <Text style={{fontSize: 13, color: COLORS.grey}}>365reviews</Text> */}
           </View>
-          <View style={{marginTop: 5}}>
-            <Text style={{lineHeight: 20, color: COLORS.grey}}>
+          <View style={{ marginTop: 5 }}>
+            <Text style={{ lineHeight: 20, color: COLORS.grey }}>
               {item.details}
             </Text>
           </View>
@@ -80,37 +82,40 @@ const RoomDetails = ({navigation, route}) => {
         <View
           style={{
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
             Price per night
           </Text>
           <View style={style.priceTag}>
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
+                fontWeight: "bold",
+                color: "#665444",
                 marginLeft: 5,
-              }}>
+              }}
+            >
               RM {item.price}
             </Text>
             <Text
               style={{
                 fontSize: 12,
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 color: COLORS.grey,
                 marginLeft: 5,
-              }}>
-           
-            </Text>
+              }}
+            ></Text>
           </View>
         </View>
         <View style={style.btn}>
-          <Text style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>
+          <Text
+            style={{ color: COLORS.white, fontSize: 18, fontWeight: "bold" }}
+          >
             Book Now
           </Text>
         </View>
@@ -122,8 +127,8 @@ const RoomDetails = ({navigation, route}) => {
 const style = StyleSheet.create({
   btn: {
     height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 40,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
@@ -132,38 +137,38 @@ const style = StyleSheet.create({
 
   priceTag: {
     height: 40,
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 40,
     paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   iconContainer: {
-    position: 'absolute',
+    position: "absolute",
     height: 60,
     width: 60,
     backgroundColor: COLORS.primary,
     top: -30,
     right: 20,
     borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerImage: {
     height: 400,
     borderBottomRightRadius: 40,
     borderBottomLeftRadius: 40,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   header: {
     marginTop: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
 });
 

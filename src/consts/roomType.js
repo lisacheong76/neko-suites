@@ -53,7 +53,7 @@ const hotels = [
         location: 'Luxury and Premium Suite',
         price: 120,
         image: require('../assets/vic-suite.webp'),
-        details: `The VIC Suite Room is a room installed with an air-conditioner. The room includes a cat litter, cat playground along with a comfy bed cushion. This room comes with a package of cat foods too`,
+        details: `The VIC Suite Room is a room installed with an air-conditioner. The room includes a cat litter, cat playground along with a comfy bed cushion. This room comes with a package of cat foods too.`,
     },
   ];
   
