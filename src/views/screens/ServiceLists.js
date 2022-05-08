@@ -19,6 +19,7 @@ const ServiceLists = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
+        flex: 1,
       }}>
       <StatusBar
         barStyle="light-content"
@@ -60,7 +61,7 @@ const ServiceLists = ({navigation, route}) => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Price
+            Price per session
           </Text>
           <View style={style.priceTag}>
             <Text
@@ -79,7 +80,6 @@ const ServiceLists = ({navigation, route}) => {
                 color: COLORS.grey,
                 marginLeft: 5,
               }}>
-           
             </Text>
           </View>
         </View>

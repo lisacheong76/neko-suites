@@ -142,19 +142,17 @@ const Homepage = () => {
     );
   };
 
-  const TopHotelCard = ({ hotel, index }) => {
+  const ServiceCard = ({ service, index }) => {
     return (
       <TouchableOpacity
-        disabled={activeCardIndex != index}
         activeOpacity={1}
-        onPress={() => navigation.navigate("ServiceLists", hotel)}
-      >
-      <Animated.View style={style.topHotelCard}>
-        <Image style={style.topHotelCardImage} source={hotel.image} />
+        onPress={() => navigation.navigate("ServiceLists", service)}>
+      <Animated.View style={style.ServiceCard}>
+        <Image style={style.ServiceCardImage} source={service.image} />
         <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 10, fontWeight: "bold" }}>{hotel.name}</Text>
+          <Text style={{ fontSize: 10, fontWeight: "bold" }}>{service.name}</Text>
           <Text style={{ fontSize: 7, fontWeight: "bold", color: COLORS.grey }}>
-            {hotel.location}
+            {service.location}
           </Text>
         </View>
       </Animated.View>
@@ -239,7 +237,7 @@ const Homepage = () => {
             paddingBottom: 30,
           }}
           renderItem={({item, index}) => (
-            <TopHotelCard hotel={item} index={index} />
+            <ServiceCard service={item} index={index} />
           )}
         />
         <View style={style.container}>
@@ -252,11 +250,6 @@ const Homepage = () => {
     </SafeAreaView>
   );
 };
-
-//   return (
-
-//   );
-//};
 
 export default Homepage;
 
@@ -348,7 +341,7 @@ const style = StyleSheet.create({
     width: cardWidth,
     borderRadius: 15,
   },
-  topHotelCard: {
+  ServiceCard: {
     height: 120,
     width: 120,
     backgroundColor: COLORS.white,
@@ -356,7 +349,7 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 10,
   },
-  topHotelCardImage: {
+  ServiceCardImage: {
     height: 80,
     width: "100%",
     borderTopRightRadius: 10,
