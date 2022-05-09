@@ -1,17 +1,18 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { Share, View, SafeAreaView, StyleSheet } from 'react-native';
 import {
   Avatar,
   Title,
   Caption,
   Text,
   TouchableRipple,
-} from "react-native-paper";
-import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
+} from 'react-native-paper';
+import COLORS from '../../consts/colors';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import { auth, firestore } from '../../../firebase';
 
 // import Share from 'react-native-share';
 
@@ -19,6 +20,22 @@ import Icon3 from "react-native-vector-icons/FontAwesome5";
 
 const UserProfile = () => {
   const navigation = useNavigation();
+
+  const [userData, setUserData] = useState('');
+
+  const getUser = async () => {
+    const userRef = firestore.collection('users').doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  });
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -43,43 +60,43 @@ const UserProfile = () => {
         <Icon2
           name="arrow-back-ios"
           size={28}
-          color={"#665444"}
+          color={'#665444'}
           onPress={navigation.goBack}
         />
         <Icon2
           name="edit"
           size={23}
-          color={"#665444"}
-          onPress={() => navigation.navigate("EditUserProfile")}
+          color={'#665444'}
+          onPress={() => navigation.navigate('EditUserProfile')}
         />
       </View>
       <View>
         <View style={styles.userInfoSection}>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Avatar.Image
-              source={require("../../assets/mypic.jpeg")}
+              source={require('../../assets/mypic.jpeg')}
               size={90}
             />
           </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Title
               style={[
                 styles.title,
                 {
                   marginTop: 15,
                   marginBottom: 5,
-                  color: "#665444",
+                  color: '#665444',
                 },
               ]}
             >
-              Muzee
+              {userData.name}
             </Title>
             <Caption style={styles.caption}>@muzee123</Caption>
           </View>
@@ -90,7 +107,7 @@ const UserProfile = () => {
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="email" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
+            <Text style={{ color: '#777777', marginLeft: 20 }}>
               muz@email.com
             </Text>
           </View>
@@ -98,7 +115,7 @@ const UserProfile = () => {
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
+            <Text style={{ color: '#777777', marginLeft: 20 }}>
               +60-123456789
             </Text>
           </View>
@@ -106,7 +123,7 @@ const UserProfile = () => {
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="human-male-female" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>Female</Text>
+            <Text style={{ color: '#777777', marginLeft: 20 }}>Female</Text>
           </View>
         </View>
       </View>
@@ -114,12 +131,12 @@ const UserProfile = () => {
       <View style={styles.menuWrapper}>
         <View
           style={{
-            borderBottomColor: "#e6e4e3",
+            borderBottomColor: '#e6e4e3',
             borderBottomWidth: 1,
           }}
         />
         <TouchableRipple
-          style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+          style={{ borderBottomColor: '#e6e4e3', borderBottomWidth: 1 }}
           onPress={() => {}}
         >
           <View style={styles.menuItem}>
@@ -134,7 +151,7 @@ const UserProfile = () => {
           </View>
         </TouchableRipple>
         <TouchableRipple
-          style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+          style={{ borderBottomColor: '#e6e4e3', borderBottomWidth: 1 }}
           onPress={() => {}}
         >
           <View style={styles.menuItem}>
@@ -166,55 +183,55 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 13,
   },
   infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
+    borderBottomColor: '#dddddd',
     borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
+    borderTopColor: '#dddddd',
     borderTopWidth: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 100,
   },
   infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   menuWrapper: {
     marginTop: 10,
   },
   menuItem: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 30,
   },
   menuItemText: {
-    color: "#777777",
+    color: '#777777',
     marginLeft: 20,
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 16,
     lineHeight: 26,
   },
   header: {
     marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: 20,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   textBox: {
     height: 40,
-    alignItems: "center",
+    alignItems: 'center',
     paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
@@ -222,6 +239,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 });
