@@ -40,10 +40,13 @@ const Register = () => {
 
           updateProfile(auth.currentUser, {
             displayName: username,
+            photoURL: '/pawprint.jfif',
           });
 
           firestore.collection('users').doc(user.uid).set({
             role: 'Customer',
+            name: '',
+            gender: '',
           });
         })
         .catch((error) => alert(firebaseErrors[error.code] || error.message));

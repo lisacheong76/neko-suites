@@ -1,6 +1,6 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { Share, View, SafeAreaView, StyleSheet } from 'react-native';
 import {
   Avatar,
   Title,
@@ -8,11 +8,18 @@ import {
   Text,
   TextInput,
   TouchableRipple,
-} from "react-native-paper";
-import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
+} from 'react-native-paper';
+import COLORS from '../../consts/colors';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import {
+  auth,
+  firestore,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from '../../../firebase';
 
 // import Share from 'react-native-share';
 
@@ -20,6 +27,37 @@ import Icon3 from "react-native-vector-icons/FontAwesome5";
 
 const EditUserProfile = () => {
   const navigation = useNavigation();
+
+  const displayName = auth.currentUser.displayName;
+  const email = auth.currentUser.email;
+  const photo = auth.currentUser.photoURL;
+  const phoneNumber = auth.currentUser.phoneNumber;
+
+  const [userData, setUserData] = useState('');
+  const [url, setUrl] = useState('');
+
+  const getUser = async () => {
+    const userRef = firestore.collection('users').doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  const getPhoto = async () => {
+    const storage = getStorage();
+    const reference = ref(storage, photo);
+    await getDownloadURL(reference).then((x) => {
+      setUrl(x);
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+    getPhoto();
+  }, []);
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -44,7 +82,7 @@ const EditUserProfile = () => {
         <Icon2
           name="arrow-back-ios"
           size={28}
-          color={"#665444"}
+          color={'#665444'}
           onPress={navigation.goBack}
         />
       </View>
@@ -52,25 +90,22 @@ const EditUserProfile = () => {
         <View style={styles.userInfoSection}>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <Avatar.Image
-              source={require("../../assets/mypic.jpeg")}
-              size={90}
-            />
+            <Avatar.Image source={{ uri: url }} size={90} />
           </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text
               style={{
                 marginTop: 10,
                 marginBottom: 5,
-                color: "#665444",
+                color: '#665444',
                 fontSize: 15,
-                fontWeight: "bold",
+                fontWeight: 'bold',
               }}
             >
               Profile Picture
@@ -89,6 +124,7 @@ const EditUserProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={displayName}
             ></TextInput>
           </View>
         </View>
@@ -101,6 +137,7 @@ const EditUserProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={userData.name || ''}
             ></TextInput>
           </View>
         </View>
@@ -113,6 +150,7 @@ const EditUserProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={phoneNumber || ''}
             ></TextInput>
           </View>
         </View>
@@ -125,6 +163,7 @@ const EditUserProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={userData.gender || ''}
             ></TextInput>
           </View>
         </View>
@@ -149,55 +188,55 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 13,
   },
   infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
+    borderBottomColor: '#dddddd',
     borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
+    borderTopColor: '#dddddd',
     borderTopWidth: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 100,
   },
   infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   menuWrapper: {
     marginTop: 10,
   },
   menuItem: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 30,
   },
   menuItemText: {
-    color: "#777777",
+    color: '#777777',
     marginLeft: 20,
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 16,
     lineHeight: 26,
   },
   header: {
     marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: 20,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   textBox: {
     height: 40,
-    alignItems: "center",
+    alignItems: 'center',
     paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
@@ -205,11 +244,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   editTextBox: {
     height: 40,
-    alignItems: "center",
+    alignItems: 'center',
     paddingLeft: 10,
     flex: 1,
     backgroundColor: COLORS.secondary,
@@ -217,21 +256,21 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    flexDirection: "row",
+    flexDirection: 'row',
     fontSize: 15,
   },
   button: {
     height: 52,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 100,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
   buttonText: {
-    color: "white",
-    fontWeight: "700",
+    color: 'white',
+    fontWeight: '700',
     fontSize: 16,
   },
 });

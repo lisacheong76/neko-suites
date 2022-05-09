@@ -12,7 +12,13 @@ import COLORS from '../../consts/colors';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
-import { auth, firestore } from '../../../firebase';
+import {
+  auth,
+  firestore,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from '../../../firebase';
 
 // import Share from 'react-native-share';
 
@@ -22,11 +28,13 @@ const UserProfile = () => {
   const navigation = useNavigation();
   const displayName = auth.currentUser.displayName;
   const email = auth.currentUser.email;
+  const photo = auth.currentUser.photoURL;
   const phoneNumber = auth.currentUser.phoneNumber
     ? auth.currentUser.phoneNumber
     : 'Phone number not set';
 
   const [userData, setUserData] = useState('');
+  const [url, setUrl] = useState('');
 
   const getUser = async () => {
     const userRef = firestore.collection('users').doc(auth.currentUser.uid);
@@ -38,8 +46,17 @@ const UserProfile = () => {
     }
   };
 
+  const getPhoto = async () => {
+    const storage = getStorage();
+    const reference = ref(storage, photo);
+    await getDownloadURL(reference).then((x) => {
+      setUrl(x);
+    });
+  };
+
   useEffect(() => {
     getUser();
+    getPhoto();
   }, []);
 
   // const myCustomShare = async() => {
@@ -85,10 +102,7 @@ const UserProfile = () => {
               justifyContent: 'center',
             }}
           >
-            <Avatar.Image
-              source={require('../../assets/mypic.jpeg')}
-              size={90}
-            />
+            <Avatar.Image source={{ uri: url }} size={90} />
           </View>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Title
