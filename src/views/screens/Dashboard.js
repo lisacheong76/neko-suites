@@ -13,6 +13,7 @@ import {
   Image,
   Animated,
   Button,
+  ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
@@ -68,21 +69,27 @@ const Dashboard = ({ route }) => {
             Welcome {route.params.paramKey}
           </Text>
         </View>
-        <Icon name="person-outline" size={30} color={COLORS.grey} />
+        <TouchableOpacity onPress={() => navigation.navigate("AdminProfile")}>
+          <ImageBackground
+            source={require("../../assets/adminpic.jpg")}
+            style={{ width: 45, height: 45 }}
+            imageStyle={{ borderRadius: 25 }}
+          />
+        </TouchableOpacity>
       </View>
-      
+
       {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-        {/* <View style={style.searchInputContainer}>
+      {/* <View style={style.searchInputContainer}>
           <Icon name="search" size={30} style={{marginLeft: 20}} />
           <TextInput
             placeholder="Search"
             style={{fontSize: 20, paddingLeft: 10}}
           />
         </View> */}
-        <View style={{flexDirection:"row"}}>
+      <View style={{ flexDirection: "row" }}>
         <TouchableOpacity style={style.menuButton}>
           <Image
-            source={require('../../assets/animal-shelter.png')}
+            source={require("../../assets/animal-shelter.png")}
             resizeMode="center"
             style={style.menuImage}
           />
@@ -91,7 +98,7 @@ const Dashboard = ({ route }) => {
 
         <TouchableOpacity style={style.menuButton}>
           <Image
-            source={require('../../assets/event.png')}
+            source={require("../../assets/event.png")}
             resizeMode="center"
             style={style.menuImage2}
           />
@@ -100,15 +107,15 @@ const Dashboard = ({ route }) => {
 
         <TouchableOpacity style={style.menuButton}>
           <Image
-            source={require('../../assets/feedback.png')}
+            source={require("../../assets/feedback.png")}
             resizeMode="center"
             style={style.menuImage3}
           />
           <Text style={style.menuText}>View Feedback</Text>
         </TouchableOpacity>
-        </View>
+      </View>
       {/* </ScrollView> */}
-      <View style={{paddingTop: 30}}>
+      <View style={{ paddingTop: 30 }}>
         <Text style={style.header2}>Recent Bookings</Text>
       </View>
 
@@ -219,5 +226,5 @@ const style = StyleSheet.create({
   menuText: {
     fontSize: 12,
     marginTop: -10,
-  }
+  },
 });
