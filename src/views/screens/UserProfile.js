@@ -20,6 +20,11 @@ import { auth, firestore } from '../../../firebase';
 
 const UserProfile = () => {
   const navigation = useNavigation();
+  const displayName = auth.currentUser.displayName;
+  const email = auth.currentUser.email;
+  const phoneNumber = auth.currentUser.phoneNumber
+    ? auth.currentUser.phoneNumber
+    : 'Phone number not set';
 
   const [userData, setUserData] = useState('');
 
@@ -35,7 +40,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUser();
-  });
+  }, []);
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -98,7 +103,7 @@ const UserProfile = () => {
             >
               {userData.name}
             </Title>
-            <Caption style={styles.caption}>@muzee123</Caption>
+            <Caption style={styles.caption}>@{displayName}</Caption>
           </View>
         </View>
       </View>
@@ -107,23 +112,23 @@ const UserProfile = () => {
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="email" color="#665444" size={20} />
-            <Text style={{ color: '#777777', marginLeft: 20 }}>
-              muz@email.com
-            </Text>
+            <Text style={{ color: '#777777', marginLeft: 20 }}>{email}</Text>
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              +60-123456789
+              {phoneNumber}
             </Text>
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="human-male-female" color="#665444" size={20} />
-            <Text style={{ color: '#777777', marginLeft: 20 }}>Female</Text>
+            <Text style={{ color: '#777777', marginLeft: 20 }}>
+              {userData.gender ? userData.gender : 'Gender not set'}
+            </Text>
           </View>
         </View>
       </View>
