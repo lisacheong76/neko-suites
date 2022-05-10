@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Share, View, SafeAreaView, StyleSheet } from "react-native";
 import {
@@ -6,20 +6,22 @@ import {
   Title,
   Caption,
   Text,
+  TextInput,
   TouchableRipple,
 } from "react-native-paper";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
-import AdminChangePassword from "./AdminChangePassword";
 
 // import Share from 'react-native-share';
 
 // import files from "../../assets/filesBase64";
 
-const AdminProfile = () => {
+const UserChangePassword = () => {
   const navigation = useNavigation();
+  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [passwordVisible2, setPasswordVisible2] = useState(true);
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -47,12 +49,6 @@ const AdminProfile = () => {
           color={"#665444"}
           onPress={navigation.goBack}
         />
-        <Icon2
-          name="edit"
-          size={23}
-          color={"#665444"}
-          onPress={() => navigation.navigate("EditAdminProfile")}
-        />
       </View>
       <View>
         <View style={styles.userInfoSection}>
@@ -65,7 +61,7 @@ const AdminProfile = () => {
             }}
           >
             <Avatar.Image
-              source={require("../../assets/adminpic.jpg")}
+              source={require("../../assets/mypic.jpeg")}
               size={90}
             />
           </View>
@@ -80,9 +76,9 @@ const AdminProfile = () => {
                 },
               ]}
             >
-              Admin
+              Muzee
             </Title>
-            <Caption style={styles.caption}>@admin123</Caption>
+            <Caption style={styles.caption}>@muzee123</Caption>
           </View>
         </View>
       </View>
@@ -90,50 +86,55 @@ const AdminProfile = () => {
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <View style={styles.textBox}>
-            <Icon name="email" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
-              admin@email.com
-            </Text>
+            <Icon name="key" color="#665444" size={20} />
+            <TextInput
+              style={styles.editTextBox}
+              secureTextEntry={passwordVisible}
+              placeholder="New Password"
+              placeholderTextColor="#666666"
+              placeholderTextSize="20"
+              autoCorrect={false}
+              right={
+                <TextInput.Icon
+                  name={passwordVisible ? "eye" : "eye-off"}
+                  size={20}
+                  color="#665444"
+                  onPress={() => setPasswordVisible(!passwordVisible)}
+                />
+              }
+            ></TextInput>
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.textBox}>
-            <Icon name="phone" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
-              +60-3182525
-            </Text>
+            <Icon name="key-change" color="#665444" size={20} />
+            <TextInput
+              style={styles.editTextBox}
+              secureTextEntry={passwordVisible}
+              placeholder="Confirm New Password"
+              placeholderTextColor="#666666"
+              placeholderTextSize="20"
+              autoCorrect={false}
+              right={
+                <TextInput.Icon
+                  name={passwordVisible2 ? "eye" : "eye-off"}
+                  size={20}
+                  color="#665444"
+                  onPress={() => setPasswordVisible2(!passwordVisible2)}
+                />
+              }
+            ></TextInput>
           </View>
         </View>
       </View>
-
-      <View style={styles.menuWrapper}>
-        <View
-          style={{
-            borderBottomColor: "#e6e4e3",
-            borderBottomWidth: 1,
-          }}
-        />
-        <TouchableRipple
-          style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
-          onPress={() => navigation.navigate("AdminChangePassword")}
-        >
-          <View style={styles.menuItem}>
-            <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
-            <Text style={styles.menuItemText}>Change Password</Text>
-            <Icon2
-              name="keyboard-arrow-right"
-              color="grey"
-              size={25}
-              style={{ paddingLeft: 150 }}
-            />
-          </View>
-        </TouchableRipple>
+      <View style={styles.button}>
+        <Text style={styles.buttonText}>Save Edit</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default AdminProfile;
+export default UserChangePassword;
 
 const styles = StyleSheet.create({
   container: {
@@ -203,5 +204,32 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     flexDirection: "row",
+  },
+  editTextBox: {
+    height: 40,
+    alignItems: "center",
+    paddingLeft: 10,
+    flex: 1,
+    backgroundColor: COLORS.secondary,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    flexDirection: "row",
+    fontSize: 15,
+  },
+  button: {
+    height: 52,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 190,
+    backgroundColor: COLORS.primary,
+    marginHorizontal: 20,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
   },
 });

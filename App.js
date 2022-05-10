@@ -14,6 +14,8 @@ import EditUserProfile from "./src/views/screens/EditUserProfile";
 import ServiceLists from "./src/views/screens/ServiceLists";
 import AdminProfile from "./src/views/screens/AdminProfile";
 import EditAdminProfile from "./src/views/screens/EditAdminProfile";
+import AdminChangePassword from "./src/views/screens/AdminChangePassword";
+import UserChangePassword from "./src/views/screens/UserChangePassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +87,18 @@ export default function App() {
           options={{ headerShown: false }}
           name="EditAdminProfile"
           component={EditAdminProfile}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminChangePassword"
+          component={AdminChangePassword}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="UserChangePassword"
+          component={UserChangePassword}
         />
       </Stack.Navigator>
     </NavigationContainer>

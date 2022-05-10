@@ -156,7 +156,7 @@ const UserProfile = () => {
         />
         <TouchableRipple
           style={{ borderBottomColor: '#e6e4e3', borderBottomWidth: 1 }}
-          onPress={() => {}}
+          onPress={() => navigation.navigate("UserChangePassword")}
         >
           <View style={styles.menuItem}>
             <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
