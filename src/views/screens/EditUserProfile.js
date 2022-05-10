@@ -27,7 +27,7 @@ import {
   ref,
   getDownloadURL,
 } from '../../../firebase';
-import { updatePhoneNumber, updateProfile } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 
 // import Share from 'react-native-share';
 
@@ -39,7 +39,6 @@ const EditUserProfile = () => {
   const email = auth.currentUser.email;
   const photo = auth.currentUser.photoURL;
 
-  const [selectedValue, setSelectedValue] = useState('');
   const [userData, setUserData] = useState('');
   const [url, setUrl] = useState('');
   const [displayName, setDisplayName] = useState(auth.currentUser.displayName);
@@ -74,10 +73,6 @@ const EditUserProfile = () => {
       // photoURL: '/pawprint.jfif',
     });
 
-    // updatePhoneNumber(auth.currentUser, {
-    //   phoneNumber: phoneNumber,
-    // });
-
     firestore
       .collection('users')
       .doc(auth.currentUser.uid)
@@ -91,7 +86,7 @@ const EditUserProfile = () => {
         console.log('User Updated!');
         Alert.alert(
           'Profile Updated!',
-          'Your profile has been updated successfully.'
+          'Your profile has been updated successfully :3'
         );
       });
 
@@ -209,15 +204,15 @@ const EditUserProfile = () => {
           <View style={styles.textBox}>
             <Icon name="human-male-female" color="#665444" size={20} />
             <Picker
-              selectedValue={selectedValue}
+              selectedValue={userData.gender}
               style={{ height: 50, width: 310 }}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
+              onValueChange={(itemValue) =>
+                setUserData({ ...userData, gender: itemValue })
               }
             >
-              <Picker.Item label="Female" value="female" />
-              <Picker.Item label="Male" value="male" />
-              <Picker.Item label="Others" value="others" />
+              <Picker.Item label="Female" value="Female" />
+              <Picker.Item label="Male" value="Male" />
+              <Picker.Item label="Others" value="Others" />
             </Picker>
           </View>
         </View>
