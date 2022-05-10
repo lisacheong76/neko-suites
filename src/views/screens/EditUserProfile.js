@@ -106,21 +106,6 @@ const EditUserProfile = () => {
     getPhoto();
   }, []);
 
-  // const myCustomShare = async() => {
-  //   const shareOptions = {
-  //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   }
-
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch(error) {
-  //     console.log('Error => ', error);
-  //   }
-  // };
-
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
@@ -172,7 +157,8 @@ const EditUserProfile = () => {
               placeholderTextSize="20"
               autoCorrect={false}
               value={displayName || ''}
-              onChangeText={(text) => setDisplayName(text)}
+              // onChangeText={(text) => setDisplayName(text)}
+              editable={false}
             ></TextInput>
           </View>
         </View>
@@ -214,6 +200,7 @@ const EditUserProfile = () => {
                 setUserData({ ...userData, gender: itemValue })
               }
             >
+              <Picker.Item label="Not Set" value="" />
               <Picker.Item label="Female" value="Female" />
               <Picker.Item label="Male" value="Male" />
               <Picker.Item label="Others" value="Others" />
