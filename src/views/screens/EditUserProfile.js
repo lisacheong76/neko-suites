@@ -39,10 +39,10 @@ const EditUserProfile = () => {
   const email = auth.currentUser.email;
   const photo = auth.currentUser.photoURL;
 
+  const [selectedValue, setSelectedValue] = useState('');
   const [userData, setUserData] = useState('');
   const [url, setUrl] = useState('');
   const [displayName, setDisplayName] = useState(auth.currentUser.displayName);
-  const [phoneNumber, setPhoneNumber] = useState(auth.currentUser.phoneNumber);
 
   const getUser = async () => {
     const userRef = firestore.collection('users').doc(auth.currentUser.uid);
@@ -83,6 +83,7 @@ const EditUserProfile = () => {
       .doc(auth.currentUser.uid)
       .update({
         name: userData.name,
+        phone: userData.phone,
         gender: userData.gender,
         // userImg: imgUrl,
       })
@@ -186,7 +187,7 @@ const EditUserProfile = () => {
               placeholderTextSize="20"
               autoCorrect={false}
               value={userData ? userData.name : ''}
-              onChangeText={(txt) => setUserData({ ...userData, name: txt })}
+              onChangeText={(text) => setUserData({ ...userData, name: text })}
             ></TextInput>
           </View>
         </View>
@@ -199,8 +200,8 @@ const EditUserProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
-              value={phoneNumber || ''}
-              onChangeText={(text) => setPhoneNumber(text)}
+              value={userData ? userData.phone : ''}
+              onChangeText={(text) => setUserData({ ...userData, phone: text })}
             ></TextInput>
           </View>
         </View>

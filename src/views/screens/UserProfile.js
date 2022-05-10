@@ -29,9 +29,6 @@ const UserProfile = () => {
   const displayName = auth.currentUser.displayName;
   const email = auth.currentUser.email;
   const photo = auth.currentUser.photoURL;
-  const phoneNumber = auth.currentUser.phoneNumber
-    ? auth.currentUser.phoneNumber
-    : 'Phone number not set';
 
   const [userData, setUserData] = useState('');
   const [url, setUrl] = useState('');
@@ -134,7 +131,7 @@ const UserProfile = () => {
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
             <Text style={{ color: '#777777', marginLeft: 20 }}>
-              {phoneNumber}
+              {userData.phone ? userData.phone : 'Phone number not set'}
             </Text>
           </View>
         </View>
