@@ -46,6 +46,7 @@ const Register = () => {
           firestore.collection('users').doc(user.uid).set({
             role: 'Customer',
             name: '',
+            phone: '',
             gender: '',
           });
         })
