@@ -43,6 +43,7 @@ const UserProfile = () => {
       console.log('No such document!');
     } else {
       setUserData(doc.data());
+      console.log('No such documentafcheck!', auth.currentUser);
     }
   };
 
@@ -89,7 +90,7 @@ const UserProfile = () => {
           name="edit"
           size={23}
           color={'#665444'}
-          onPress={() => navigation.navigate('EditUserProfile')}
+          onPress={() => navigation.replace('EditUserProfile')}
         />
       </View>
       <View>
@@ -156,7 +157,7 @@ const UserProfile = () => {
         />
         <TouchableRipple
           style={{ borderBottomColor: '#e6e4e3', borderBottomWidth: 1 }}
-          onPress={() => navigation.navigate("UserChangePassword")}
+          onPress={() => navigation.navigate('UserChangePassword')}
         >
           <View style={styles.menuItem}>
             <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
