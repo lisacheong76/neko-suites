@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { Share, View, SafeAreaView, StyleSheet, Alert } from 'react-native';
 import {
   Avatar,
   Title,
@@ -8,11 +8,20 @@ import {
   Text,
   TextInput,
   TouchableRipple,
-} from "react-native-paper";
-import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
+} from 'react-native-paper';
+import COLORS from '../../consts/colors';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import firebaseErrors from '../../../firebaseErrors';
+import {
+  auth,
+  firestore,
+  updatePassword,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from '../../../firebase';
 
 // import Share from 'react-native-share';
 
@@ -22,21 +31,58 @@ const UserChangePassword = () => {
   const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const displayName = auth.currentUser.displayName;
+  const photo = auth.currentUser.photoURL;
 
-  // const myCustomShare = async() => {
-  //   const shareOptions = {
-  //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   }
+  const [userData, setUserData] = useState('');
+  const [url, setUrl] = useState('');
 
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch(error) {
-  //     console.log('Error => ', error);
-  //   }
-  // };
+  const getUser = async () => {
+    const userRef = firestore.collection('users').doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  const getPhoto = async () => {
+    const storage = getStorage();
+    const reference = ref(storage, photo);
+    await getDownloadURL(reference).then((x) => {
+      setUrl(x);
+    });
+  };
+
+  const handleUpdate = async () => {
+    if (password == password2) {
+      updatePassword(auth.currentUser, password)
+        .then(() => {
+          Alert.alert(
+            'Password Updated!',
+            'Your password has been updated successfully :3'
+          );
+        })
+        .catch((error) => {
+          alert(firebaseErrors[error.code] || error.message);
+        });
+      navigation.replace('UserProfile');
+    } else {
+      alert('The passwords are different :<');
+    }
+  };
+
+  const handleBack = () => {
+    navigation.replace('UserProfile');
+  };
+
+  useEffect(() => {
+    getUser();
+    getPhoto();
+  }, []);
 
   return (
     <SafeAreaView
@@ -46,7 +92,7 @@ const UserChangePassword = () => {
         <Icon2
           name="arrow-back-ios"
           size={28}
-          color={"#665444"}
+          color={'#665444'}
           onPress={navigation.goBack}
         />
       </View>
@@ -54,31 +100,31 @@ const UserChangePassword = () => {
         <View style={styles.userInfoSection}>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Avatar.Image
-              source={require("../../assets/mypic.jpeg")}
+              source={require('../../assets/mypic.jpeg')}
               size={90}
             />
           </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Title
               style={[
                 styles.title,
                 {
                   marginTop: 15,
                   marginBottom: 5,
-                  color: "#665444",
+                  color: '#665444',
                 },
               ]}
             >
-              Muzee
+              {userData.name}
             </Title>
-            <Caption style={styles.caption}>@muzee123</Caption>
+            <Caption style={styles.caption}>@{displayName}</Caption>
           </View>
         </View>
       </View>
@@ -94,9 +140,11 @@ const UserChangePassword = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
               right={
                 <TextInput.Icon
-                  name={passwordVisible ? "eye" : "eye-off"}
+                  name={passwordVisible ? 'eye' : 'eye-off'}
                   size={20}
                   color="#665444"
                   onPress={() => setPasswordVisible(!passwordVisible)}
@@ -110,14 +158,16 @@ const UserChangePassword = () => {
             <Icon name="key-change" color="#665444" size={20} />
             <TextInput
               style={styles.editTextBox}
-              secureTextEntry={passwordVisible}
+              secureTextEntry={passwordVisible2}
               placeholder="Confirm New Password"
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={password2}
+              onChangeText={(text) => setPassword2(text)}
               right={
                 <TextInput.Icon
-                  name={passwordVisible2 ? "eye" : "eye-off"}
+                  name={passwordVisible2 ? 'eye' : 'eye-off'}
                   size={20}
                   color="#665444"
                   onPress={() => setPasswordVisible2(!passwordVisible2)}
@@ -128,7 +178,9 @@ const UserChangePassword = () => {
         </View>
       </View>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>Save Edit</Text>
+        <Text style={styles.buttonText} onPress={handleUpdate}>
+          Save Edit
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -147,55 +199,55 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 13,
   },
   infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
+    borderBottomColor: '#dddddd',
     borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
+    borderTopColor: '#dddddd',
     borderTopWidth: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 100,
   },
   infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   menuWrapper: {
     marginTop: 10,
   },
   menuItem: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 30,
   },
   menuItemText: {
-    color: "#777777",
+    color: '#777777',
     marginLeft: 20,
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 16,
     lineHeight: 26,
   },
   header: {
     marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: 20,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   textBox: {
     height: 40,
-    alignItems: "center",
+    alignItems: 'center',
     paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
@@ -203,11 +255,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   editTextBox: {
     height: 40,
-    alignItems: "center",
+    alignItems: 'center',
     paddingLeft: 10,
     flex: 1,
     backgroundColor: COLORS.secondary,
@@ -215,21 +267,21 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    flexDirection: "row",
+    flexDirection: 'row',
     fontSize: 15,
   },
   button: {
     height: 52,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 190,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
   buttonText: {
-    color: "white",
-    fontWeight: "700",
+    color: 'white',
+    fontWeight: '700',
     fontSize: 16,
   },
 });

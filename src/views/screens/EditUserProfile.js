@@ -20,14 +20,15 @@ import COLORS from '../../consts/colors';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import firebaseErrors from '../../../firebaseErrors';
 import {
   auth,
   firestore,
+  updateProfile,
   getStorage,
   ref,
   getDownloadURL,
 } from '../../../firebase';
-import { updateProfile } from 'firebase/auth';
 
 // import Share from 'react-native-share';
 
@@ -88,6 +89,9 @@ const EditUserProfile = () => {
           'Profile Updated!',
           'Your profile has been updated successfully :3'
         );
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
       });
 
     navigation.replace('UserProfile');

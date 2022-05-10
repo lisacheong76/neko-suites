@@ -40,7 +40,6 @@ const UserProfile = () => {
       console.log('No such document!');
     } else {
       setUserData(doc.data());
-      console.log('No such documentafcheck!', auth.currentUser);
     }
   };
 

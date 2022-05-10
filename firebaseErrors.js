@@ -91,7 +91,7 @@ const firebaseErrors = {
   'auth/custom-token-mismatch':
     'The custom token corresponds to a different audience.',
   'auth/requires-recent-login':
-    'This operation is sensitive and requires recent authentication. Log in again before retrying this request.',
+    'This operation is sensitive and requires recent authentication. Log in again before retrying this request :3',
   'auth/dependent-sdk-initialized-before-auth':
     'Another Firebase SDK was initialized and is trying to use Auth before Auth is initialized. Please be sure to call `initializeAuth` or `getAuth` before starting any other Firebase SDK.',
   'auth/dynamic-link-not-activated':
