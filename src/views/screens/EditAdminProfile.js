@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import { Share, View, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import {
   Avatar,
   Title,
@@ -12,7 +12,15 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
+import firebaseErrors from "../../../firebaseErrors";
+import {
+  auth,
+  firestore,
+  updateProfile,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from "../../../firebase";
 
 // import Share from 'react-native-share';
 
@@ -20,6 +28,75 @@ import Icon3 from "react-native-vector-icons/FontAwesome5";
 
 const EditAdminProfile = () => {
   const navigation = useNavigation();
+
+  const email = auth.currentUser.email;
+  const photo = auth.currentUser.photoURL;
+
+  const [userData, setUserData] = useState("");
+  const [url, setUrl] = useState("");
+  const [displayName, setDisplayName] = useState(auth.currentUser.displayName);
+
+  const getUser = async () => {
+    const userRef = firestore.collection("users").doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  const getPhoto = async () => {
+    const storage = getStorage();
+    const reference = ref(storage, photo);
+    await getDownloadURL(reference).then((x) => {
+      setUrl(x);
+    });
+  };
+
+  const handleUpdate = async () => {
+    // let imgUrl = await uploadImage();
+
+    // if( imgUrl == null && userData.userImg ) {
+    //   imgUrl = userData.userImg;
+    // }
+
+    updateProfile(auth.currentUser, {
+      displayName: displayName,
+      // photoURL: '/pawprint.jfif',
+    });
+
+    firestore
+      .collection("users")
+      .doc(auth.currentUser.uid)
+      .update({
+        name: userData.name,
+        phone: userData.phone,
+        gender: userData.gender,
+        // userImg: imgUrl,
+      })
+      .then(() => {
+        console.log("User Updated!");
+        Alert.alert(
+          "Profile Updated!",
+          "Your profile has been updated successfully :3"
+        );
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
+      });
+
+    navigation.replace("UserProfile");
+  };
+
+  const handleBack = () => {
+    navigation.replace("UserProfile");
+  };
+
+  useEffect(() => {
+    getUser();
+    // getPhoto();
+  }, []);
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -40,6 +117,7 @@ const EditAdminProfile = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
+      <ScrollView>
       <View style={styles.header}>
         <Icon2
           name="arrow-back-ios"
@@ -80,6 +158,9 @@ const EditAdminProfile = () => {
       </View>
 
       <View style={styles.userInfoSection}>
+      <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Username
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="account" color="#665444" size={20} />
@@ -89,9 +170,14 @@ const EditAdminProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={displayName || ""}
+              editable={false}
             ></TextInput>
           </View>
         </View>
+        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Full Name
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="account-heart" color="#665444" size={20} />
@@ -101,9 +187,16 @@ const EditAdminProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={userData ? userData.name : ""}
+                onChangeText={(text) =>
+                  setUserData({ ...userData, name: text })
+                }
             ></TextInput>
           </View>
         </View>
+        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Company Phone Number
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
@@ -113,6 +206,10 @@ const EditAdminProfile = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={userData ? userData.phone : ""}
+                onChangeText={(text) =>
+                  setUserData({ ...userData, phone: text })
+                }
             ></TextInput>
           </View>
         </View>
@@ -120,6 +217,7 @@ const EditAdminProfile = () => {
       <View style={styles.button}>
         <Text style={styles.buttonText}>Save Edit</Text>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -212,7 +310,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 170,
+    marginTop: 90,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,

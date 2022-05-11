@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Share, View, SafeAreaView, StyleSheet } from "react-native";
 import {
@@ -13,6 +13,15 @@ import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
+import firebaseErrors from '../../../firebaseErrors';
+import {
+  auth,
+  firestore,
+  updatePassword,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from '../../../firebase';
 
 // import Share from 'react-native-share';
 
@@ -22,6 +31,58 @@ const AdminChangePassword = () => {
   const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const displayName = auth.currentUser.displayName;
+  const photo = auth.currentUser.photoURL;
+
+  const [userData, setUserData] = useState('');
+  const [url, setUrl] = useState('');
+
+  const getUser = async () => {
+    const userRef = firestore.collection('users').doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  const getPhoto = async () => {
+    const storage = getStorage();
+    const reference = ref(storage, photo);
+    await getDownloadURL(reference).then((x) => {
+      setUrl(x);
+    });
+  };
+
+  const handleUpdate = async () => {
+    if (password == password2) {
+      updatePassword(auth.currentUser, password)
+        .then(() => {
+          Alert.alert(
+            'Password Updated!',
+            'Your password has been updated successfully :3'
+          );
+        })
+        .catch((error) => {
+          alert(firebaseErrors[error.code] || error.message);
+        });
+      navigation.replace('UserProfile');
+    } else {
+      alert('The passwords are different :<');
+    }
+  };
+
+  const handleBack = () => {
+    navigation.replace('UserProfile');
+  };
+
+  useEffect(() => {
+    getUser();
+    // getPhoto();
+  }, []);
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -76,9 +137,9 @@ const AdminChangePassword = () => {
                 },
               ]}
             >
-              Admin
+              {userData.name}
             </Title>
-            <Caption style={styles.caption}>@admin123</Caption>
+            <Caption style={styles.caption}>@{displayName}</Caption>
           </View>
         </View>
       </View>
@@ -94,6 +155,8 @@ const AdminChangePassword = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
               right={
                 <TextInput.Icon
                   name={passwordVisible ? "eye" : "eye-off"}
@@ -115,6 +178,8 @@ const AdminChangePassword = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
+              value={password2}
+              onChangeText={(text) => setPassword2(text)}
               right={
                 <TextInput.Icon
                   name={passwordVisible2 ? "eye" : "eye-off"}

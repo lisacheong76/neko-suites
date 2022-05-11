@@ -150,8 +150,8 @@ const Homepage = () => {
       <Animated.View style={style.ServiceCard}>
         <Image style={style.ServiceCardImage} source={service.image} />
         <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 10, fontWeight: "bold" }}>{service.name}</Text>
-          <Text style={{ fontSize: 7, fontWeight: "bold", color: COLORS.grey }}>
+          <Text style={{ fontSize: 13, fontWeight: "bold" }}>{service.name}</Text>
+          <Text style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}>
             {service.location}
           </Text>
         </View>
@@ -225,15 +225,15 @@ const Homepage = () => {
             marginHorizontal: 20,
           }}
         >
-          <Text style={{ fontWeight: "bold", color: COLORS.grey }}>
+          <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 12, marginBottom: -30}}>
             Other Services
           </Text>
         </View>
-        <Animated.FlatList
+        <FlatList
           data={services}
-          horizontal
-          showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
             paddingLeft: 20,
             marginTop: 20,
             paddingBottom: 30,
@@ -344,15 +344,16 @@ const style = StyleSheet.create({
     borderRadius: 15,
   },
   ServiceCard: {
-    height: 120,
-    width: 120,
+    height: 160,
+    width: 160,
     backgroundColor: COLORS.white,
     elevation: 15,
-    marginHorizontal: 10,
+    marginHorizontal: 13,
     borderRadius: 10,
+    marginTop: 15,
   },
   ServiceCardImage: {
-    height: 80,
+    height: 100,
     width: "100%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,

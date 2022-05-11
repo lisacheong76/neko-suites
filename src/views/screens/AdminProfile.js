@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Share, View, SafeAreaView, StyleSheet } from "react-native";
 import {
@@ -11,8 +11,15 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import AdminChangePassword from "./AdminChangePassword";
+import {
+  auth,
+  firestore,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from '../../../firebase';
+
 
 // import Share from 'react-native-share';
 
@@ -20,6 +27,35 @@ import AdminChangePassword from "./AdminChangePassword";
 
 const AdminProfile = () => {
   const navigation = useNavigation();
+  const displayName = auth.currentUser.displayName;
+  const email = auth.currentUser.email;
+  const photo = auth.currentUser.photoURL;
+
+  const [userData, setUserData] = useState('');
+  const [url, setUrl] = useState('');
+
+  const getUser = async () => {
+    const userRef = firestore.collection('users').doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  const getPhoto = async () => {
+    const storage = getStorage();
+    const reference = ref(storage, photo);
+    await getDownloadURL(reference).then((x) => {
+      setUrl(x);
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+    // getPhoto();
+  }, []);
 
   // const myCustomShare = async() => {
   //   const shareOptions = {
@@ -80,9 +116,9 @@ const AdminProfile = () => {
                 },
               ]}
             >
-              Admin
+              {userData.name}
             </Title>
-            <Caption style={styles.caption}>@admin123</Caption>
+            <Caption style={styles.caption}>@{displayName}</Caption>
           </View>
         </View>
       </View>
@@ -92,7 +128,7 @@ const AdminProfile = () => {
           <View style={styles.textBox}>
             <Icon name="email" color="#665444" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              admin@email.com
+            {email}
             </Text>
           </View>
         </View>
@@ -100,7 +136,7 @@ const AdminProfile = () => {
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              +60-3182525
+            {userData.phone ? userData.phone : 'Phone number not set'}
             </Text>
           </View>
         </View>

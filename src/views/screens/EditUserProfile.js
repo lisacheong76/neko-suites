@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Picker,
   Alert,
+  ScrollView
 } from 'react-native';
 import {
   Avatar,
@@ -110,6 +111,7 @@ const EditUserProfile = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
+      <ScrollView>
       <View style={styles.header}>
         <Icon2
           name="arrow-back-ios"
@@ -150,6 +152,9 @@ const EditUserProfile = () => {
       </View>
 
       <View style={styles.userInfoSection}>
+      <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Username
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="account" color="#665444" size={20} />
@@ -165,6 +170,10 @@ const EditUserProfile = () => {
             ></TextInput>
           </View>
         </View>
+
+        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Full Name
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="account-heart" color="#665444" size={20} />
@@ -179,6 +188,10 @@ const EditUserProfile = () => {
             ></TextInput>
           </View>
         </View>
+
+        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Phone Number
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
@@ -193,6 +206,10 @@ const EditUserProfile = () => {
             ></TextInput>
           </View>
         </View>
+
+        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+            Gender
+          </Text>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="human-male-female" color="#665444" size={20} />
@@ -216,6 +233,7 @@ const EditUserProfile = () => {
           Save Edit
         </Text>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -308,7 +326,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 130,
+    marginTop: 10,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,
