@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Share, View, SafeAreaView, StyleSheet } from "react-native";
 import {
@@ -18,8 +18,7 @@ import {
   getStorage,
   ref,
   getDownloadURL,
-} from '../../../firebase';
-
+} from "../../../firebase";
 
 // import Share from 'react-native-share';
 
@@ -31,14 +30,14 @@ const AdminProfile = () => {
   const email = auth.currentUser.email;
   const photo = auth.currentUser.photoURL;
 
-  const [userData, setUserData] = useState('');
-  const [url, setUrl] = useState('');
+  const [userData, setUserData] = useState("");
+  const [url, setUrl] = useState("");
 
   const getUser = async () => {
-    const userRef = firestore.collection('users').doc(auth.currentUser.uid);
+    const userRef = firestore.collection("users").doc(auth.currentUser.uid);
     const doc = await userRef.get();
     if (!doc.exists) {
-      console.log('No such document!');
+      console.log("No such document!");
     } else {
       setUserData(doc.data());
     }
@@ -127,16 +126,14 @@ const AdminProfile = () => {
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="email" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
-            {email}
-            </Text>
+            <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <Icon name="phone" color="#665444" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-            {userData.phone ? userData.phone : 'Phone number not set'}
+              {userData.phone ? userData.phone : "Phone number not set"}
             </Text>
           </View>
         </View>

@@ -1,6 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import {
+  Share,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import {
   Avatar,
   Title,
@@ -118,105 +124,126 @@ const EditAdminProfile = () => {
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
       <ScrollView>
-      <View style={styles.header}>
-        <Icon2
-          name="arrow-back-ios"
-          size={28}
-          color={"#665444"}
-          onPress={navigation.goBack}
-        />
-      </View>
-      <View>
-        <View style={styles.userInfoSection}>
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Avatar.Image
-              source={require("../../assets/adminpic.jpg")}
-              size={90}
-            />
-          </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text
+        <View style={styles.header}>
+          <Icon2
+            name="arrow-back-ios"
+            size={28}
+            color={"#665444"}
+            onPress={navigation.goBack}
+          />
+        </View>
+        <View>
+          <View style={styles.userInfoSection}>
+            <View
               style={{
-                marginTop: 10,
-                marginBottom: 5,
-                color: "#665444",
-                fontSize: 15,
-                fontWeight: "bold",
+                flexDirection: "row",
+                marginTop: 15,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              Profile Picture
-            </Text>
+              <Avatar.Image
+                source={require("../../assets/adminpic.jpg")}
+                size={90}
+              />
+            </View>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text
+                style={{
+                  marginTop: 10,
+                  marginBottom: 5,
+                  color: "#665444",
+                  fontSize: 15,
+                  fontWeight: "bold",
+                }}
+              >
+                Profile Picture
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      <View style={styles.userInfoSection}>
-      <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+        <View style={styles.userInfoSection}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#665444",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
             Username
           </Text>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="account" color="#665444" size={20} />
-            <TextInput
-              style={styles.editTextBox}
-              placeholder="Username"
-              placeholderTextColor="#666666"
-              placeholderTextSize="20"
-              autoCorrect={false}
-              value={displayName || ""}
-              editable={false}
-            ></TextInput>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="account" color="#665444" size={20} />
+              <TextInput
+                style={styles.editTextBox}
+                placeholder="Username"
+                placeholderTextColor="#666666"
+                placeholderTextSize="20"
+                autoCorrect={false}
+                value={displayName || ""}
+                editable={false}
+              ></TextInput>
+            </View>
           </View>
-        </View>
-        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#665444",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
             Full Name
           </Text>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="account-heart" color="#665444" size={20} />
-            <TextInput
-              style={styles.editTextBox}
-              placeholder="Name"
-              placeholderTextColor="#666666"
-              placeholderTextSize="20"
-              autoCorrect={false}
-              value={userData ? userData.name : ""}
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="account-heart" color="#665444" size={20} />
+              <TextInput
+                style={styles.editTextBox}
+                placeholder="Name"
+                placeholderTextColor="#666666"
+                placeholderTextSize="20"
+                autoCorrect={false}
+                value={userData ? userData.name : ""}
                 onChangeText={(text) =>
                   setUserData({ ...userData, name: text })
                 }
-            ></TextInput>
+              ></TextInput>
+            </View>
           </View>
-        </View>
-        <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 5, marginBottom: 5 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#665444",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
             Company Phone Number
           </Text>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="phone" color="#665444" size={20} />
-            <TextInput
-              style={styles.editTextBox}
-              placeholder="Company Phone Number"
-              placeholderTextColor="#666666"
-              placeholderTextSize="20"
-              autoCorrect={false}
-              value={userData ? userData.phone : ""}
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="phone" color="#665444" size={20} />
+              <TextInput
+                style={styles.editTextBox}
+                placeholder="Company Phone Number"
+                placeholderTextColor="#666666"
+                placeholderTextSize="20"
+                autoCorrect={false}
+                value={userData ? userData.phone : ""}
                 onChangeText={(text) =>
                   setUserData({ ...userData, phone: text })
                 }
-            ></TextInput>
+              ></TextInput>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>Save Edit</Text>
-      </View>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Save Edit</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
