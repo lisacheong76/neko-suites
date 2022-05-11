@@ -103,7 +103,7 @@ const EditUserProfile = () => {
 
   useEffect(() => {
     getUser();
-    getPhoto();
+    // getPhoto();
   }, []);
 
   return (
@@ -128,7 +128,10 @@ const EditUserProfile = () => {
               justifyContent: 'center',
             }}
           >
-            <Avatar.Image source={{ uri: url }} size={90} />
+            <Avatar.Image
+              source={require('../../assets/mypic.jpeg')}
+              size={90}
+            />
           </View>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text

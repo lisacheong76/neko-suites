@@ -53,7 +53,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUser();
-    getPhoto();
+    // getPhoto();
   }, []);
 
   // const myCustomShare = async() => {
@@ -99,7 +99,10 @@ const UserProfile = () => {
               justifyContent: 'center',
             }}
           >
-            <Avatar.Image source={{ uri: url }} size={90} />
+            <Avatar.Image
+              source={require('../../assets/mypic.jpeg')}
+              size={90}
+            />
           </View>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Title
@@ -168,7 +171,7 @@ const UserProfile = () => {
         </TouchableRipple>
         <TouchableRipple
           style={{ borderBottomColor: '#e6e4e3', borderBottomWidth: 1 }}
-          onPress={() => navigation.navigate("CatPage")}
+          onPress={() => navigation.navigate('CatPage')}
         >
           <View style={styles.menuItem}>
             <Icon name="cat" color="#fa9c4b" size={25} />

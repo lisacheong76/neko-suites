@@ -81,7 +81,7 @@ const UserChangePassword = () => {
 
   useEffect(() => {
     getUser();
-    getPhoto();
+    // getPhoto();
   }, []);
 
   return (
