@@ -168,7 +168,7 @@ const UserProfile = () => {
         </TouchableRipple>
         <TouchableRipple
           style={{ borderBottomColor: '#e6e4e3', borderBottomWidth: 1 }}
-          onPress={() => {}}
+          onPress={() => navigation.navigate("CatPage")}
         >
           <View style={styles.menuItem}>
             <Icon name="cat" color="#fa9c4b" size={25} />

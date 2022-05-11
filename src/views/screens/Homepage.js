@@ -142,7 +142,7 @@ const Homepage = () => {
     );
   };
 
-  const ServiceCard = ({ service, index }) => {
+  const ServiceCard = ({ service }) => {
     return (
       <TouchableOpacity
         activeOpacity={1}

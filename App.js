@@ -16,6 +16,9 @@ import AdminProfile from "./src/views/screens/AdminProfile";
 import EditAdminProfile from "./src/views/screens/EditAdminProfile";
 import AdminChangePassword from "./src/views/screens/AdminChangePassword";
 import UserChangePassword from "./src/views/screens/UserChangePassword";
+import CatPage from './src/views/screens/CatPage';
+import CatDetails from './src/views/screens/CatDetails';
+import AddCats from './src/views/screens/AddCats';
 
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +102,24 @@ export default function App() {
           options={{ headerShown: false }}
           name="UserChangePassword"
           component={UserChangePassword}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="CatPage"
+          component={CatPage}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="CatDetails"
+          component={CatDetails}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="AddCats"
+          component={AddCats}
         />
       </Stack.Navigator>
     </NavigationContainer>
