@@ -76,6 +76,9 @@ const Register = () => {
           onChangeText={(text) => setUsername(text)}
           style={styles.input}
         />
+        <Text style={styles.users}> 
+          * username cannot be changed in the future.
+        </Text>
         <TextInput
           placeholder="Email"
           value={email}
@@ -178,6 +181,12 @@ const styles = StyleSheet.create({
     color: '#665444',
     fontSize: 25,
     marginVertical: 10,
+  },
+  users: {
+    fontFamily: 'sans-serif-medium',
+    color: '#b31b1b',
+    fontSize: 12,
+    marginLeft: 10,
   },
   textBody: {
     fontFamily: 'sans-serif-medium',
