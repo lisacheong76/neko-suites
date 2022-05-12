@@ -8,6 +8,7 @@ import {
   Picker,
   Alert,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import {
   Avatar,
@@ -21,28 +22,27 @@ import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
+import * as ImagePicker from "expo-image-picker";
 import firebaseErrors from "../../../firebaseErrors";
+import uuid from "uuid";
 import {
   auth,
   firestore,
+  firebase,
   updateProfile,
   getStorage,
   ref,
   getDownloadURL,
+  uploadBytes,
 } from "../../../firebase";
-
-// import Share from 'react-native-share';
-
-// import files from "../../assets/filesBase64";
 
 const EditUserProfile = () => {
   const navigation = useNavigation();
 
-  const email = auth.currentUser.email;
   const photo = auth.currentUser.photoURL;
 
   const [userData, setUserData] = useState("");
-  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
   const [displayName, setDisplayName] = useState(auth.currentUser.displayName);
 
   const getUser = async () => {
@@ -55,24 +55,66 @@ const EditUserProfile = () => {
     }
   };
 
-  const getPhoto = async () => {
-    const storage = getStorage();
-    const reference = ref(storage, photo);
-    await getDownloadURL(reference).then((x) => {
-      setUrl(x);
+  const pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
+
+    console.log({ pickerResult });
+
+    if (!pickerResult.cancelled) {
+      setImage(pickerResult);
+    }
+
+    handleImagePicked(pickerResult);
   };
 
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      // this.setState({ uploading: true });
+      setImage({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadImageAsync(pickerResult.uri);
+        // this.setState({ image: uploadUrl });
+        setImage(uploadUrl);
+      }
+    } catch (e) {
+      console.log(e);
+      alert("Upload failed, sorry :(");
+    }
+  };
+
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+
+    const fileRef = ref(getStorage(), uuid.v4());
+    const result = await uploadBytes(fileRef, blob);
+
+    // blob.close();
+
+    return await getDownloadURL(fileRef);
+  }
+
   const handleUpdate = async () => {
-    // let imgUrl = await uploadImage();
-
-    // if( imgUrl == null && userData.userImg ) {
-    //   imgUrl = userData.userImg;
-    // }
-
     updateProfile(auth.currentUser, {
       displayName: displayName,
-      // photoURL: '/pawprint.jfif',
+      photoURL: image,
     });
 
     firestore
@@ -82,7 +124,6 @@ const EditUserProfile = () => {
         name: userData.name,
         phone: userData.phone,
         gender: userData.gender,
-        // userImg: imgUrl,
       })
       .then(() => {
         console.log("User Updated!");
@@ -98,13 +139,8 @@ const EditUserProfile = () => {
     navigation.replace("UserProfile");
   };
 
-  const handleBack = () => {
-    navigation.replace("UserProfile");
-  };
-
   useEffect(() => {
     getUser();
-    // getPhoto();
   }, []);
 
   return (
@@ -130,10 +166,12 @@ const EditUserProfile = () => {
                 justifyContent: "center",
               }}
             >
-              <Avatar.Image
-                source={require("../../assets/mypic.jpeg")}
-                size={90}
-              />
+              <TouchableOpacity onPress={() => pickImage()}>
+                <Avatar.Image
+                  source={{ uri: image ? image : photo }}
+                  size={90}
+                />
+              </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text

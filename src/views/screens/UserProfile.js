@@ -31,7 +31,6 @@ const UserProfile = () => {
   const photo = auth.currentUser.photoURL;
 
   const [userData, setUserData] = useState("");
-  const [url, setUrl] = useState("");
 
   const getUser = async () => {
     const userRef = firestore.collection("users").doc(auth.currentUser.uid);
@@ -43,17 +42,8 @@ const UserProfile = () => {
     }
   };
 
-  const getPhoto = async () => {
-    const storage = getStorage();
-    const reference = ref(storage, photo);
-    await getDownloadURL(reference).then((x) => {
-      setUrl(x);
-    });
-  };
-
   useEffect(() => {
     getUser();
-    // getPhoto();
   }, []);
 
   // const myCustomShare = async() => {
@@ -80,7 +70,7 @@ const UserProfile = () => {
           name="arrow-back-ios"
           size={28}
           color={"#665444"}
-          onPress={navigation.goBack}
+          onPress={() => navigation.replace("Homepage")}
         />
         <Icon2
           name="edit"
@@ -99,10 +89,7 @@ const UserProfile = () => {
               justifyContent: "center",
             }}
           >
-            <Avatar.Image
-              source={require("../../assets/mypic.jpeg")}
-              size={90}
-            />
+            <Avatar.Image source={{ uri: photo }} size={90} />
           </View>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Title

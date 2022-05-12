@@ -25,6 +25,7 @@ const cardWidth = width / 1.8;
 
 const Homepage = () => {
   const navigation = useNavigation();
+  const photo = auth.currentUser.photoURL;
 
   const handleSignOut = () => {
     auth
@@ -146,16 +147,21 @@ const Homepage = () => {
     return (
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => navigation.navigate("ServiceLists", service)}>
-      <Animated.View style={style.ServiceCard}>
-        <Image style={style.ServiceCardImage} source={service.image} />
-        <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 13, fontWeight: "bold" }}>{service.name}</Text>
-          <Text style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}>
-            {service.location}
-          </Text>
-        </View>
-      </Animated.View>
+        onPress={() => navigation.navigate("ServiceLists", service)}
+      >
+        <Animated.View style={style.ServiceCard}>
+          <Image style={style.ServiceCardImage} source={service.image} />
+          <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: "bold" }}>
+              {service.name}
+            </Text>
+            <Text
+              style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}
+            >
+              {service.location}
+            </Text>
+          </View>
+        </Animated.View>
       </TouchableOpacity>
     );
   };
@@ -177,11 +183,11 @@ const Homepage = () => {
             </Text>
           </View> */}
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
-        <ImageBackground 
-          source = {require('../../assets/mypic.jpeg')} 
-          style = {{width:45, height: 45}}
-          imageStyle = {{borderRadius: 25}}
+        <TouchableOpacity onPress={() => navigation.replace("UserProfile")}>
+          <ImageBackground
+            source={{ uri: photo }}
+            style={{ width: 45, height: 45 }}
+            imageStyle={{ borderRadius: 25 }}
           />
         </TouchableOpacity>
       </View>
@@ -225,20 +231,27 @@ const Homepage = () => {
             marginHorizontal: 20,
           }}
         >
-          <Text style={{ fontWeight: "bold", color: "#665444", marginLeft: 12, marginBottom: -30}}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#665444",
+              marginLeft: 12,
+              marginBottom: -30,
+            }}
+          >
             Other Services
           </Text>
         </View>
         <FlatList
           data={services}
           contentContainerStyle={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
+            flexDirection: "row",
+            flexWrap: "wrap",
             paddingLeft: 20,
             marginTop: 20,
             paddingBottom: 30,
           }}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <ServiceCard service={item} index={index} />
           )}
         />

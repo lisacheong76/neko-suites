@@ -37,7 +37,6 @@ const UserChangePassword = () => {
   const photo = auth.currentUser.photoURL;
 
   const [userData, setUserData] = useState("");
-  const [url, setUrl] = useState("");
 
   const getUser = async () => {
     const userRef = firestore.collection("users").doc(auth.currentUser.uid);
@@ -47,14 +46,6 @@ const UserChangePassword = () => {
     } else {
       setUserData(doc.data());
     }
-  };
-
-  const getPhoto = async () => {
-    const storage = getStorage();
-    const reference = ref(storage, photo);
-    await getDownloadURL(reference).then((x) => {
-      setUrl(x);
-    });
   };
 
   const handleUpdate = async () => {
@@ -75,13 +66,8 @@ const UserChangePassword = () => {
     }
   };
 
-  const handleBack = () => {
-    navigation.replace("UserProfile");
-  };
-
   useEffect(() => {
     getUser();
-    // getPhoto();
   }, []);
 
   return (
@@ -106,10 +92,7 @@ const UserChangePassword = () => {
               justifyContent: "center",
             }}
           >
-            <Avatar.Image
-              source={require("../../assets/mypic.jpeg")}
-              size={90}
-            />
+            <Avatar.Image source={{ uri: photo }} size={90} />
           </View>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Title

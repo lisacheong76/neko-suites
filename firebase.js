@@ -1,24 +1,24 @@
 // Import the functions you need from the SDKs you need
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import {
   updatePassword,
   updateProfile,
   sendPasswordResetEmail,
-} from 'firebase/auth';
+} from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAA8MFaOnFdZDMteCZjJRnzbucPLWHpt1M',
-  authDomain: 'neko-suites.firebaseapp.com',
-  projectId: 'neko-suites',
-  storageBucket: 'neko-suites.appspot.com',
-  messagingSenderId: '682947082082',
-  appId: '1:682947082082:web:d6eade046842551d53de3b',
+  apiKey: "AIzaSyAA8MFaOnFdZDMteCZjJRnzbucPLWHpt1M",
+  authDomain: "neko-suites.firebaseapp.com",
+  projectId: "neko-suites",
+  storageBucket: "neko-suites.appspot.com",
+  messagingSenderId: "682947082082",
+  appId: "1:682947082082:web:d6eade046842551d53de3b",
 };
 
 // Initialize Firebase
@@ -35,10 +35,12 @@ const firestore = firebase.firestore();
 export {
   auth,
   firestore,
+  firebase,
   updatePassword,
   updateProfile,
   sendPasswordResetEmail,
   getStorage,
   ref,
   getDownloadURL,
+  uploadBytes,
 };
