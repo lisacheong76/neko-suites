@@ -153,7 +153,7 @@ const EditUserProfile = () => {
             name="arrow-back-ios"
             size={28}
             color={"#665444"}
-            onPress={handleBack}
+            onPress={() => navigation.replace("UserProfile")}
           />
         </View>
         <View>
