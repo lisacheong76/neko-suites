@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
+  Alert
 } from "react-native";
 import {
   Avatar,
@@ -78,7 +79,6 @@ const EditAdminProfile = () => {
       .update({
         name: userData.name,
         phone: userData.phone,
-        gender: userData.gender,
         // userImg: imgUrl,
       })
       .then(() => {
@@ -92,11 +92,11 @@ const EditAdminProfile = () => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.replace("UserProfile");
+    navigation.replace("AdminProfile");
   };
 
   const handleBack = () => {
-    navigation.replace("UserProfile");
+    navigation.replace("AdminProfile");
   };
 
   useEffect(() => {
@@ -242,7 +242,9 @@ const EditAdminProfile = () => {
           </View>
         </View>
         <View style={styles.button}>
-          <Text style={styles.buttonText}>Save Edit</Text>
+          <Text style={styles.buttonText} onPress={handleUpdate}>
+            Save Edit
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import { Share, View, SafeAreaView, StyleSheet, Alert } from "react-native";
 import {
   Avatar,
   Title,
@@ -69,14 +69,14 @@ const AdminChangePassword = () => {
         .catch((error) => {
           alert(firebaseErrors[error.code] || error.message);
         });
-      navigation.replace("UserProfile");
+      navigation.replace("AdminProfile");
     } else {
       alert("The passwords are different :<");
     }
   };
 
   const handleBack = () => {
-    navigation.replace("UserProfile");
+    navigation.replace("AdminProfile");
   };
 
   useEffect(() => {
@@ -173,7 +173,7 @@ const AdminChangePassword = () => {
             <Icon name="key-change" color="#665444" size={20} />
             <TextInput
               style={styles.editTextBox}
-              secureTextEntry={passwordVisible}
+              secureTextEntry={passwordVisible2}
               placeholder="Confirm New Password"
               placeholderTextColor="#666666"
               placeholderTextSize="20"
@@ -193,7 +193,7 @@ const AdminChangePassword = () => {
         </View>
       </View>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>Save Edit</Text>
+        <Text style={styles.buttonText} onPress={handleUpdate}>Save Edit</Text>
       </View>
     </SafeAreaView>
   );
