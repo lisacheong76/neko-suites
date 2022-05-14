@@ -19,6 +19,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import { auth } from "../../../firebase";
 import { StatusBar } from "expo-status-bar";
+import ListData from "../../consts/bookinglist";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 1.8;
@@ -38,20 +39,6 @@ const Dashboard = ({ route }) => {
 
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
-
-  const ListData = [
-    {
-      title: "Recent Bookings",
-      data: [
-        "Adriana 21 Apr 22 10:30 am",
-        "Balqis 20 Apr 22 11:49 am",
-        "Anisah 20 Apr 22 9:24 am",
-        "Jason 17 Apr 22 12:00 pm",
-        "Jay 14 Apr 22 10:32 am",
-        "Allen 12 Apr 22 10:32 am",
-      ],
-    },
-  ];
 
   const Item = ({ title }) => (
     <View style={style.item}>
@@ -78,14 +65,6 @@ const Dashboard = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-      {/* <View style={style.searchInputContainer}>
-          <Icon name="search" size={30} style={{marginLeft: 20}} />
-          <TextInput
-            placeholder="Search"
-            style={{fontSize: 20, paddingLeft: 10}}
-          />
-        </View> */}
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity style={style.menuButton}>
           <Image
@@ -114,18 +93,16 @@ const Dashboard = ({ route }) => {
           <Text style={style.menuText}>View Feedback</Text>
         </TouchableOpacity>
       </View>
-      {/* </ScrollView> */}
+
       <View style={{ paddingTop: 30 }}>
         <Text style={style.header2}>Recent Bookings</Text>
       </View>
-
       <SectionList
         style={style.container2}
         sections={ListData}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => <Item title={item} />}
       />
-
       <View style={style.container1}>
         {/* <Text>Email: {auth.currentUser?.email}</Text> */}
         <TouchableOpacity onPress={handleSignOut} style={style.button}>

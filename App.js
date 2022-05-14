@@ -19,6 +19,7 @@ import UserChangePassword from "./src/views/screens/UserChangePassword";
 import CatPage from './src/views/screens/CatPage';
 import CatDetails from './src/views/screens/CatDetails';
 import AddCats from './src/views/screens/AddCats';
+import EditCatDetails from "./src/views/screens/EditCatDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -120,6 +121,12 @@ export default function App() {
           options={{headerShown: false}}
           name="AddCats"
           component={AddCats}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="EditCatDetails"
+          component={EditCatDetails}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -54,7 +54,7 @@ const CatDetails = ({navigation, route}) => {
           name="edit"
           size={23}
           color={"#665444"}
-          onPress={() => navigation.navigate("EditUserProfile")}
+          onPress={() => navigation.navigate("EditCatDetails")}
           />
         </View>
         <View
