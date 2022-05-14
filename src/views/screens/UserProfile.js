@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import {
+  Share,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import {
   Avatar,
   Title,
@@ -31,6 +38,16 @@ const UserProfile = () => {
   const photo = auth.currentUser.photoURL;
 
   const [userData, setUserData] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   const getUser = async () => {
     const userRef = firestore.collection("users").doc(auth.currentUser.uid);
@@ -46,132 +63,124 @@ const UserProfile = () => {
     getUser();
   }, []);
 
-  // const myCustomShare = async() => {
-  //   const shareOptions = {
-  //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   }
-
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch(error) {
-  //     console.log('Error => ', error);
-  //   }
-  // };
-
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      <View style={styles.header}>
-        <Icon2
-          name="arrow-back-ios"
-          size={28}
-          color={"#665444"}
-          onPress={() => navigation.replace("Homepage")}
-        />
-        <Icon2
-          name="edit"
-          size={23}
-          color={"#665444"}
-          onPress={() => navigation.replace("EditUserProfile")}
-        />
-      </View>
-      <View>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View style={styles.header}>
+          <Icon2
+            name="arrow-back-ios"
+            size={28}
+            color={"#665444"}
+            onPress={() => navigation.replace("Homepage")}
+          />
+          <Icon2
+            name="edit"
+            size={23}
+            color={"#665444"}
+            onPress={() => navigation.replace("EditUserProfile")}
+          />
+        </View>
+        <View>
+          <View style={styles.userInfoSection}>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 15,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Avatar.Image source={{ uri: photo }} size={90} />
+            </View>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Title
+                style={[
+                  styles.title,
+                  {
+                    marginTop: 15,
+                    marginBottom: 5,
+                    color: "#665444",
+                  },
+                ]}
+              >
+                {userData.name}
+              </Title>
+              <Caption style={styles.caption}>@{displayName}</Caption>
+            </View>
+          </View>
+        </View>
+
         <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="email" color="#665444" size={20} />
+              <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="phone" color="#665444" size={20} />
+              <Text style={{ color: "#777777", marginLeft: 20 }}>
+                {userData.phone ? userData.phone : "Phone number not set"}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="human-male-female" color="#665444" size={20} />
+              <Text style={{ color: "#777777", marginLeft: 20 }}>
+                {userData.gender ? userData.gender : "Gender not set"}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.menuWrapper}>
           <View
             style={{
-              flexDirection: "row",
-              marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
+              borderBottomColor: "#e6e4e3",
+              borderBottomWidth: 1,
             }}
+          />
+          <TouchableRipple
+            style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+            onPress={() => navigation.navigate("UserChangePassword")}
           >
-            <Avatar.Image source={{ uri: photo }} size={90} />
-          </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Title
-              style={[
-                styles.title,
-                {
-                  marginTop: 15,
-                  marginBottom: 5,
-                  color: "#665444",
-                },
-              ]}
-            >
-              {userData.name}
-            </Title>
-            <Caption style={styles.caption}>@{displayName}</Caption>
-          </View>
+            <View style={styles.menuItem}>
+              <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
+              <Text style={styles.menuItemText}>Change Password</Text>
+              <Icon2
+                name="keyboard-arrow-right"
+                color="grey"
+                size={25}
+                style={{ paddingLeft: 150 }}
+              />
+            </View>
+          </TouchableRipple>
+          <TouchableRipple
+            style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+            onPress={() => navigation.navigate("CatPage")}
+          >
+            <View style={styles.menuItem}>
+              <Icon name="cat" color="#fa9c4b" size={25} />
+              <Text style={styles.menuItemText}>Your Cat</Text>
+              <Icon2
+                name="keyboard-arrow-right"
+                color="grey"
+                size={25}
+                style={{ paddingLeft: 217 }}
+              />
+            </View>
+          </TouchableRipple>
         </View>
-      </View>
-
-      <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="email" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="phone" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
-              {userData.phone ? userData.phone : "Phone number not set"}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="human-male-female" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
-              {userData.gender ? userData.gender : "Gender not set"}
-            </Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.menuWrapper}>
-        <View
-          style={{
-            borderBottomColor: "#e6e4e3",
-            borderBottomWidth: 1,
-          }}
-        />
-        <TouchableRipple
-          style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
-          onPress={() => navigation.navigate("UserChangePassword")}
-        >
-          <View style={styles.menuItem}>
-            <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
-            <Text style={styles.menuItemText}>Change Password</Text>
-            <Icon2
-              name="keyboard-arrow-right"
-              color="grey"
-              size={25}
-              style={{ paddingLeft: 150 }}
-            />
-          </View>
-        </TouchableRipple>
-        <TouchableRipple
-          style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
-          onPress={() => navigation.navigate("CatPage")}
-        >
-          <View style={styles.menuItem}>
-            <Icon name="cat" color="#fa9c4b" size={25} />
-            <Text style={styles.menuItemText}>Your Cat</Text>
-            <Icon2
-              name="keyboard-arrow-right"
-              color="grey"
-              size={25}
-              style={{ paddingLeft: 217 }}
-            />
-          </View>
-        </TouchableRipple>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
