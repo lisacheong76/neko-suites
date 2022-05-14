@@ -168,7 +168,7 @@ const EditUserProfile = () => {
             >
               <TouchableOpacity onPress={() => pickImage()}>
                 <Avatar.Image
-                  source={{ uri: image ? image : photo }}
+                  source={image ? { uri: image } : { uri: photo }}
                   size={90}
                 />
               </TouchableOpacity>
