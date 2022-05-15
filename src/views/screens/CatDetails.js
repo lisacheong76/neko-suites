@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -13,9 +13,35 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import {
+  auth,
+  firestore,
+  getStorage,
+  ref,
+  getDownloadURL,
+} from "../../../firebase";
 
 const CatDetails = ({navigation, route}) => {
   const item = route.params;
+  const displayName = auth.currentUser.displayName;
+
+  const [catData, setCatData] = useState("");
+  const [url, setUrl] = useState("");
+
+  const getUser = async () => {
+    const userRef = firestore.collection("cats").doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      setCatData(doc.data());
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+    // getPhoto();
+  }, []);
 
   return (
     <ScrollView
@@ -23,7 +49,6 @@ const CatDetails = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
-        flex: 1,
       }}>
       <StatusBar
         barStyle="light-content"
@@ -42,7 +67,7 @@ const CatDetails = ({navigation, route}) => {
       </ImageBackground>
       <View>
         <View style={style.header2}>
-          <Text style={{fontSize: 26, fontWeight: 'bold'}}>{item.name}</Text>
+          <Text style={{fontSize: 26, fontWeight: 'bold'}}>{catData.name}</Text>
           <View
             style={{
               marginTop: 10,
@@ -66,7 +91,7 @@ const CatDetails = ({navigation, route}) => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Age
+            Gender
           </Text>
           <View>
             <Text
@@ -77,7 +102,7 @@ const CatDetails = ({navigation, route}) => {
                 marginLeft: 5,
                 marginRight: 15,
               }}>
-                  {item.age}
+                  {catData.gender ? catData.gender : "Gender not set"}
             </Text>
           </View>
         </View>
@@ -90,7 +115,7 @@ const CatDetails = ({navigation, route}) => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Gender
+            Birth Date
           </Text>
           <View>
             <Text
@@ -101,11 +126,10 @@ const CatDetails = ({navigation, route}) => {
                 marginLeft: 5,
                 marginRight: 15,
               }}>
-                  {item.gender}
+                  {catData.birth_date}
             </Text>
           </View>
         </View>
-
         <View
           style={{
             marginTop: 20,
@@ -126,15 +150,61 @@ const CatDetails = ({navigation, route}) => {
                 marginLeft: 5,
                 marginRight: 15,
               }}>
-                  {item.allergy}
+                  {catData.allergy ? catData.allergy : "Not Set"}
             </Text>
           </View>
         </View>
-
-      <View style={style.button}>
+      <View
+          style={{
+            marginTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingLeft: 20,
+            alignItems: 'center',
+          }}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            Vaccinated
+          </Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#665444',
+                marginLeft: 5,
+                marginRight: 15,
+              }}>
+                  {catData.vaccinated ? catData.vaccinated : "Not Set"}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingLeft: 20,
+            alignItems: 'center',
+          }}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            Neutered / Spayed
+          </Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#665444',
+                marginLeft: 5,
+                marginRight: 15,
+              }}>
+                  {catData.neutered ? catData.neutered : "Not Set"}
+            </Text>
+          </View>
+        </View>
+        <View style={style.button}>
         <Text style={style.buttonText}>Delete Cat</Text>
       </View>
-
       </View>
     </ScrollView>
   );
@@ -203,7 +273,7 @@ const style = StyleSheet.create({
     height: 52,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '20%',
+    marginTop: '10%',
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet, Alert } from "react-native";
+import { Share, View, SafeAreaView, StyleSheet, Alert, TouchableOpacity, ScrollView } from "react-native";
 import {
   Avatar,
   Title,
@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableRipple,
 } from "react-native-paper";
+import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -71,23 +72,37 @@ const UserChangePassword = () => {
   }, []);
 
   return (
+    <ScrollView>
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      <View style={styles.header}>
-        <Icon2
-          name="arrow-back-ios"
-          size={28}
-          color={"#665444"}
-          onPress={navigation.goBack}
+      <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity
+              onPress={() => navigation.navigate("UserProfile")}
+            >
+              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "CHANGE PASSWORD",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+          }}
+          rightComponent={
+            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
+              <Icon2 name="home" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
         />
-      </View>
+      
       <View>
         <View style={styles.userInfoSection}>
           <View
             style={{
               flexDirection: "row",
-              marginTop: 15,
+              marginTop: 25,
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -165,7 +180,7 @@ const UserChangePassword = () => {
           Save Edit
         </Text>
       </View>
-    </SafeAreaView>
+    </SafeAreaView></ScrollView>
   );
 };
 
@@ -257,7 +272,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 190,
+    marginTop: 170,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,

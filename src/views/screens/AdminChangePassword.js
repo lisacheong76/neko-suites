@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet, Alert } from "react-native";
+import {
+  Share,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import {
   Avatar,
   Title,
@@ -9,6 +17,7 @@ import {
   TextInput,
   TouchableRipple,
 } from "react-native-paper";
+import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -103,98 +112,110 @@ const AdminChangePassword = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      <View style={styles.header}>
-        <Icon2
-          name="arrow-back-ios"
-          size={28}
-          color={"#665444"}
-          onPress={navigation.goBack}
-        />
-      </View>
-      <View>
-        <View style={styles.userInfoSection}>
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Avatar.Image
-              source={require("../../assets/adminpic.jpg")}
-              size={90}
-            />
-          </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Title
-              style={[
-                styles.title,
-                {
-                  marginTop: 15,
-                  marginBottom: 5,
-                  color: "#665444",
-                },
-              ]}
+      <ScrollView>
+        <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AdminProfile")}
             >
-              {userData.name}
-            </Title>
-            <Caption style={styles.caption}>@{displayName}</Caption>
-          </View>
-        </View>
-      </View>
+              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "CHANGE PASSWORD",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+          }}
+        />
 
-      <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="key" color="#665444" size={20} />
-            <TextInput
-              style={styles.editTextBox}
-              secureTextEntry={passwordVisible}
-              placeholder="New Password"
-              placeholderTextColor="#666666"
-              placeholderTextSize="20"
-              autoCorrect={false}
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              right={
-                <TextInput.Icon
-                  name={passwordVisible ? "eye" : "eye-off"}
-                  size={20}
-                  color="#665444"
-                  onPress={() => setPasswordVisible(!passwordVisible)}
-                />
-              }
-            ></TextInput>
+        <View>
+          <View style={styles.userInfoSection}>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 25,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Avatar.Image
+                source={require("../../assets/adminpic.jpg")}
+                size={90}
+              />
+            </View>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Title
+                style={[
+                  styles.title,
+                  {
+                    marginTop: 15,
+                    marginBottom: 5,
+                    color: "#665444",
+                  },
+                ]}
+              >
+                {userData.name}
+              </Title>
+              <Caption style={styles.caption}>@{displayName}</Caption>
+            </View>
           </View>
         </View>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="key-change" color="#665444" size={20} />
-            <TextInput
-              style={styles.editTextBox}
-              secureTextEntry={passwordVisible2}
-              placeholder="Confirm New Password"
-              placeholderTextColor="#666666"
-              placeholderTextSize="20"
-              autoCorrect={false}
-              value={password2}
-              onChangeText={(text) => setPassword2(text)}
-              right={
-                <TextInput.Icon
-                  name={passwordVisible2 ? "eye" : "eye-off"}
-                  size={20}
-                  color="#665444"
-                  onPress={() => setPasswordVisible2(!passwordVisible2)}
-                />
-              }
-            ></TextInput>
+
+        <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="key" color="#665444" size={20} />
+              <TextInput
+                style={styles.editTextBox}
+                secureTextEntry={passwordVisible}
+                placeholder="New Password"
+                placeholderTextColor="#666666"
+                placeholderTextSize="20"
+                autoCorrect={false}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                right={
+                  <TextInput.Icon
+                    name={passwordVisible ? "eye" : "eye-off"}
+                    size={20}
+                    color="#665444"
+                    onPress={() => setPasswordVisible(!passwordVisible)}
+                  />
+                }
+              ></TextInput>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="key-change" color="#665444" size={20} />
+              <TextInput
+                style={styles.editTextBox}
+                secureTextEntry={passwordVisible2}
+                placeholder="Confirm New Password"
+                placeholderTextColor="#666666"
+                placeholderTextSize="20"
+                autoCorrect={false}
+                value={password2}
+                onChangeText={(text) => setPassword2(text)}
+                right={
+                  <TextInput.Icon
+                    name={passwordVisible2 ? "eye" : "eye-off"}
+                    size={20}
+                    color="#665444"
+                    onPress={() => setPasswordVisible2(!passwordVisible2)}
+                  />
+                }
+              ></TextInput>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.button}>
-        <Text style={styles.buttonText} onPress={handleUpdate}>Save Edit</Text>
-      </View>
+        <View style={styles.button}>
+          <Text style={styles.buttonText} onPress={handleUpdate}>
+            Save Edit
+          </Text>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -287,7 +308,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 190,
+    marginTop: 160,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,

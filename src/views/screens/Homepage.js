@@ -14,6 +14,7 @@ import {
   Animated,
   ImageBackground,
 } from "react-native";
+import {Header} from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import hotels from "../../consts/roomType";
@@ -167,30 +168,33 @@ const Homepage = () => {
   };
 
   return (
+    <ScrollView>
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 10 }}
     >
-      <View style={style.header}>
-        <View style={{ paddingBottom: 0 }}>
-          <Text style={{ fontSize: 30, fontWeight: "bold", color: "#665444" }}>
-            Neko Suites
-          </Text>
-          {/* <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 30, fontWeight: 'bold'}}>in </Text>
-            <Text
-              style={{fontSize: 30, fontWeight: 'bold', color: COLORS.primary}}>
-              Paris
-            </Text>
-          </View> */}
-        </View>
-        <TouchableOpacity onPress={() => navigation.replace("UserProfile")}>
+      <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity >
+              <Icon name="menu" size={23} color={"#fff"} style={{paddingTop: 10}} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "NEKO SUITES",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 18, paddingTop: 10 },
+          }}
+          rightComponent={
+            <TouchableOpacity onPress={() => navigation.replace("UserProfile")}>
           <ImageBackground
             source={{ uri: photo }}
-            style={{ width: 45, height: 45 }}
+            style={{ width: 38, height: 38 }}
             imageStyle={{ borderRadius: 25 }}
           />
         </TouchableOpacity>
-      </View>
+          }
+        />
+      
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <View style={style.searchInputContainer}>
           <Icon name="search" size={30} style={{marginLeft: 20}} />
@@ -262,7 +266,7 @@ const Homepage = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView></ScrollView>
   );
 };
 

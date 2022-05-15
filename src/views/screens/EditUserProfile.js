@@ -23,6 +23,7 @@ import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
 import * as ImagePicker from "expo-image-picker";
+import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
@@ -144,24 +145,35 @@ const EditUserProfile = () => {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
-    >
-      <ScrollView>
-        <View style={styles.header}>
-          <Icon2
-            name="arrow-back-ios"
-            size={28}
-            color={"#665444"}
-            onPress={() => navigation.replace("UserProfile")}
-          />
-        </View>
+    <ScrollView>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+      >
+        <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
+              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "EDIT PROFILE",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+          }}
+          rightComponent={
+            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
+              <Icon2 name="home" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+        />
+
         <View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 15,
+                marginTop: 25,
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -205,6 +217,7 @@ const EditUserProfile = () => {
               <Icon name="account" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
+                borderColor="transparent"
                 placeholder="Username"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
@@ -231,6 +244,7 @@ const EditUserProfile = () => {
               <Icon name="account-heart" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
+                borderColor="transparent"
                 placeholder="Name"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
@@ -258,6 +272,7 @@ const EditUserProfile = () => {
               <Icon name="phone" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
+                borderColor="transparent"
                 placeholder="Phone Number"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
@@ -285,7 +300,7 @@ const EditUserProfile = () => {
               <Icon name="human-male-female" color="#665444" size={20} />
               <Picker
                 selectedValue={userData.gender}
-                style={{ height: 50, width: 310 }}
+                style={{ height: 50, width: 290, marginLeft: 15 }}
                 onValueChange={(itemValue) =>
                   setUserData({ ...userData, gender: itemValue })
                 }
@@ -303,8 +318,8 @@ const EditUserProfile = () => {
             Save Edit
           </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -382,7 +397,7 @@ const styles = StyleSheet.create({
   editTextBox: {
     height: 40,
     alignItems: "center",
-    paddingLeft: 10,
+    paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
     borderTopLeftRadius: 20,
@@ -396,7 +411,6 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,

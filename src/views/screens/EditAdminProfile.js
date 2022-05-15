@@ -6,7 +6,8 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  Alert
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import {
   Avatar,
@@ -19,6 +20,7 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import {
   auth,
@@ -124,20 +126,35 @@ const EditAdminProfile = () => {
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
       <ScrollView>
-        <View style={styles.header}>
+        <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AdminProfile")}
+            >
+              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "EDIT PROFILE",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+          }}
+        />
+        {/* <View style={styles.header}>
           <Icon2
             name="arrow-back-ios"
             size={28}
             color={"#665444"}
             onPress={navigation.goBack}
           />
-        </View>
+        </View> */}
         <View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 15,
+                marginTop: 25,
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -339,7 +356,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 90,
+    marginTop: 70,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
 } from "react-native";
 import {
   Avatar,
@@ -19,6 +20,7 @@ import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
+import { Header } from "react-native-elements";
 import {
   auth,
   firestore,
@@ -73,26 +75,30 @@ const UserProfile = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <View style={styles.header}>
-          <Icon2
-            name="arrow-back-ios"
-            size={28}
-            color={"#665444"}
-            onPress={() => navigation.replace("Homepage")}
-          />
-          <Icon2
-            name="edit"
-            size={23}
-            color={"#665444"}
-            onPress={() => navigation.replace("EditUserProfile")}
-          />
-        </View>
+        <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
+              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "MY PROFILE",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+          }}
+          rightComponent={
+            <TouchableOpacity onPress={() => navigation.navigate("EditUserProfile")}>
+              <Icon2 name="edit" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+        />
         <View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 15,
+                marginTop: 25,
                 alignItems: "center",
                 justifyContent: "center",
               }}

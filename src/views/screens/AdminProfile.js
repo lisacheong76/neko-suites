@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Share, View, SafeAreaView, StyleSheet } from "react-native";
+import {
+  Share,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import {
   Avatar,
   Title,
@@ -11,6 +18,7 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Header } from "react-native-elements";
 import AdminChangePassword from "./AdminChangePassword";
 import {
   auth,
@@ -75,7 +83,28 @@ const AdminProfile = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      <View style={styles.header}>
+      <ScrollView>
+        <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity onPress={navigation.goBack}>
+              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "MY PROFILE",
+            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+          }}
+          rightComponent={
+            <TouchableOpacity
+              onPress={() => navigation.navigate("EditAdminProfile")}
+            >
+              <Icon2 name="edit" size={23} color={"#fff"} />
+            </TouchableOpacity>
+          }
+        />
+        {/* <View style={styles.header}>
         <Icon2
           name="arrow-back-ios"
           size={28}
@@ -88,80 +117,81 @@ const AdminProfile = () => {
           color={"#665444"}
           onPress={() => navigation.navigate("EditAdminProfile")}
         />
-      </View>
-      <View>
+      </View> */}
+        <View>
+          <View style={styles.userInfoSection}>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 25,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Avatar.Image
+                source={require("../../assets/adminpic.jpg")}
+                size={90}
+              />
+            </View>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Title
+                style={[
+                  styles.title,
+                  {
+                    marginTop: 15,
+                    marginBottom: 5,
+                    color: "#665444",
+                  },
+                ]}
+              >
+                {userData.name}
+              </Title>
+              <Caption style={styles.caption}>@{displayName}</Caption>
+            </View>
+          </View>
+        </View>
+
         <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="email" color="#665444" size={20} />
+              <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="phone" color="#665444" size={20} />
+              <Text style={{ color: "#777777", marginLeft: 20 }}>
+                {userData.phone ? userData.phone : "Phone number not set"}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.menuWrapper}>
           <View
             style={{
-              flexDirection: "row",
-              marginTop: 15,
-              alignItems: "center",
-              justifyContent: "center",
+              borderBottomColor: "#e6e4e3",
+              borderBottomWidth: 1,
             }}
+          />
+          <TouchableRipple
+            style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+            onPress={() => navigation.navigate("AdminChangePassword")}
           >
-            <Avatar.Image
-              source={require("../../assets/adminpic.jpg")}
-              size={90}
-            />
-          </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Title
-              style={[
-                styles.title,
-                {
-                  marginTop: 15,
-                  marginBottom: 5,
-                  color: "#665444",
-                },
-              ]}
-            >
-              {userData.name}
-            </Title>
-            <Caption style={styles.caption}>@{displayName}</Caption>
-          </View>
+            <View style={styles.menuItem}>
+              <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
+              <Text style={styles.menuItemText}>Change Password</Text>
+              <Icon2
+                name="keyboard-arrow-right"
+                color="grey"
+                size={25}
+                style={{ paddingLeft: 150 }}
+              />
+            </View>
+          </TouchableRipple>
         </View>
-      </View>
-
-      <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="email" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.textBox}>
-            <Icon name="phone" color="#665444" size={20} />
-            <Text style={{ color: "#777777", marginLeft: 20 }}>
-              {userData.phone ? userData.phone : "Phone number not set"}
-            </Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.menuWrapper}>
-        <View
-          style={{
-            borderBottomColor: "#e6e4e3",
-            borderBottomWidth: 1,
-          }}
-        />
-        <TouchableRipple
-          style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
-          onPress={() => navigation.navigate("AdminChangePassword")}
-        >
-          <View style={styles.menuItem}>
-            <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
-            <Text style={styles.menuItemText}>Change Password</Text>
-            <Icon2
-              name="keyboard-arrow-right"
-              color="grey"
-              size={25}
-              style={{ paddingLeft: 150 }}
-            />
-          </View>
-        </TouchableRipple>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -19,7 +19,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import { auth } from "../../../firebase";
 import { StatusBar } from "expo-status-bar";
-import ListData from "../../consts/bookinglist";
+import ListData from "../../consts/bookingList";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 1.8;
