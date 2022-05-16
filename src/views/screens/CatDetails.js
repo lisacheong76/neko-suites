@@ -51,7 +51,10 @@ const CatDetails = ({ navigation, route }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={style.headerImage} source={catData.image}>
+      <ImageBackground
+        style={style.headerImage}
+        source={{ uri: catData.image }}
+      >
         <View style={style.header}>
           <Icon
             name="arrow-back-ios"

@@ -150,7 +150,10 @@ const CatPage = () => {
               }
             >
               <Animated.View style={styles.CatsCard}>
-                <Image style={styles.CatsCardImage} source={item.image} />
+                <Image
+                  style={styles.CatsCardImage}
+                  source={{ uri: item.image }}
+                />
                 <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
                   <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                     {item.name}
