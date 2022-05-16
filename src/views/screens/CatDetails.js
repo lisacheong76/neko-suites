@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -7,11 +7,11 @@ import {
   Text,
   View,
   TouchableOpacity,
-} from 'react-native';
-import COLORS from '../../consts/colors';
-import Icon2 from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import COLORS from "../../consts/colors";
+import Icon2 from "react-native-vector-icons/MaterialIcons";
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import Icon3 from "react-native-vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {
   auth,
@@ -21,15 +21,11 @@ import {
   getDownloadURL,
 } from "../../../firebase";
 
-const CatDetails = ({navigation, route}) => {
-  const item = route.params;
-  const displayName = auth.currentUser.displayName;
-
+const CatDetails = ({ navigation, route }) => {
   const [catData, setCatData] = useState("");
-  const [url, setUrl] = useState("");
 
-  const getUser = async () => {
-    const userRef = firestore.collection("cats").doc(auth.currentUser.uid);
+  const getCat = async () => {
+    const userRef = firestore.collection("cats").doc(route.params.paramkey);
     const doc = await userRef.get();
     if (!doc.exists) {
       console.log("No such document!");
@@ -39,8 +35,7 @@ const CatDetails = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    getUser();
-    // getPhoto();
+    getCat();
   }, []);
 
   return (
@@ -49,13 +44,14 @@ const CatDetails = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
-      }}>
+      }}
+    >
       <StatusBar
         barStyle="light-content"
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={style.headerImage} source={item.image}>
+      <ImageBackground style={style.headerImage} source={catData.image}>
         <View style={style.header}>
           <Icon
             name="arrow-back-ios"
@@ -67,144 +63,152 @@ const CatDetails = ({navigation, route}) => {
       </ImageBackground>
       <View>
         <View style={style.header2}>
-          <Text style={{fontSize: 26, fontWeight: 'bold'}}>{catData.name}</Text>
+          <Text style={{ fontSize: 26, fontWeight: "bold" }}>
+            {catData.name}
+          </Text>
           <View
             style={{
               marginTop: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-          </View>
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          ></View>
           <Icon2
-          name="edit"
-          size={23}
-          color={"#665444"}
-          onPress={() => navigation.navigate("EditCatDetails")}
+            name="edit"
+            size={23}
+            color={"#665444"}
+            onPress={() =>
+              navigation.navigate("EditCatDetails", {
+                paramkey: route.params.paramkey,
+              })
+            }
           />
         </View>
         <View
           style={{
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Gender
-          </Text>
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Gender</Text>
           <View>
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
+                fontWeight: "bold",
+                color: "#665444",
                 marginLeft: 5,
                 marginRight: 15,
-              }}>
-                  {catData.gender ? catData.gender : "Gender not set"}
+              }}
+            >
+              {catData.gender ? catData.gender : "Gender not set"}
             </Text>
           </View>
         </View>
         <View
           style={{
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Birth Date
-          </Text>
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Birth Date</Text>
           <View>
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
+                fontWeight: "bold",
+                color: "#665444",
                 marginLeft: 5,
                 marginRight: 15,
-              }}>
-                  {catData.birth_date}
+              }}
+            >
+              {catData.birthdate ? catData.birthdate : "Not Set"}
             </Text>
           </View>
         </View>
         <View
           style={{
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Allergy
-          </Text>
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Allergy</Text>
           <View>
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
+                fontWeight: "bold",
+                color: "#665444",
                 marginLeft: 5,
                 marginRight: 15,
-              }}>
-                  {catData.allergy ? catData.allergy : "Not Set"}
-            </Text>
-          </View>
-        </View>
-      <View
-          style={{
-            marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Vaccinated
-          </Text>
-          <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
-                marginLeft: 5,
-                marginRight: 15,
-              }}>
-                  {catData.vaccinated ? catData.vaccinated : "Not Set"}
+              }}
+            >
+              {catData.allergy ? catData.allergy : "Not Set"}
             </Text>
           </View>
         </View>
         <View
           style={{
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Vaccinated</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#665444",
+                marginLeft: 5,
+                marginRight: 15,
+              }}
+            >
+              {catData.vaccinated ? catData.vaccinated : "Not Set"}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingLeft: 20,
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
             Neutered / Spayed
           </Text>
           <View>
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
+                fontWeight: "bold",
+                color: "#665444",
                 marginLeft: 5,
                 marginRight: 15,
-              }}>
-                  {catData.neutered ? catData.neutered : "Not Set"}
+              }}
+            >
+              {catData.neutered ? catData.neutered : "Not Set"}
             </Text>
           </View>
         </View>
         <View style={style.button}>
-        <Text style={style.buttonText}>Delete Cat</Text>
-      </View>
+          <Text style={style.buttonText}>Delete Cat</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -213,8 +217,8 @@ const CatDetails = ({navigation, route}) => {
 const style = StyleSheet.create({
   btn: {
     height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 40,
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
@@ -223,46 +227,46 @@ const style = StyleSheet.create({
 
   ages: {
     height: 40,
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 40,
     paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   iconContainer: {
-    position: 'absolute',
+    position: "absolute",
     height: 60,
     width: 60,
     backgroundColor: COLORS.primary,
     top: -30,
     right: 20,
     borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerImage: {
     height: 400,
     borderBottomRightRadius: 40,
     borderBottomLeftRadius: 40,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   header: {
     marginTop: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   header2: {
-    marginTop: 20, 
+    marginTop: 20,
     paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     // marginHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   container: {
     flex: 1,
@@ -271,16 +275,16 @@ const style = StyleSheet.create({
   },
   button: {
     height: 52,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '10%',
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "10%",
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: '700',
+    color: "white",
+    fontWeight: "700",
     fontSize: 16,
   },
 });

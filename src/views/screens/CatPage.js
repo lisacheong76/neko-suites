@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import {
   View,
@@ -17,32 +17,69 @@ import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import cats from "../../consts/catType";
+import { firestore, auth } from "../../../firebase";
 //import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 //import Icon3 from "react-native-vector-icons/FontAwesome5";
 
 const CatPage = () => {
   const navigation = useNavigation();
+  const [cats, setCats] = useState([]);
 
-  const CatsCard = ({ cat }) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => navigation.navigate("CatDetails", cat)}
-      >
-        <Animated.View style={styles.CatsCard}>
-          <Image style={styles.CatsCardImage} source={cat.image} />
-          <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>{cat.name}</Text>
-            <Text
-              style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}
-            >
-              {cat.age}
-            </Text>
-          </View>
-        </Animated.View>
-      </TouchableOpacity>
-    );
-  };
+  // const CatsCard = ({ cat }) => {
+  //   return (
+  //     <TouchableOpacity
+  //       activeOpacity={1}
+  //       onPress={() => navigation.navigate("CatDetails", cat)}
+  //     >
+  //       <Animated.View style={styles.CatsCard}>
+  //         <Image style={styles.CatsCardImage} source={cat.image} />
+  //         <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+  //           <Text style={{ fontSize: 16, fontWeight: "bold" }}>{cat.name}</Text>
+  //           <Text
+  //             style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}
+  //           >
+  //             {cat.age}
+  //           </Text>
+  //         </View>
+  //       </Animated.View>
+  //     </TouchableOpacity>
+  //   );
+  // };
+
+  const catRef = firestore
+    .collection("cats")
+    .where("owner", "==", auth.currentUser.uid);
+
+  useEffect(async () => {
+    catRef.onSnapshot((querySnapshot) => {
+      const catArray = [];
+      querySnapshot.forEach((doc) => {
+        const {
+          id,
+          allergy,
+          birthdate,
+          gender,
+          name,
+          neutered,
+          owner,
+          vaccinated,
+          image,
+        } = doc.data();
+        catArray.push({
+          id: doc.id,
+          allergy,
+          birthdate,
+          gender,
+          name,
+          neutered,
+          owner,
+          vaccinated,
+          image,
+        });
+      });
+      setCats(catArray);
+    });
+  }, []);
 
   return (
     <SafeAreaView
@@ -104,13 +141,38 @@ const CatPage = () => {
             marginTop: 20,
             paddingBottom: 30,
           }}
-          renderItem={({ item }) => <CatsCard cat={item} />}
+          // renderItem={({ item }) => <CatsCard cat={item} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() =>
+                navigation.navigate("CatDetails", { paramkey: item.id })
+              }
+            >
+              <Animated.View style={styles.CatsCard}>
+                <Image style={styles.CatsCardImage} source={item.image} />
+                <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+                  <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                    {item.name}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      fontWeight: "bold",
+                      color: COLORS.grey,
+                    }}
+                  >
+                    {item.birthdate}
+                  </Text>
+                </View>
+              </Animated.View>
+            </TouchableOpacity>
+          )}
         />
       </View>
     </SafeAreaView>
   );
 };
-
 export default CatPage;
 
 const styles = StyleSheet.create({

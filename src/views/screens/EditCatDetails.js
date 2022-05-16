@@ -36,15 +36,12 @@ import {
   getDownloadURL,
 } from "../../../firebase";
 
-const EditCatDetails = () => {
-  const navigation = useNavigation();
+const EditCatDetails = ({ navigation, route }) => {
   const [date, setDate] = useState("");
   const [catData, setCatData] = useState("");
-  const [url, setUrl] = useState("");
-  const [displayName, setDisplayName] = useState("");
 
-  const getUser = async () => {
-    const userRef = firestore.collection("cats").doc(auth.currentUser.uid);
+  const getCat = async () => {
+    const userRef = firestore.collection("cats").doc(route.params.paramkey);
     const doc = await userRef.get();
     if (!doc.exists) {
       console.log("No such document!");
@@ -54,28 +51,16 @@ const EditCatDetails = () => {
   };
 
   const handleUpdate = async () => {
-    // let imgUrl = await uploadImage();
-
-    // if( imgUrl == null && userData.userImg ) {
-    //   imgUrl = userData.userImg;
-    // }
-
-    updateProfile(auth.currentUser, {
-      displayName: displayName,
-      // photoURL: '/pawprint.jfif',
-    });
-
     firestore
       .collection("cats")
-      .doc(auth.currentUser.uid)
+      .doc(route.params.paramkey)
       .update({
         name: catData.name,
         gender: catData.gender,
-        birth_date: catData.birth_date,
+        birthdate: catData.birthdate,
         allergy: catData.allergy,
         vaccinated: catData.vaccinated,
         neutered: catData.neutered,
-        // userImg: imgUrl,
       })
       .then(() => {
         console.log("User Updated!");
@@ -96,8 +81,7 @@ const EditCatDetails = () => {
   };
 
   useEffect(() => {
-    getUser();
-    // getPhoto();
+    getCat();
   }, []);
 
   return (
