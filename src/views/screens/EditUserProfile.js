@@ -9,6 +9,7 @@ import {
   Alert,
   ScrollView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import {
   Avatar,
@@ -60,7 +61,7 @@ const EditUserProfile = () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -153,7 +154,9 @@ const EditUserProfile = () => {
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
-            <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("UserProfile")}
+            >
               <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
             </TouchableOpacity>
           }
@@ -179,10 +182,44 @@ const EditUserProfile = () => {
               }}
             >
               <TouchableOpacity onPress={() => pickImage()}>
-                <Avatar.Image
+                <View
+                  style={{
+                    height: 100,
+                    width: 100,
+                    borderRadius: 15,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <ImageBackground
+                    source={image ? { uri: image } : { uri: photo }}
+                    style={{ height: 95, width: 95 }}
+                    imageStyle={{ borderRadius: 50 }}
+                  >
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Icon
+                        name="camera"
+                        size={33}
+                        color="#fff"
+                        style={{
+                          opacity: 0.7,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      />
+                    </View>
+                  </ImageBackground>
+                </View>
+                {/* <Avatar.Image
                   source={image ? { uri: image } : { uri: photo }}
                   size={90}
-                />
+                /> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -195,7 +232,7 @@ const EditUserProfile = () => {
                   fontWeight: "bold",
                 }}
               >
-                Profile Picture
+                Change Photo
               </Text>
             </View>
           </View>

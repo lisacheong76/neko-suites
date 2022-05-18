@@ -88,7 +88,9 @@ const UserProfile = () => {
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
           rightComponent={
-            <TouchableOpacity onPress={() => navigation.navigate("EditUserProfile")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("EditUserProfile")}
+            >
               <Icon2 name="edit" size={23} color={"#fff"} />
             </TouchableOpacity>
           }
