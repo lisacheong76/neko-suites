@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import {
   Avatar,
@@ -20,8 +21,10 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import * as ImagePicker from "expo-image-picker";
 import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
+import uuid from "uuid";
 import {
   auth,
   firestore,
@@ -29,20 +32,16 @@ import {
   getStorage,
   ref,
   getDownloadURL,
+  uploadBytes,
 } from "../../../firebase";
-
-// import Share from 'react-native-share';
-
-// import files from "../../assets/filesBase64";
 
 const EditAdminProfile = () => {
   const navigation = useNavigation();
 
-  const email = auth.currentUser.email;
   const photo = auth.currentUser.photoURL;
 
   const [userData, setUserData] = useState("");
-  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
   const [displayName, setDisplayName] = useState(auth.currentUser.displayName);
 
   const getUser = async () => {
@@ -55,24 +54,66 @@ const EditAdminProfile = () => {
     }
   };
 
-  const getPhoto = async () => {
-    const storage = getStorage();
-    const reference = ref(storage, photo);
-    await getDownloadURL(reference).then((x) => {
-      setUrl(x);
+  const pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
     });
+
+    console.log({ pickerResult });
+
+    if (!pickerResult.cancelled) {
+      setImage(pickerResult);
+    }
+
+    handleImagePicked(pickerResult);
   };
 
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      // this.setState({ uploading: true });
+      setImage({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadImageAsync(pickerResult.uri);
+        // this.setState({ image: uploadUrl });
+        setImage(uploadUrl);
+      }
+    } catch (e) {
+      console.log(e);
+      alert("Upload failed, sorry :(");
+    }
+  };
+
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+
+    const fileRef = ref(getStorage(), uuid.v4());
+    const result = await uploadBytes(fileRef, blob);
+
+    // blob.close();
+
+    return await getDownloadURL(fileRef);
+  }
+
   const handleUpdate = async () => {
-    // let imgUrl = await uploadImage();
-
-    // if( imgUrl == null && userData.userImg ) {
-    //   imgUrl = userData.userImg;
-    // }
-
     updateProfile(auth.currentUser, {
       displayName: displayName,
-      // photoURL: '/pawprint.jfif',
+      photoURL: image,
     });
 
     firestore
@@ -81,7 +122,6 @@ const EditAdminProfile = () => {
       .update({
         name: userData.name,
         phone: userData.phone,
-        // userImg: imgUrl,
       })
       .then(() => {
         console.log("User Updated!");
@@ -97,13 +137,8 @@ const EditAdminProfile = () => {
     navigation.replace("AdminProfile");
   };
 
-  const handleBack = () => {
-    navigation.replace("AdminProfile");
-  };
-
   useEffect(() => {
     getUser();
-    // getPhoto();
   }, []);
 
   // const myCustomShare = async() => {
@@ -159,10 +194,46 @@ const EditAdminProfile = () => {
                 justifyContent: "center",
               }}
             >
-              <Avatar.Image
-                source={require("../../assets/adminpic.jpg")}
-                size={90}
-              />
+              <TouchableOpacity onPress={() => pickImage()}>
+                <View
+                  style={{
+                    height: 100,
+                    width: 100,
+                    borderRadius: 15,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <ImageBackground
+                    source={image ? { uri: image } : { uri: photo }}
+                    style={{ height: 95, width: 95 }}
+                    imageStyle={{ borderRadius: 50 }}
+                  >
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Icon
+                        name="camera"
+                        size={33}
+                        color="#fff"
+                        style={{
+                          opacity: 0.7,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      />
+                    </View>
+                  </ImageBackground>
+                </View>
+                {/* <Avatar.Image
+                  source={image ? { uri: image } : { uri: photo }}
+                  size={90}
+                /> */}
+              </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text
@@ -174,7 +245,7 @@ const EditAdminProfile = () => {
                   fontWeight: "bold",
                 }}
               >
-                Profile Picture
+                Change Photo
               </Text>
             </View>
           </View>

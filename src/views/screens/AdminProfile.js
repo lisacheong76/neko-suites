@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import {
   Avatar,
@@ -19,7 +20,6 @@ import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Header } from "react-native-elements";
-import AdminChangePassword from "./AdminChangePassword";
 import {
   auth,
   firestore,
@@ -39,7 +39,16 @@ const AdminProfile = () => {
   const photo = auth.currentUser.photoURL;
 
   const [userData, setUserData] = useState("");
-  const [url, setUrl] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   const getUser = async () => {
     const userRef = firestore.collection("users").doc(auth.currentUser.uid);
@@ -51,17 +60,8 @@ const AdminProfile = () => {
     }
   };
 
-  const getPhoto = async () => {
-    const storage = getStorage();
-    const reference = ref(storage, photo);
-    await getDownloadURL(reference).then((x) => {
-      setUrl(x);
-    });
-  };
-
   useEffect(() => {
     getUser();
-    // getPhoto();
   }, []);
 
   // const myCustomShare = async() => {
@@ -83,12 +83,17 @@ const AdminProfile = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
-            <TouchableOpacity onPress={navigation.goBack}>
+            <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
               <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
             </TouchableOpacity>
           }
@@ -128,10 +133,7 @@ const AdminProfile = () => {
                 justifyContent: "center",
               }}
             >
-              <Avatar.Image
-                source={require("../../assets/adminpic.jpg")}
-                size={90}
-              />
+              <Avatar.Image source={{ uri: photo }} size={90} />
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Title

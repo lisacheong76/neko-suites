@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import {
   Dimensions,
   SectionList,
@@ -14,7 +14,9 @@ import {
   Animated,
   Button,
   ImageBackground,
+  LogBox,
 } from "react-native";
+import { Header } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import { auth } from "../../../firebase";
@@ -26,6 +28,7 @@ const cardWidth = width / 1.8;
 
 const Dashboard = ({ route }) => {
   const navigation = useNavigation();
+  const photo = auth.currentUser.photoURL;
   // console.log('What is this:', route.params.paramKey);
 
   const handleSignOut = () => {
@@ -46,69 +49,105 @@ const Dashboard = ({ route }) => {
     </View>
   );
 
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      <View style={style.header}>
-        <View style={{ paddingBottom: 0 }}>
-          <Text style={{ fontSize: 30, fontWeight: "bold", color: "#665444" }}>
-            Welcome {route.params.paramKey}
-          </Text>
+      <ScrollView>
+        <Header
+          backgroundColor="#e8a468"
+          placement="center"
+          leftComponent={
+            <TouchableOpacity>
+              <Icon
+                name="menu"
+                size={23}
+                color={"#fff"}
+                style={{ paddingTop: 10 }}
+              />
+            </TouchableOpacity>
+          }
+          centerComponent={{
+            text: "DASHBOARD",
+            style: {
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: 18,
+              paddingTop: 10,
+            },
+          }}
+          rightComponent={
+            <TouchableOpacity
+              onPress={() => navigation.replace("AdminProfile")}
+            >
+              <ImageBackground
+                source={{ uri: photo }}
+                style={{ width: 38, height: 38 }}
+                imageStyle={{ borderRadius: 25 }}
+              />
+            </TouchableOpacity>
+          }
+        />
+        <View style={style.header}>
+          <View>
+            <Text
+              style={{ fontSize: 30, fontWeight: "bold", color: "#665444" }}
+            >
+              Welcome Admin
+              {/* {route.params.paramKey} */}
+            </Text>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("AdminProfile")}>
-          <ImageBackground
-            source={require("../../assets/adminpic.jpg")}
-            style={{ width: 45, height: 45 }}
-            imageStyle={{ borderRadius: 25 }}
-          />
-        </TouchableOpacity>
-      </View>
 
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity style={style.menuButton}>
-          <Image
-            source={require("../../assets/animal-shelter.png")}
-            resizeMode="center"
-            style={style.menuImage}
-          />
-          <Text style={style.menuText}>Manage Bookings</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity style={style.menuButton}>
+            <Image
+              source={require("../../assets/animal-shelter.png")}
+              resizeMode="center"
+              style={style.menuImage}
+            />
+            <Text style={style.menuText}>Manage Bookings</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.menuButton}>
-          <Image
-            source={require("../../assets/event.png")}
-            resizeMode="center"
-            style={style.menuImage2}
-          />
-          <Text style={style.menuText}>Manage Events</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={style.menuButton}>
+            <Image
+              source={require("../../assets/event.png")}
+              resizeMode="center"
+              style={style.menuImage2}
+            />
+            <Text style={style.menuText}>Manage Events</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.menuButton}>
-          <Image
-            source={require("../../assets/feedback.png")}
-            resizeMode="center"
-            style={style.menuImage3}
-          />
-          <Text style={style.menuText}>View Feedback</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={style.menuButton}>
+            <Image
+              source={require("../../assets/feedback.png")}
+              resizeMode="center"
+              style={style.menuImage3}
+            />
+            <Text style={style.menuText}>View Feedback</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={{ paddingTop: 30 }}>
-        <Text style={style.header2}>Recent Bookings</Text>
-      </View>
-      <SectionList
-        style={style.container2}
-        sections={ListData}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => <Item title={item} />}
-      />
-      <View style={style.container1}>
-        {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-        <TouchableOpacity onPress={handleSignOut} style={style.button}>
-          <Text style={style.buttonText}>Sign out</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={{ paddingTop: 30 }}>
+          <Text style={style.header2}>Recent Bookings</Text>
+        </View>
+        <SectionList
+          style={style.container2}
+          sections={ListData}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({ item }) => <Item title={item} />}
+        />
+        <View style={style.container1}>
+          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+          <TouchableOpacity onPress={handleSignOut} style={style.button}>
+            <Text style={style.buttonText}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
