@@ -24,6 +24,7 @@ import { firestore, auth } from "../../../firebase";
 const CatPage = () => {
   const navigation = useNavigation();
   const [cats, setCats] = useState([]);
+  const [numCols, setColumnNo] = useState(2);
 
   // const CatsCard = ({ cat }) => {
   //   return (
@@ -136,11 +137,11 @@ const CatPage = () => {
         <FlatList
           data={cats}
           contentContainerStyle={{
-            flexDirection: "row",
-            flexWrap: "wrap",
             marginTop: 20,
             paddingBottom: 30,
           }}
+          key={numCols}
+          numColumns={numCols}
           // renderItem={({ item }) => <CatsCard cat={item} />}
           renderItem={({ item }) => (
             <TouchableOpacity
