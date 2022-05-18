@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dimensions,
   FlatList,
@@ -13,8 +13,10 @@ import {
   Image,
   Animated,
   ImageBackground,
+  StatusBar,
+  LogBox,
 } from "react-native";
-import {Header} from "react-native-elements";
+import { Header } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import hotels from "../../consts/roomType";
@@ -27,6 +29,7 @@ const cardWidth = width / 1.8;
 const Homepage = () => {
   const navigation = useNavigation();
   const photo = auth.currentUser.photoURL;
+  const [numCols, setColumnNo] = useState(2);
 
   const handleSignOut = () => {
     auth
@@ -36,6 +39,10 @@ const Homepage = () => {
       })
       .catch((error) => alert(error.message));
   };
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
 
   // const categories = ['All', 'Popular', 'Top Rated', 'Featured', 'Luxury'];
   // const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
@@ -169,104 +176,115 @@ const Homepage = () => {
 
   return (
     <ScrollView>
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 10 }}
-    >
-      <Header
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 10 }}
+      >
+        <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
-            <TouchableOpacity >
-              <Icon name="menu" size={23} color={"#fff"} style={{paddingTop: 10}} />
+            <TouchableOpacity>
+              <Icon
+                name="menu"
+                size={23}
+                color={"#fff"}
+                style={{ paddingTop: 10 }}
+              />
             </TouchableOpacity>
           }
           centerComponent={{
             text: "NEKO SUITES",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 18, paddingTop: 10 },
+            style: {
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: 18,
+              paddingTop: 10,
+            },
           }}
           rightComponent={
             <TouchableOpacity onPress={() => navigation.replace("UserProfile")}>
-          <ImageBackground
-            source={{ uri: photo }}
-            style={{ width: 38, height: 38 }}
-            imageStyle={{ borderRadius: 25 }}
-          />
-        </TouchableOpacity>
+              <ImageBackground
+                source={{ uri: photo }}
+                style={{ width: 38, height: 38 }}
+                imageStyle={{ borderRadius: 25 }}
+              />
+            </TouchableOpacity>
           }
         />
-      
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <View style={style.searchInputContainer}>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* <View style={style.searchInputContainer}>
           <Icon name="search" size={30} style={{marginLeft: 20}} />
           <TextInput
             placeholder="Search"
             style={{fontSize: 20, paddingLeft: 10}}
           />
         </View> */}
-        <View>
-          <Animated.FlatList
-            onMomentumScrollEnd={(e) => {
-              setActiveCardIndex(
-                Math.round(e.nativeEvent.contentOffset.x / cardWidth)
-              );
-            }}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              { useNativeDriver: true }
-            )}
-            horizontal
-            data={hotels}
-            contentContainerStyle={{
-              paddingVertical: 30,
-              paddingLeft: 20,
-              paddingRight: cardWidth / 2 - 40,
-            }}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <Card hotel={item} index={index} />
-            )}
-            snapToInterval={cardWidth}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 20,
-          }}
-        >
-          <Text
+          <View>
+            <Animated.FlatList
+              onMomentumScrollEnd={(e) => {
+                setActiveCardIndex(
+                  Math.round(e.nativeEvent.contentOffset.x / cardWidth)
+                );
+              }}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                { useNativeDriver: true }
+              )}
+              horizontal
+              data={hotels}
+              contentContainerStyle={{
+                paddingVertical: 30,
+                paddingLeft: 20,
+                paddingRight: cardWidth / 2 - 40,
+              }}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item, index }) => (
+                <Card hotel={item} index={index} />
+              )}
+              snapToInterval={cardWidth}
+            />
+          </View>
+          <View
             style={{
-              fontWeight: "bold",
-              color: "#665444",
-              marginLeft: 12,
-              marginBottom: -30,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginHorizontal: 20,
             }}
           >
-            Other Services
-          </Text>
-        </View>
-        <FlatList
-          data={services}
-          contentContainerStyle={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            paddingLeft: 20,
-            marginTop: 20,
-            paddingBottom: 30,
-          }}
-          renderItem={({ item, index }) => (
-            <ServiceCard service={item} index={index} />
-          )}
-        />
-        <View style={style.container}>
-          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-          <TouchableOpacity onPress={handleSignOut} style={style.button}>
-            <Text style={style.buttonText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView></ScrollView>
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "#665444",
+                marginLeft: 12,
+                marginBottom: -30,
+              }}
+            >
+              Other Services
+            </Text>
+          </View>
+          <FlatList
+            data={services}
+            contentContainerStyle={{
+              paddingLeft: 20,
+              marginTop: 20,
+              paddingBottom: 30,
+            }}
+            key={numCols}
+            numColumns={numCols}
+            renderItem={({ item, index }) => (
+              <ServiceCard service={item} index={index} />
+            )}
+          />
+          <View style={style.container}>
+            {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+            <TouchableOpacity onPress={handleSignOut} style={style.button}>
+              <Text style={style.buttonText}>Sign out</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
