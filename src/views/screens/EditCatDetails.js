@@ -9,6 +9,7 @@ import {
   Alert,
   ScrollView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import {
   Avatar,
@@ -27,6 +28,7 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import * as ImagePicker from "expo-image-picker";
 import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
+import uuid from "uuid";
 import {
   auth,
   firestore,
@@ -34,11 +36,15 @@ import {
   getStorage,
   ref,
   getDownloadURL,
+  uploadBytes,
 } from "../../../firebase";
 
 const EditCatDetails = ({ navigation, route }) => {
   const [date, setDate] = useState("");
   const [catData, setCatData] = useState("");
+  const [image, setImage] = useState("");
+
+  const photo = auth.currentUser.photoURL;
 
   const getCat = async () => {
     const userRef = firestore.collection("cats").doc(route.params.paramkey);
@@ -50,7 +56,68 @@ const EditCatDetails = ({ navigation, route }) => {
     }
   };
 
+  const pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log({ pickerResult });
+
+    if (!pickerResult.cancelled) {
+      setImage(pickerResult);
+    }
+
+    handleImagePicked(pickerResult);
+  };
+
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      // this.setState({ uploading: true });
+      setImage({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadImageAsync(pickerResult.uri);
+        // this.setState({ image: uploadUrl });
+        setImage(uploadUrl);
+      }
+    } catch (e) {
+      console.log(e);
+      alert("Upload failed, sorry :(");
+    }
+  };
+
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+
+    const fileRef = ref(getStorage(), uuid.v4());
+    const result = await uploadBytes(fileRef, blob);
+
+    // blob.close();
+
+    return await getDownloadURL(fileRef);
+  }
+
   const handleUpdate = async () => {
+    updateProfile(auth.currentUser, {
+      // displayName: displayName,
+      photoURL: image,
+    });
+
     firestore
       .collection("cats")
       .doc(route.params.paramkey)
@@ -73,10 +140,6 @@ const EditCatDetails = ({ navigation, route }) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.replace("CatDetails");
-  };
-
-  const handleBack = () => {
     navigation.replace("CatDetails");
   };
 
@@ -110,21 +173,68 @@ const EditCatDetails = ({ navigation, route }) => {
 
         <View>
           <View style={styles.userInfoSection}>
-            {/* <View
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 25,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity onPress={() => pickImage()}>
+                <View
                   style={{
-                    flexDirection: "row",
-                    marginTop: 15,
-                    alignItems: "center",
+                    height: 100,
+                    width: 100,
+                    borderRadius: 15,
                     justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  {/* <TouchableOpacity onPress={() => pickImage()}>
-                    <Avatar.Image
-                      source={{ uri: image ? image : photo }}
-                      size={90}
-                    />
-                  </TouchableOpacity> 
-                </View> */}
+                  <ImageBackground
+                    source={image ? { uri: image } : { uri: photo }}
+                    style={{ height: 95, width: 95 }}
+                    imageStyle={{ borderRadius: 50 }}
+                  >
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Icon
+                        name="camera"
+                        size={33}
+                        color="#fff"
+                        style={{
+                          opacity: 0.7,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      />
+                    </View>
+                  </ImageBackground>
+                </View>
+                {/* <Avatar.Image
+                  source={image ? { uri: image } : { uri: photo }}
+                  size={90}>
+                <Icon
+                    name="camera"
+                    size={90}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
+                  />
+                </Avatar.Image> */}
+              </TouchableOpacity>
+            </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text
                 style={{
@@ -135,7 +245,7 @@ const EditCatDetails = ({ navigation, route }) => {
                   fontWeight: "bold",
                 }}
               >
-                Profile Picture
+                Change Photo
               </Text>
             </View>
           </View>
