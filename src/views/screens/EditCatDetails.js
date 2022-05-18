@@ -30,9 +30,7 @@ import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
-  auth,
   firestore,
-  updateProfile,
   getStorage,
   ref,
   getDownloadURL,
@@ -44,11 +42,9 @@ const EditCatDetails = ({ navigation, route }) => {
   const [catData, setCatData] = useState("");
   const [image, setImage] = useState("");
 
-  const photo = auth.currentUser.photoURL;
-
   const getCat = async () => {
-    const userRef = firestore.collection("cats").doc(route.params.paramkey);
-    const doc = await userRef.get();
+    const catRef = firestore.collection("cats").doc(route.params.paramkey);
+    const doc = await catRef.get();
     if (!doc.exists) {
       console.log("No such document!");
     } else {
@@ -113,18 +109,13 @@ const EditCatDetails = ({ navigation, route }) => {
   }
 
   const handleUpdate = async () => {
-    updateProfile(auth.currentUser, {
-      // displayName: displayName,
-      photoURL: image,
-    });
-
     firestore
       .collection("cats")
       .doc(route.params.paramkey)
       .update({
         name: catData.name,
         gender: catData.gender,
-        birthdate: catData.birthdate,
+        birthdate: date,
         allergy: catData.allergy,
         vaccinated: catData.vaccinated,
         neutered: catData.neutered,
@@ -140,7 +131,7 @@ const EditCatDetails = ({ navigation, route }) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.replace("CatDetails");
+    navigation.replace("CatPage");
   };
 
   useEffect(() => {
@@ -192,7 +183,7 @@ const EditCatDetails = ({ navigation, route }) => {
                   }}
                 >
                   <ImageBackground
-                    source={image ? { uri: image } : { uri: photo }}
+                    source={image ? { uri: image } : { uri: catData.image }}
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -322,7 +313,7 @@ const EditCatDetails = ({ navigation, route }) => {
                 style={styles.datePickerStyle}
                 date={date}
                 mode="date"
-                placeholder="Select date"
+                placeholder={catData.birthdate}
                 format="DD/MM/YYYY"
                 minDate="01-01-1900"
                 showIcon={false}

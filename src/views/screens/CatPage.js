@@ -147,7 +147,7 @@ const CatPage = () => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() =>
-                navigation.navigate("CatDetails", { paramkey: item.id })
+                navigation.replace("CatDetails", { paramkey: item.id })
               }
             >
               <Animated.View style={styles.CatsCard}>

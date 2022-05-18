@@ -81,7 +81,7 @@ const CatDetails = ({ navigation, route }) => {
             size={23}
             color={"#665444"}
             onPress={() =>
-              navigation.navigate("EditCatDetails", {
+              navigation.replace("EditCatDetails", {
                 paramkey: route.params.paramkey,
               })
             }
