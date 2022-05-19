@@ -7,6 +7,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
@@ -63,6 +64,7 @@ const CatDetails = ({ navigation, route }) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
+        flex: 1
       }}
     >
       <StatusBar

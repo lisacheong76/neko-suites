@@ -140,9 +140,7 @@ const EditCatDetails = ({ navigation, route }) => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <SafeAreaView
-        style={{ backgroundColor: COLORS.background, paddingTop: 20 }}
-      >
+      <SafeAreaView style={{ backgroundColor: COLORS.background }}>
         <Header
           backgroundColor="#e8a468"
           placement="center"
@@ -155,11 +153,6 @@ const EditCatDetails = ({ navigation, route }) => {
             text: "CAT DETAILS",
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
-          rightComponent={
-            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
-              <Icon2 name="home" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
         />
 
         <View>

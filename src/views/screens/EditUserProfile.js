@@ -146,10 +146,8 @@ const EditUserProfile = () => {
   }, []);
 
   return (
-    <ScrollView>
-      <SafeAreaView
-        style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
-      >
+    <ScrollView stickyHeaderIndices={[0]}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
         <Header
           backgroundColor="#e8a468"
           placement="center"
@@ -164,11 +162,6 @@ const EditUserProfile = () => {
             text: "EDIT PROFILE",
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
-          rightComponent={
-            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
-              <Icon2 name="home" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
         />
 
         <View>

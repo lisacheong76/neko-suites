@@ -54,9 +54,7 @@ const Dashboard = ({ route }) => {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <ScrollView>
         <Header
           backgroundColor="#e8a468"

@@ -122,7 +122,7 @@ const AddCats = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+      style={{ flex: 1, backgroundColor: COLORS.background }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header

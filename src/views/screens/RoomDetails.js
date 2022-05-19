@@ -19,6 +19,7 @@ const RoomDetails = ({ navigation, route }) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
+        flex: 1
       }}
     >
       <StatusBar

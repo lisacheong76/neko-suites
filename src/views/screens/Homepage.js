@@ -177,7 +177,7 @@ const Homepage = () => {
   return (
     <ScrollView>
       <SafeAreaView
-        style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 10 }}
+        style={{ flex: 1, backgroundColor: COLORS.background }}
       >
         <Header
           backgroundColor="#e8a468"

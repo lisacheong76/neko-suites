@@ -109,9 +109,7 @@ const AdminChangePassword = () => {
   // };
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <ScrollView>
         <Header
           backgroundColor="#e8a468"
@@ -139,10 +137,7 @@ const AdminChangePassword = () => {
                 justifyContent: "center",
               }}
             >
-              <Avatar.Image
-                source={require("../../assets/adminpic.jpg")}
-                size={90}
-              />
+              <Avatar.Image source={{ uri: photo }} size={90} />
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Title

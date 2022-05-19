@@ -66,9 +66,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
