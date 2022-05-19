@@ -31,7 +31,6 @@ import uuid from "uuid";
 import {
   auth,
   firestore,
-  updateProfile,
   getStorage,
   ref,
   getDownloadURL,
@@ -80,32 +79,16 @@ const AddCats = () => {
   };
 
   const handleAdd = async () => {
-    // updateProfile(auth.currentUser, {
-    //   // displayName: displayName,
-    //   photoURL: image,
-    // });
-
-    // firestore
-    //   .collection("cats")
-    //   .doc(route.params.paramkey)
-    //   .update({
-    //     name: catData.name,
-    //     gender: catData.gender,
-    //     birthdate: catData.birthdate,
-    //     allergy: catData.allergy,
-    //     vaccinated: catData.vaccinated,
-    //     neutered: catData.neutered,
-    //   })
-    //   .then(() => {
-    //     console.log("User Updated!");
-    //     Alert.alert(
-    //       "Cat Details Updated!",
-    //       "Your cat details has been updated successfully :3"
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     alert(firebaseErrors[error.code] || error.message);
-    //   });
+    firestore.collection("cats").add({
+      name: catData.name,
+      gender: catData.gender,
+      birthdate: date,
+      allergy: catData.allergy,
+      vaccinated: catData.vaccinated,
+      neutered: catData.neutered,
+      owner: auth.currentUser.uid,
+      image: image,
+    });
 
     navigation.replace("CatPage");
   };
@@ -177,7 +160,7 @@ const AddCats = () => {
                   }}
                 >
                   <ImageBackground
-                    source={image ? { uri: image } : { uri: photo }}
+                    source={image ? { uri: image } : { uri: catData.image }}
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -424,7 +407,9 @@ const AddCats = () => {
         </View>
 
         <View style={styles.button}>
-          <Text style={styles.buttonText}>Save Cat</Text>
+          <Text style={styles.buttonText} onPress={handleAdd}>
+            Save Cat
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
