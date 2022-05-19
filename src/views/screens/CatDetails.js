@@ -24,6 +24,25 @@ import {
 const CatDetails = ({ navigation, route }) => {
   const [catData, setCatData] = useState("");
 
+  const handleDelete = async () => {
+    firestore
+      .collection("cats")
+      .doc(route.params.paramkey)
+      .delete()
+      .then(() => {
+        console.log("Doc deleted");
+        Alert.alert(
+          "Cat Details Deleted!",
+          "Your cat details has been deleted successfully :3"
+        );
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+
+    navigation.replace("CatPage");
+  };
+
   const getCat = async () => {
     const userRef = firestore.collection("cats").doc(route.params.paramkey);
     const doc = await userRef.get();
@@ -210,7 +229,9 @@ const CatDetails = ({ navigation, route }) => {
           </View>
         </View>
         <View style={style.button}>
-          <Text style={style.buttonText}>Delete Cat</Text>
+          <Text style={style.buttonText} onPress={handleDelete}>
+            Delete Cat
+          </Text>
         </View>
       </View>
     </ScrollView>
