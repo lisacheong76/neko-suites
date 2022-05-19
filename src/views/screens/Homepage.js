@@ -175,10 +175,8 @@ const Homepage = () => {
   };
 
   return (
-    <ScrollView>
-      <SafeAreaView
-        style={{ flex: 1, backgroundColor: COLORS.background }}
-      >
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
         <Header
           backgroundColor="#e8a468"
           placement="center"

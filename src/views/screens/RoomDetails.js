@@ -18,8 +18,7 @@ const RoomDetails = ({ navigation, route }) => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: COLORS.white,
-        paddingBottom: 20,
-        flex: 1
+        paddingBottom: 20,  
       }}
     >
       <StatusBar
