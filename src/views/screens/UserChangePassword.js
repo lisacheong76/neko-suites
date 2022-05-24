@@ -82,7 +82,7 @@ const UserChangePassword = () => {
   return (
     <ScrollView>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        <Header
+        {/* <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
@@ -96,7 +96,7 @@ const UserChangePassword = () => {
             text: "CHANGE PASSWORD",
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
-        />
+        /> */}
 
         <View>
           <View style={styles.userInfoSection}>

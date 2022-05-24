@@ -139,9 +139,9 @@ const EditCatDetails = ({ navigation, route }) => {
   }, []);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <SafeAreaView style={{ backgroundColor: COLORS.background }}>
-        <Header
+    
+      <SafeAreaView style={{ backgroundColor: COLORS.background }}><ScrollView showsVerticalScrollIndicator={false}>
+        {/* <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
@@ -150,17 +150,17 @@ const EditCatDetails = ({ navigation, route }) => {
             </TouchableOpacity>
           }
           centerComponent={{
-            text: "CAT DETAILS",
+            text: "EDIT CAT DETAILS",
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
-        />
+        /> */}
 
         <View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 25,
+                marginTop: 20,
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -443,9 +443,9 @@ const EditCatDetails = ({ navigation, route }) => {
           <Text style={styles.buttonText} onPress={handleUpdate}>
             Save Edit
           </Text>
-        </View>
+        </View></ScrollView>
       </SafeAreaView>
-    </ScrollView>
+    
   );
 };
 

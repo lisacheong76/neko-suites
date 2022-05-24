@@ -65,6 +65,15 @@ const UserProfile = () => {
     getUser();
   }, []);
 
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login");
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <ScrollView
@@ -73,7 +82,7 @@ const UserProfile = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Header
+        {/* <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
@@ -92,7 +101,7 @@ const UserProfile = () => {
               <Icon2 name="edit" size={23} color={"#fff"} />
             </TouchableOpacity>
           }
-        />
+        /> */}
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -172,11 +181,11 @@ const UserProfile = () => {
           </TouchableRipple>
           <TouchableRipple
             style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
-            onPress={() => navigation.navigate("CatPage")}
+            onPress={handleSignOut}
           >
             <View style={styles.menuItem}>
-              <Icon name="cat" color="#fa9c4b" size={25} />
-              <Text style={styles.menuItemText}>Your Cat</Text>
+              <Icon name="logout" color="#fa9c4b" size={25} />
+              <Text style={styles.menuItemText}>Log out</Text>
               <Icon2
                 name="keyboard-arrow-right"
                 color="grey"
@@ -229,7 +238,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   menuWrapper: {
-    marginTop: 10,
+    marginTop: 0,
   },
   menuItem: {
     flexDirection: "row",

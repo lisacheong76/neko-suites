@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "neko-suites",
+    "name": "Neko Suites",
     "slug": "neko-suites",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/applogo.png",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/catsplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/applogo.png",
         "backgroundColor": "#FFFFFF"
       }
     },

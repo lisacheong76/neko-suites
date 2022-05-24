@@ -8,6 +8,7 @@ const COLORS = {
     light: '#f9f9f9',
     grey: '#908e8c',
     orange: '#f5a623',
+    darkbrown: '#665444',
   };
   
   export default COLORS;

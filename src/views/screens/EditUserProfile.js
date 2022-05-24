@@ -148,7 +148,7 @@ const EditUserProfile = () => {
   return (
     <ScrollView stickyHeaderIndices={[0]}>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        <Header
+        {/* <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
@@ -162,7 +162,7 @@ const EditUserProfile = () => {
             text: "EDIT PROFILE",
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
-        />
+        /> */}
 
         <View>
           <View style={styles.userInfoSection}>

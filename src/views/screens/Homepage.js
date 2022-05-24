@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -14,7 +14,6 @@ import {
   Animated,
   ImageBackground,
   StatusBar,
-  LogBox,
 } from "react-native";
 import { Header } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -31,18 +30,14 @@ const Homepage = () => {
   const photo = auth.currentUser.photoURL;
   const [numCols, setColumnNo] = useState(2);
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Login");
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
-  }, []);
+  // const handleSignOut = () => {
+  //   auth
+  //     .signOut()
+  //     .then(() => {
+  //       navigation.replace("Login");
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
 
   // const categories = ['All', 'Popular', 'Top Rated', 'Featured', 'Luxury'];
   // const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
@@ -177,7 +172,7 @@ const Homepage = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        <Header
+        {/* <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
@@ -208,7 +203,7 @@ const Homepage = () => {
               />
             </TouchableOpacity>
           }
-        />
+        /> */}
 
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* <View style={style.searchInputContainer}>
@@ -274,12 +269,12 @@ const Homepage = () => {
               <ServiceCard service={item} index={index} />
             )}
           />
-          <View style={style.container}>
-            {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-            <TouchableOpacity onPress={handleSignOut} style={style.button}>
+          {/* <View style={style.container}> */}
+          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+          {/* <TouchableOpacity onPress={handleSignOut} style={style.button}>
               <Text style={style.buttonText}>Sign out</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </ScrollView>
       </SafeAreaView>
     </ScrollView>

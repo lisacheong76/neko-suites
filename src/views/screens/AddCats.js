@@ -125,7 +125,7 @@ const AddCats = () => {
       style={{ flex: 1, backgroundColor: COLORS.background }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header
+        {/* <Header
           backgroundColor="#e8a468"
           placement="center"
           leftComponent={
@@ -137,14 +137,14 @@ const AddCats = () => {
             text: "ADD CATS",
             style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
           }}
-        />
+        /> */}
 
         <View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 25,
+                marginTop: 15,
                 alignItems: "center",
                 justifyContent: "center",
               }}

@@ -86,28 +86,9 @@ const CatPage = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
     >
-      {/* header */}
-      <Header
-        backgroundColor="#e8a468"
-        placement="center"
-        leftComponent={
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-          </TouchableOpacity>
-        }
-        centerComponent={{
-          text: "YOUR CAT",
-          style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-        }}
-        rightComponent={
-          <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
-            <Icon2 name="home" size={23} color={"#fff"} />
-          </TouchableOpacity>
-        }
-      />
 
       {/* for button */}
-      <View style={{ flexDirection: "row" }}>
+      {/* <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           onPress={() => navigation.navigate("AddCats")}
           style={styles.menuButton}
@@ -119,11 +100,11 @@ const CatPage = () => {
           />
           <Text style={styles.menuText}>Add new cat</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* cats */}
       <View style={styles.container}>
-        <Text
+        {/* <Text
           style={{
             fontWeight: "bold",
             color: "#665444",
@@ -133,11 +114,11 @@ const CatPage = () => {
           }}
         >
           Registered Cat Lists
-        </Text>
+        </Text> */}
         <FlatList
           data={cats}
           contentContainerStyle={{
-            marginTop: 20,
+            
             paddingBottom: 30,
           }}
           key={numCols}
@@ -182,7 +163,7 @@ export default CatPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    
     marginLeft: 10,
   },
   userInfoSection: {
