@@ -21,7 +21,7 @@ import Register from "./src/views/screens/Register";
 import Dashboard from "./src/views/screens/Dashboard";
 import ResetPassword from "./src/views/screens/ResetPassword";
 import RoomDetails from "./src/views/screens/RoomDetails";
-import RoomDetails2 from "./src/views/screens/RoomDetails2";
+// import RoomDetails2 from "./src/views/screens/RoomDetails2";
 import UserProfile from "./src/views/screens/UserProfile";
 import EditUserProfile from "./src/views/screens/EditUserProfile";
 import ServiceLists from "./src/views/screens/ServiceLists";
@@ -33,6 +33,9 @@ import CatPage from "./src/views/screens/CatPage";
 import CatDetails from "./src/views/screens/CatDetails";
 import AddCats from "./src/views/screens/AddCats";
 import EditCatDetails from "./src/views/screens/EditCatDetails";
+import AdminCatPage from "./src/views/screens/AdminCatPage";
+import AdminCatDetails from "./src/views/screens/AdminCatDetails";
+import AdminAddCats from "./src/views/screens/AdminAddCats";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -77,16 +80,34 @@ export default function App() {
           component={RoomDetails}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{ headerShown: false }}
           name="RoomDetails2"
           component={RoomDetails2}
-        />
+        /> */}
 
         <Stack.Screen
           options={{ headerShown: false }}
           name="UserProfile"
           component={UserProfile}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminCatPage"
+          component={AdminCatPage}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminCatDetails"
+          component={AdminCatDetails}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminAddCats"
+          component={AdminAddCats}
         />
 
         <Stack.Screen
@@ -113,15 +134,9 @@ export default function App() {
           component={ServiceLists}
         />
 
-        <Stack.Screen
-          name="AdminProfile"
-          component={AdminProfile}
-        />
+        <Stack.Screen name="AdminProfile" component={AdminProfile} />
 
-        <Stack.Screen
-          name="EditAdminProfile"
-          component={EditAdminProfile}
-        />
+        <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
 
         <Stack.Screen
           name="AdminChangePassword"
@@ -146,10 +161,7 @@ export default function App() {
           }}
         />
 
-        <Stack.Screen
-          name="CatPage"
-          component={CatPage}
-        />
+        <Stack.Screen name="CatPage" component={CatPage} />
 
         <Stack.Screen
           // options={{ headerShown: false }}
