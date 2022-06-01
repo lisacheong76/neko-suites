@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/core";
 import {
   StyleSheet,
   Text,
@@ -36,6 +37,10 @@ import EditCatDetails from "./src/views/screens/EditCatDetails";
 import AdminCatPage from "./src/views/screens/AdminCatPage";
 import AdminCatDetails from "./src/views/screens/AdminCatDetails";
 import AdminAddCats from "./src/views/screens/AdminAddCats";
+import ChooseCat from "./src/views/screens/ChooseCat";
+import ChooseDate from "./src/views/screens/ChooseDate";
+import ChooseOption from "./src/views/screens/ChooseOption";
+import Checkout from "./src/views/screens/Checkout";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -221,6 +226,77 @@ export default function App() {
           name="Homepage"
           component={TabBar}
           options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="ChooseCat"
+          component={ChooseCat}
+          options={{
+            headerTitleAlign: "center",
+            title: "CAT TO BE BOARD",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="ChooseDate"
+          component={ChooseDate}
+          options={{
+            headerTitleAlign: "center",
+            title: "CHOOSE DATE",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="ChooseOption"
+          component={ChooseOption}
+          options={{
+            headerTitleAlign: "center",
+            title: "CHOOSE OPTION",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Checkout"
+          component={Checkout}
+          options={{
+            headerTitleAlign: "center",
+            title: "CHECKOUT",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -373,7 +373,7 @@ const style = StyleSheet.create({
   },
   ServiceCard: {
     height: 160,
-    width: 160,
+    width: Dimensions.get('window').width/2.6,
     backgroundColor: COLORS.white,
     elevation: 15,
     marginHorizontal: 13,

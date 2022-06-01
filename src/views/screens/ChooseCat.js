@@ -13,6 +13,7 @@ import {
   Dimensions,
   Animated,
 } from "react-native";
+import { CheckBox } from "react-native-elements";
 import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
@@ -21,10 +22,11 @@ import { firestore, auth } from "../../../firebase";
 //import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 //import Icon3 from "react-native-vector-icons/FontAwesome5";
 
-const CatPage = () => {
+const ChooseCat = () => {
   const navigation = useNavigation();
   const [cats, setCats] = useState([]);
   const [numCols, setColumnNo] = useState(2);
+  const [isSelected, setSelection] = useState(false);
 
   // const CatsCard = ({ cat }) => {
   //   return (
@@ -123,45 +125,57 @@ const CatPage = () => {
           numColumns={numCols}
           // renderItem={({ item }) => <CatsCard cat={item} />}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() =>
-                navigation.replace("CatDetails", { paramkey: item.id })
-              }
-            >
-              <Animated.View style={styles.CatsCard}>
-                <Image
-                  style={styles.CatsCardImage}
-                  source={{ uri: item.image }}
+            // <TouchableOpacity
+            //   activeOpacity={1}
+            //   onPress={() =>
+            //     navigation.replace("CatDetails", { paramkey: item.id })
+            //   }
+            // >
+            <Animated.View style={styles.CatsCard}>
+              <Image
+                style={styles.CatsCardImage}
+                source={{ uri: item.image }}
+              />
+              <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+                <CheckBox
+                  value={isSelected}
+                  onValueChange={setSelection}
+                  style={styles.checkbox}
                 />
-                <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-                  <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 11,
-                      fontWeight: "bold",
-                      color: COLORS.grey,
-                    }}
-                  >
-                    {item.birthdate}
-                  </Text>
-                </View>
-              </Animated.View>
-            </TouchableOpacity>
+                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                  {item.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    fontWeight: "bold",
+                    color: COLORS.grey,
+                  }}
+                >
+                  {item.birthdate}
+                </Text>
+              </View>
+            </Animated.View>
+            // </TouchableOpacity>
           )}
         />
+        <View style={{ paddingBottom: 20 }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ChooseDate")}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
 };
-export default CatPage;
+export default ChooseCat;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     marginLeft: 10,
   },
   userInfoSection: {
@@ -182,12 +196,13 @@ const styles = StyleSheet.create({
     marginBottom: 13,
   },
   button: {
-    backgroundColor: "#e8a468",
-    width: 150,
-    padding: 10,
-    borderRadius: 10,
+    height: 52,
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 10,
+    backgroundColor: COLORS.primary,
+    marginHorizontal: 20,
+    borderRadius: 10,
   },
   buttonText: {
     color: "white",
@@ -303,5 +318,8 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
+  },
+  checkbox: {
+    alignSelf: "center",
   },
 });

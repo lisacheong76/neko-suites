@@ -14,6 +14,8 @@ import UserProfile from "../views/screens/UserProfile";
 import RoomDetails from "../views/screens/RoomDetails";
 import CatPage from "../views/screens/CatPage";
 import AddCats from "../views/screens/AddCats";
+import BookingPage from "../views/screens/BookingPage";
+import ChooseDate from "../views/screens/ChooseDate";
 
 const Tab = createBottomTabNavigator();
 
@@ -140,7 +142,7 @@ const TabBar = () => {
       />
       <Tab.Screen
         name="Booking"
-        component={Homepage}
+        component={BookingPage}
         options={{
           headerTitleAlign: "center",
           title: "BOOKING",

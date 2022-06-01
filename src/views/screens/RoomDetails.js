@@ -6,9 +6,11 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from "react-native";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import ChooseCat from "./ChooseCat";
 
 const RoomDetails = ({ navigation, route }) => {
   const item = route.params;
@@ -18,7 +20,7 @@ const RoomDetails = ({ navigation, route }) => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         backgroundColor: COLORS.white,
-        paddingBottom: 20,  
+        paddingBottom: 20,
       }}
     >
       <StatusBar
@@ -113,11 +115,17 @@ const RoomDetails = ({ navigation, route }) => {
           </View>
         </View>
         <View style={style.btn}>
-          <Text
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ChooseCat")}
+            style={style.button}
+          >
+            <Text style={style.buttonText}>Book Now</Text>
+          </TouchableOpacity>
+          {/* <Text
             style={{ color: COLORS.white, fontSize: 18, fontWeight: "bold" }}
           >
             Book Now
-          </Text>
+          </Text> */}
         </View>
       </View>
     </ScrollView>
@@ -169,6 +177,18 @@ const style = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 20,
     justifyContent: "space-between",
+  },
+  button: {
+    backgroundColor: "#e8a468",
+    width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
   },
 });
 
