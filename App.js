@@ -131,9 +131,38 @@ export default function App() {
         />
 
         <Stack.Screen
-          options={{ headerShown: false }}
           name="AdminCCatPage"
           component={AdminCCatPage}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "CATS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+            headerRight: () => (
+              <TouchableOpacity
+                style={{ marginRight: SIZES.padding }}
+                onPress={() =>
+                  navigation.replace("AdminAddCats", {
+                    paramkey: route.params.paramkey,
+                  })
+                }
+              >
+                <Icon
+                  name="add"
+                  size={27}
+                  color={"#fff"}
+                  style={{ paddingTop: 10 }}
+                />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen

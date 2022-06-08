@@ -14,7 +14,6 @@ import {
   Animated,
   CheckBox,
 } from "react-native";
-import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import cats from "../../consts/catType";
@@ -64,7 +63,6 @@ const AdminCCatPage = ({ navigation, route }) => {
           gender,
           name,
           neutered,
-          owner,
           vaccinated,
           image,
         } = doc.data();
@@ -75,7 +73,6 @@ const AdminCCatPage = ({ navigation, route }) => {
           gender,
           name,
           neutered,
-          owner,
           vaccinated,
           image,
         });
@@ -128,7 +125,7 @@ const AdminCCatPage = ({ navigation, route }) => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() =>
-                navigation.navigate("CatDetails", { paramkey: item.id })
+                navigation.navigate("AdminCatDetails", { paramkey: item.id })
               }
             >
               <Animated.View style={styles.CatsCard}>
@@ -242,13 +239,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

@@ -37,8 +37,7 @@ import {
   uploadBytes,
 } from "../../../firebase";
 
-const AdminAddCats = () => {
-  const navigation = useNavigation();
+const AdminAddCats = ({ navigation, route }) => {
   const [date, setDate] = useState("");
   const [catData, setCatData] = useState("");
   const [image, setImage] = useState("");
@@ -86,11 +85,13 @@ const AdminAddCats = () => {
       allergy: catData.allergy,
       vaccinated: catData.vaccinated,
       neutered: catData.neutered,
-      owner: auth.currentUser.uid,
+      owner: route.params.paramkey,
       image: image,
     });
 
-    navigation.replace("CatPage");
+    navigation.replace("AdminCCatPage", {
+      paramkey: route.params.paramkey,
+    });
   };
 
   // useEffect(() => {
@@ -394,33 +395,6 @@ const AdminAddCats = () => {
                 style={{ height: 50, width: 290, marginLeft: 20 }}
                 onValueChange={(itemValue) =>
                   setCatData({ ...catData, neutered: itemValue })
-                }
-              >
-                <Picker.Item label="Not Set" value="" />
-                <Picker.Item label="Yes" value="Yes" />
-                <Picker.Item label="No" value="No" />
-              </Picker>
-            </View>
-          </View>
-
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: "#665444",
-              marginLeft: 5,
-              marginBottom: 5,
-            }}
-          >
-            Owner *
-          </Text>
-          <View style={styles.row}>
-            <View style={styles.textBox}>
-              <Icon name="hand-heart" color="#665444" size={20} />
-              <Picker
-                selectedValue={catData.owner}
-                style={{ height: 50, width: 290, marginLeft: 20 }}
-                onValueChange={(itemValue) =>
-                  setCatData({ ...catData, owner: itemValue })
                 }
               >
                 <Picker.Item label="Not Set" value="" />

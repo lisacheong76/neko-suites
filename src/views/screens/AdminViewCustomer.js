@@ -25,25 +25,6 @@ import {
 const AdminViewCustomer = ({ navigation, route }) => {
   const [userData, setUserData] = useState("");
 
-  const handleDelete = async () => {
-    firestore
-      .collection("cats")
-      .doc(route.params.paramkey)
-      .delete()
-      .then(() => {
-        console.log("Doc deleted");
-        Alert.alert(
-          "Cat Details Deleted!",
-          "Your cat details has been deleted successfully :3"
-        );
-      })
-      .catch((error) => {
-        console.error("Error removing document: ", error);
-      });
-
-    navigation.replace("CatPage");
-  };
-
   const getUser = async () => {
     const userRef = firestore.collection("users").doc(route.params.paramkey);
     const doc = await userRef.get();
@@ -96,16 +77,6 @@ const AdminViewCustomer = ({ navigation, route }) => {
               justifyContent: "space-between",
             }}
           ></View>
-          <Icon3
-            name="paw"
-            size={23}
-            color={"#665444"}
-            onPress={() =>
-              navigation.replace("AdminCCatPage", {
-                paramkey: route.params.paramkey,
-              })
-            }
-          />
         </View>
         <View
           style={{
@@ -213,8 +184,15 @@ const AdminViewCustomer = ({ navigation, route }) => {
           }}
         ></View>
         <View style={style.button}>
-          <Text style={style.buttonText} onPress={handleDelete}>
-            Delete Cat
+          <Text
+            style={style.buttonText}
+            onPress={() =>
+              navigation.replace("AdminCCatPage", {
+                paramkey: route.params.paramkey,
+              })
+            }
+          >
+            View Cats
           </Text>
         </View>
       </View>

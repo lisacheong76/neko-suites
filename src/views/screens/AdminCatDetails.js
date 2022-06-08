@@ -35,14 +35,14 @@ const CatDetails = ({ navigation, route }) => {
         console.log("Doc deleted");
         Alert.alert(
           "Cat Details Deleted!",
-          "Your cat details has been deleted successfully :3"
+          "Cat details has been deleted successfully :3"
         );
       })
       .catch((error) => {
         console.error("Error removing document: ", error);
       });
 
-    navigation.replace("CatPage");
+    navigation.replace("AdminCustomerPage");
   };
 
   const getCat = async () => {

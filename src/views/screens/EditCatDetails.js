@@ -119,6 +119,7 @@ const EditCatDetails = ({ navigation, route }) => {
         allergy: catData.allergy,
         vaccinated: catData.vaccinated,
         neutered: catData.neutered,
+        image: image,
       })
       .then(() => {
         console.log("User Updated!");
@@ -131,7 +132,7 @@ const EditCatDetails = ({ navigation, route }) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.replace("CatPage");
+    // navigation.replace("CatPage");
   };
 
   useEffect(() => {
@@ -139,8 +140,8 @@ const EditCatDetails = ({ navigation, route }) => {
   }, []);
 
   return (
-    
-      <SafeAreaView style={{ backgroundColor: COLORS.background }}><ScrollView showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={{ backgroundColor: COLORS.background }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* <Header
           backgroundColor="#e8a468"
           placement="center"
@@ -443,9 +444,9 @@ const EditCatDetails = ({ navigation, route }) => {
           <Text style={styles.buttonText} onPress={handleUpdate}>
             Save Edit
           </Text>
-        </View></ScrollView>
-      </SafeAreaView>
-    
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
