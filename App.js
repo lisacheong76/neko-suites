@@ -44,6 +44,7 @@ import Checkout from "./src/views/screens/Checkout";
 import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
 import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
 import AdminCCatPage from "./src/views/screens/AdminCCatPage";
+import AdminBookingPage from "./src/views/screens/AdminBookingPage";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -175,6 +176,24 @@ export default function App() {
               </TouchableOpacity>
             ),
           })}
+        />
+
+        <Stack.Screen
+          name="AdminBookingPage"
+          component={AdminBookingPage}
+          options={{
+            headerTitleAlign: "center",
+            title: "BOOKINGS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+          }}
         />
 
         <Stack.Screen

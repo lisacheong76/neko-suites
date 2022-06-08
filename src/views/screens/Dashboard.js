@@ -102,7 +102,10 @@ const Dashboard = ({ route }) => {
         </View>
 
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={style.menuButton}>
+          <TouchableOpacity
+            style={style.menuButton}
+            onPress={() => navigation.navigate("AdminBookingPage")}
+          >
             <Image
               source={require("../../assets/animal-shelter.png")}
               resizeMode="center"
