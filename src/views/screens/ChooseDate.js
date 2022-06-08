@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
 import COLORS from "../../consts/colors";
+import { firestore } from "../../../firebase";
 
-const ChooseDate = () => {
-  const navigation = useNavigation();
+const ChooseDate = ({ navigation, route }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
 
@@ -24,6 +24,29 @@ const ChooseDate = () => {
       setSelectedEndDate(null);
       setSelectedStartDate(date);
     }
+  };
+
+  const handleUpdate = async () => {
+    let startDate = new Date(selectedStartDate);
+    let endDate = new Date(selectedEndDate);
+
+    firestore
+      .collection("booking")
+      .doc(route.params.paramkey)
+      .update({
+        start: startDate.toDateString(),
+        end: endDate.toDateString(),
+      })
+      .then(() => {
+        console.log("Success");
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
+      });
+
+    navigation.navigate("ChooseOption", {
+      paramkey: route.params.paramkey,
+    });
   };
 
   return (
@@ -74,10 +97,7 @@ const ChooseDate = () => {
         </View>
       </View>
       <View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ChooseOption")}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={handleUpdate} style={styles.button}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>

@@ -21,10 +21,31 @@ import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import style from "react-native-datepicker/style";
+import { firestore } from "../../../firebase";
 
 const ChooseOption = ({ route }) => {
   const navigation = useNavigation();
-  const [optionData, setOptionData] = useState("");
+  const [bookingData, setBookingData] = useState("");
+
+  const handleUpdate = async () => {
+    firestore
+      .collection("booking")
+      .doc(route.params.paramkey)
+      .update({
+        service: bookingData.service,
+        pickup: bookingData.pickup,
+      })
+      .then(() => {
+        console.log("Success");
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
+      });
+
+    navigation.navigate("Checkout", {
+      paramkey: route.params.paramkey,
+    });
+  };
 
   return (
     <SafeAreaView
@@ -46,10 +67,10 @@ const ChooseOption = ({ route }) => {
           <View style={styles.textBox}>
             <Icon name="heart-plus" color="#665444" size={20} />
             <Picker
-              selectedValue={optionData.addOn}
+              selectedValue={bookingData.service}
               style={{ height: 50, width: 290, marginLeft: 20 }}
               onValueChange={(itemValue) =>
-                setOptionData({ ...optionData, addOn: itemValue })
+                setBookingData({ ...bookingData, service: itemValue })
               }
             >
               <Picker.Item label="Not Set" value="" />
@@ -76,10 +97,10 @@ const ChooseOption = ({ route }) => {
           <View style={styles.textBox}>
             <Icon name="car-side" color="#665444" size={20} />
             <Picker
-              selectedValue={optionData.pickup}
+              selectedValue={bookingData.pickup}
               style={{ height: 50, width: 290, marginLeft: 20 }}
               onValueChange={(itemValue) =>
-                setOptionData({ ...optionData, pickup: itemValue })
+                setBookingData({ ...bookingData, pickup: itemValue })
               }
             >
               <Picker.Item label="Not Set" value="" />
@@ -99,10 +120,7 @@ const ChooseOption = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Checkout")}
-            style={styles.button}
-          >
+          <TouchableOpacity onPress={handleUpdate} style={styles.button}>
             <Text style={styles.buttonText}>Checkout</Text>
           </TouchableOpacity>
         </View>

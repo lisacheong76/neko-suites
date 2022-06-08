@@ -11,32 +11,32 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
 import COLORS from "../../consts/colors";
 // import { PrimaryButton } from "../../consts/button";
-// import { firestore } from "../../../firebase";
+import { auth, firestore } from "../../../firebase";
 
 const BookingPage = ({ navigation }) => {
-  // const [users, setUsers] = useState([]);
+  const [booking, setBooking] = useState([]);
 
-  // const userRef = firestore
-  //   .collection("users")
-  //   .where("role", "==", "Customer")
-  //   .orderBy("username");
+  const bookingRef = firestore
+    .collection("booking")
+    .where("by", "==", auth.currentUser.uid);
 
-  // useEffect(async () => {
-  //   userRef.onSnapshot((querySnapshot) => {
-  //     const userArray = [];
-  //     querySnapshot.forEach((doc) => {
-  //       const { name, username, phone, image } = doc.data();
-  //       userArray.push({
-  //         id: doc.id,
-  //         name,
-  //         username,
-  //         phone,
-  //         image,
-  //       });
-  //     });
-  //     setUsers(userArray);
-  //   });
-  // }, []);
+  useEffect(async () => {
+    bookingRef.onSnapshot((querySnapshot) => {
+      const bookingArray = [];
+      querySnapshot.forEach((doc) => {
+        const { cats, start, end, service, pickup } = doc.data();
+        bookingArray.push({
+          id: doc.id,
+          cats,
+          start,
+          end,
+          service,
+          pickup,
+        });
+      });
+      setBooking(bookingArray);
+    });
+  }, []);
 
   const CartCard = ({ item }) => {
     return (
@@ -51,16 +51,14 @@ const BookingPage = ({ navigation }) => {
           }}
         >
           <Text style={{ fontWeight: "bold", fontSize: 16, marginTop: -10 }}>
-            Booking ID ---
-            {/* {item.name ? item.name : item.username} */}
+            Booking ID : {item.id}
           </Text>
-          <Text style={{ fontSize: 15, color: COLORS.grey }}>
-            Date
-            {/* {item.phone ? item.phone : "Phone not set"} */}
+          <Text style={{ fontSize: 15, color: COLORS.grey, marginTop: 10 }}>
+            {item.start} - {item.end}
           </Text>
-          <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 9 }}>
+          {/* <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 9 }}>
             Room Type
-          </Text>
+          </Text> */}
         </View>
         <View style={{ marginRight: 20, alignItems: "center" }}>
           <Icon3
@@ -91,15 +89,11 @@ const BookingPage = ({ navigation }) => {
           Booking History
         </Text>
 
-        {/* nanti letak dalam flatlist when connect db */}
-        <CartCard></CartCard>
         <FlatList
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 80 }}
-
-          // data={{}}
-          // renderItem={({}) =>
-          // <CartCard />}
+          data={booking}
+          renderItem={({ item }) => <CartCard item={item} />}
         />
       </View>
     </SafeAreaView>

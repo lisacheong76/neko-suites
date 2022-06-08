@@ -67,6 +67,7 @@ const ChooseCat = () => {
           owner,
           vaccinated,
           image,
+          checked,
         } = doc.data();
         catArray.push({
           id: doc.id,
@@ -78,11 +79,31 @@ const ChooseCat = () => {
           owner,
           vaccinated,
           image,
+          checked,
         });
       });
       setCats(catArray);
     });
   }, []);
+
+  const handleAdd = async () => {
+    firestore
+      .collection("booking")
+      .add({
+        cats: "",
+        start: "",
+        end: "",
+        service: "",
+        pickup: "",
+        by: auth.currentUser.uid,
+      })
+      .then((docRef) => {
+        const id = docRef.id;
+        navigation.navigate("ChooseDate", {
+          paramkey: id,
+        });
+      });
+  };
 
   return (
     <SafeAreaView
@@ -138,14 +159,14 @@ const ChooseCat = () => {
               />
               <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
                 <CheckBox
-                  value={isSelected}
-                  onValueChange={setSelection}
+                  checked={isSelected}
+                  onPress={() => setSelection({ checked: item.id })}
                   style={styles.checkbox}
                 />
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item.name}
                 </Text>
-                <Text
+                {/* <Text
                   style={{
                     fontSize: 11,
                     fontWeight: "bold",
@@ -153,17 +174,25 @@ const ChooseCat = () => {
                   }}
                 >
                   {item.birthdate}
-                </Text>
+                </Text> */}
               </View>
+              {/* <View style={styles.container}>
+                <View style={styles.checkboxContainer}>
+                  <CheckBox
+                    checked={isSelected}
+                    onPress={() => setSelection({ checked: item.id })}
+                    style={styles.checkbox}
+                  />
+                  <Text style={styles.label}>Do you like React Native?</Text>
+                </View>
+                <Text>Is CheckBox selected: {isSelected ? "👍" : "👎"}</Text>
+              </View> */}
             </Animated.View>
             // </TouchableOpacity>
           )}
         />
         <View style={{ paddingBottom: 20 }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ChooseDate")}
-            style={styles.button}
-          >
+          <TouchableOpacity onPress={handleAdd} style={styles.button}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
         </View>
