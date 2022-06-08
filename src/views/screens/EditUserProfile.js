@@ -124,8 +124,10 @@ const EditUserProfile = () => {
       .doc(auth.currentUser.uid)
       .update({
         name: userData.name,
+        username: displayName,
         phone: userData.phone,
         gender: userData.gender,
+        image: image,
       })
       .then(() => {
         console.log("User Updated!");

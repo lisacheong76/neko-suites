@@ -122,14 +122,14 @@ const Dashboard = ({ route }) => {
 
           <TouchableOpacity
             style={style.menuButton}
-            onPress={() => navigation.navigate("AdminCatPage")}
+            onPress={() => navigation.navigate("AdminCustomerPage")}
           >
             <Image
               source={require("../../assets/feedback.png")}
               resizeMode="center"
               style={style.menuImage3}
             />
-            <Text style={style.menuText}>View Feedback</Text>
+            <Text style={style.menuText}>Manage Cats</Text>
           </TouchableOpacity>
         </View>
 

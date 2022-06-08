@@ -402,6 +402,33 @@ const AdminAddCats = () => {
               </Picker>
             </View>
           </View>
+
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#665444",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
+            Owner *
+          </Text>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="hand-heart" color="#665444" size={20} />
+              <Picker
+                selectedValue={catData.owner}
+                style={{ height: 50, width: 290, marginLeft: 20 }}
+                onValueChange={(itemValue) =>
+                  setCatData({ ...catData, owner: itemValue })
+                }
+              >
+                <Picker.Item label="Not Set" value="" />
+                <Picker.Item label="Yes" value="Yes" />
+                <Picker.Item label="No" value="No" />
+              </Picker>
+            </View>
+          </View>
         </View>
 
         <View style={styles.button}>

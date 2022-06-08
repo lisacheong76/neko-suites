@@ -41,6 +41,9 @@ import ChooseCat from "./src/views/screens/ChooseCat";
 import ChooseDate from "./src/views/screens/ChooseDate";
 import ChooseOption from "./src/views/screens/ChooseOption";
 import Checkout from "./src/views/screens/Checkout";
+import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
+import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
+import AdminCCatPage from "./src/views/screens/AdminCCatPage";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -113,6 +116,24 @@ export default function App() {
           options={{ headerShown: false }}
           name="AdminAddCats"
           component={AdminAddCats}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminCustomerPage"
+          component={AdminCustomerPage}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminViewCustomer"
+          component={AdminViewCustomer}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminCCatPage"
+          component={AdminCCatPage}
         />
 
         <Stack.Screen
