@@ -20,25 +20,6 @@ const AdminCustomerPage = ({ navigation }) => {
     .collection("users")
     .where("role", "==", "Customer")
     .orderBy("username");
-  //   const listAllUsers = (nextPageToken) => {
-  //     // List batch of users, 1000 at a time.
-  //     getAuth()
-  //       .listUsers(1000, nextPageToken)
-  //       .then((listUsersResult) => {
-  //         listUsersResult.users.forEach((userRecord) => {
-  //           console.log("user", userRecord.toJSON());
-  //         });
-  //         if (listUsersResult.pageToken) {
-  //           // List next batch of users.
-  //           listAllUsers(listUsersResult.pageToken);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error listing users:", error);
-  //       });
-  //   };
-  //   // Start listing users from the beginning, 1000 at a time.
-  //   listAllUsers();
 
   useEffect(async () => {
     userRef.onSnapshot((querySnapshot) => {
@@ -94,10 +75,6 @@ const AdminCustomerPage = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.secondary, flex: 1 }}>
-      <View style={style.header}>
-        <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Customer</Text>
-      </View>
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}

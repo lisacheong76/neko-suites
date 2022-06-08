@@ -129,7 +129,7 @@ const Dashboard = ({ route }) => {
               resizeMode="center"
               style={style.menuImage3}
             />
-            <Text style={style.menuText}>Manage Cats</Text>
+            <Text style={style.menuText}>Manage Customers</Text>
           </TouchableOpacity>
         </View>
 

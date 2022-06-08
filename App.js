@@ -119,9 +119,21 @@ export default function App() {
         />
 
         <Stack.Screen
-          options={{ headerShown: false }}
           name="AdminCustomerPage"
           component={AdminCustomerPage}
+          options={{
+            headerTitleAlign: "center",
+            title: "CUSTOMERS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+          }}
         />
 
         <Stack.Screen
