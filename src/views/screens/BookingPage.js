@@ -1,13 +1,138 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useEffect, useState } from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  FlatList,
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon3 from "react-native-vector-icons/FontAwesome5";
+import COLORS from "../../consts/colors";
+// import { PrimaryButton } from "../../consts/button";
+// import { firestore } from "../../../firebase";
 
-const BookingPage = ({navigation, route}) => {
+const BookingPage = ({ navigation }) => {
+  // const [users, setUsers] = useState([]);
+
+  // const userRef = firestore
+  //   .collection("users")
+  //   .where("role", "==", "Customer")
+  //   .orderBy("username");
+
+  // useEffect(async () => {
+  //   userRef.onSnapshot((querySnapshot) => {
+  //     const userArray = [];
+  //     querySnapshot.forEach((doc) => {
+  //       const { name, username, phone, image } = doc.data();
+  //       userArray.push({
+  //         id: doc.id,
+  //         name,
+  //         username,
+  //         phone,
+  //         image,
+  //       });
+  //     });
+  //     setUsers(userArray);
+  //   });
+  // }, []);
+
+  const CartCard = ({ item }) => {
+    return (
+      <View style={style.cartCard}>
+        {/* <Image source={{}} style={{ height: 80, width: 80 }} /> */}
+        <View
+          style={{
+            height: 100,
+            marginLeft: 10,
+            paddingVertical: 20,
+            flex: 1,
+          }}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 16, marginTop: -10 }}>
+            Booking ID ---
+            {/* {item.name ? item.name : item.username} */}
+          </Text>
+          <Text style={{ fontSize: 15, color: COLORS.grey }}>
+            Date
+            {/* {item.phone ? item.phone : "Phone not set"} */}
+          </Text>
+          <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 9 }}>
+            Room Type
+          </Text>
+        </View>
+        <View style={{ marginRight: 20, alignItems: "center" }}>
+          <Icon3
+            name="arrow-right"
+            size={23}
+            color={"#665444"}
+            // onPress={() =>
+            //   navigation.navigate("AdminViewCustomer", { paramkey: item.id })
+            // }
+          />
+        </View>
+      </View>
+    );
+  };
   return (
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-      <Text>Booking Page</Text>
-      <Text>{route.params?.title}</Text>
-    </View>
-  )
-}
+    <SafeAreaView
+      style={{ backgroundColor: COLORS.secondary, flex: 1, paddingTop: 20 }}
+    >
+      <View>
+        <Text
+          style={{
+            fontWeight: "bold",
+            color: "#665444",
+            marginLeft: 23,
+            fontSize: 17,
+          }}
+        >
+          Booking History
+        </Text>
+
+        {/* nanti letak dalam flatlist when connect db */}
+        <CartCard></CartCard>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 80 }}
+
+          // data={{}}
+          // renderItem={({}) =>
+          // <CartCard />}
+        />
+      </View>
+    </SafeAreaView>
+  );
+};
+const style = StyleSheet.create({
+  header: {
+    paddingVertical: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 20,
+  },
+  cartCard: {
+    height: 130,
+    elevation: 10,
+    borderRadius: 10,
+    backgroundColor: COLORS.white,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  actionBtn: {
+    width: 80,
+    height: 30,
+    backgroundColor: COLORS.primary,
+    borderRadius: 30,
+    paddingHorizontal: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+});
 
 export default BookingPage;
