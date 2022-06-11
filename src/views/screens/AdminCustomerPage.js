@@ -64,7 +64,7 @@ const AdminCustomerPage = ({ navigation }) => {
           <Icon3
             name="arrow-right"
             size={23}
-            color={"#665444"}
+            color={COLORS.adminFont}
             onPress={() =>
               navigation.navigate("AdminViewCustomer", { paramkey: item.id })
             }
@@ -74,7 +74,7 @@ const AdminCustomerPage = ({ navigation }) => {
     );
   };
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.secondary, flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: COLORS.adminBackground, flex: 1 }}>
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}

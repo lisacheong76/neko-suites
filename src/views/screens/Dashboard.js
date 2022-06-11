@@ -31,14 +31,14 @@ const Dashboard = ({ route }) => {
   const photo = auth.currentUser.photoURL;
   // console.log('What is this:', route.params.paramKey);
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Login");
-      })
-      .catch((error) => alert(error.message));
-  };
+  // const handleSignOut = () => {
+  //   auth
+  //     .signOut()
+  //     .then(() => {
+  //       navigation.replace("Login");
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
 
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -54,10 +54,10 @@ const Dashboard = ({ route }) => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
       <ScrollView>
         <Header
-          backgroundColor="#e8a468"
+          backgroundColor="#97ad86"
           placement="center"
           leftComponent={
             <TouchableOpacity>
@@ -93,7 +93,7 @@ const Dashboard = ({ route }) => {
         <View style={style.header}>
           <View>
             <Text
-              style={{ fontSize: 30, fontWeight: "bold", color: "#665444" }}
+              style={{ fontSize: 30, fontWeight: "bold", color: "#4b5142" }}
             >
               Welcome Admin
               {/* {route.params.paramKey} */}
@@ -114,6 +114,28 @@ const Dashboard = ({ route }) => {
             <Text style={style.menuText}>Manage Bookings</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity
+            style={style.menuButton}
+            onPress={() => navigation.navigate("AdminCustomerPage")}
+          >
+            <Image
+              source={require("../../assets/customers.png")}
+              resizeMode="center"
+              style={style.menuImage3}
+            />
+            <Text style={style.menuText}>Manage Customers</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={style.menuButton}>
+            <Image
+              source={require("../../assets/pickup-truck.png")}
+              resizeMode="center"
+              style={style.menuImage2}
+            />
+            <Text style={style.menuText}>Manage Pickup</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row" }}>
           <TouchableOpacity style={style.menuButton}>
             <Image
               source={require("../../assets/event.png")}
@@ -125,18 +147,17 @@ const Dashboard = ({ route }) => {
 
           <TouchableOpacity
             style={style.menuButton}
-            onPress={() => navigation.navigate("AdminCustomerPage")}
+            onPress={() => navigation.navigate("AdminViewFeedback")}
           >
             <Image
               source={require("../../assets/feedback.png")}
               resizeMode="center"
-              style={style.menuImage3}
+              style={style.menuImage2}
             />
-            <Text style={style.menuText}>Manage Customers</Text>
+            <Text style={style.menuText}>View Feedbacks</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={{ paddingTop: 30 }}>
+        {/* <View style={{ paddingTop: 30 }}>
           <Text style={style.header2}>Recent Bookings</Text>
         </View>
         <SectionList
@@ -144,13 +165,12 @@ const Dashboard = ({ route }) => {
           sections={ListData}
           keyExtractor={(item, index) => item + index}
           renderItem={({ item }) => <Item title={item} />}
-        />
-        <View style={style.container1}>
-          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+        /> */}
+        {/* <View style={style.container1}>
           <TouchableOpacity onPress={handleSignOut} style={style.button}>
             <Text style={style.buttonText}>Sign out</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -220,13 +240,13 @@ const style = StyleSheet.create({
   },
   menuButton: {
     alignItems: "center",
-    backgroundColor: "#ffe3c9",
+    backgroundColor: "#d7e3d1",
     borderColor: "#e0c3a8",
     borderRadius: 5,
     height: 150,
     width: 116,
     marginLeft: 16,
-    marginTop: 30,
+    marginTop: 20,
   },
   menuImage: {
     marginTop: 20,

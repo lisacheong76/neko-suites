@@ -19,7 +19,6 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Header } from "react-native-elements";
 import {
   auth,
   firestore,
@@ -64,6 +63,15 @@ const AdminProfile = () => {
     getUser();
   }, []);
 
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login");
+      })
+      .catch((error) => alert(error.message));
+  };
+
   // const myCustomShare = async() => {
   //   const shareOptions = {
   //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
@@ -80,47 +88,13 @@ const AdminProfile = () => {
   // };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "MY PROFILE",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-          rightComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("EditAdminProfile")}
-            >
-              <Icon2 name="edit" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-        />
-        {/* <View style={styles.header}>
-        <Icon2
-          name="arrow-back-ios"
-          size={28}
-          color={"#665444"}
-          onPress={navigation.goBack}
-        />
-        <Icon2
-          name="edit"
-          size={23}
-          color={"#665444"}
-          onPress={() => navigation.navigate("EditAdminProfile")}
-        />
-      </View> */}
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -140,7 +114,7 @@ const AdminProfile = () => {
                   {
                     marginTop: 15,
                     marginBottom: 5,
-                    color: "#665444",
+                    color: "#4b5142",
                   },
                 ]}
               >
@@ -154,13 +128,13 @@ const AdminProfile = () => {
         <View style={styles.userInfoSection}>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="email" color="#665444" size={20} />
+              <Icon name="email" color="#4b5142" size={20} />
               <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
             </View>
           </View>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="phone" color="#665444" size={20} />
+              <Icon name="phone" color="#4b5142" size={20} />
               <Text style={{ color: "#777777", marginLeft: 20 }}>
                 {userData.phone ? userData.phone : "Phone number not set"}
               </Text>
@@ -180,13 +154,28 @@ const AdminProfile = () => {
             onPress={() => navigation.navigate("AdminChangePassword")}
           >
             <View style={styles.menuItem}>
-              <Icon name="form-textbox-password" color="#fa9c4b" size={25} />
+              <Icon name="form-textbox-password" color="#97ad86" size={23} />
               <Text style={styles.menuItemText}>Change Password</Text>
               <Icon2
                 name="keyboard-arrow-right"
                 color="grey"
                 size={25}
                 style={{ paddingLeft: 150 }}
+              />
+            </View>
+          </TouchableRipple>
+          <TouchableRipple
+            style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+            onPress={handleSignOut}
+          >
+            <View style={styles.menuItem}>
+              <Icon name="logout" color="#97ad86" size={23} />
+              <Text style={styles.menuItemText}>Logout</Text>
+              <Icon2
+                name="keyboard-arrow-right"
+                color="grey"
+                size={25}
+                style={{ paddingLeft: 227 }}
               />
             </View>
           </TouchableRipple>
@@ -260,7 +249,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,

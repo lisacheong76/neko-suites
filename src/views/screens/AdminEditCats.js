@@ -19,41 +19,36 @@ import {
   TextInput,
   TouchableRipple,
 } from "react-native-paper";
+import DatePicker from "react-native-datepicker";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
+import Icon3 from "react-native-vector-icons/Ionicons";
+import Fontisto from "react-native-vector-icons/Fontisto";
 import * as ImagePicker from "expo-image-picker";
 import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
-  auth,
   firestore,
-  firebase,
-  updateProfile,
   getStorage,
   ref,
   getDownloadURL,
   uploadBytes,
 } from "../../../firebase";
 
-const EditUserProfile = () => {
-  const navigation = useNavigation();
-
-  const photo = auth.currentUser.photoURL;
-
-  const [userData, setUserData] = useState("");
+const AdminEditCats = ({ navigation, route }) => {
+  const [date, setDate] = useState("");
+  const [catData, setCatData] = useState("");
   const [image, setImage] = useState("");
-  const [displayName, setDisplayName] = useState(auth.currentUser.displayName);
 
-  const getUser = async () => {
-    const userRef = firestore.collection("users").doc(auth.currentUser.uid);
-    const doc = await userRef.get();
+  const getCat = async () => {
+    const catRef = firestore.collection("cats").doc(route.params.paramkey);
+    const doc = await catRef.get();
     if (!doc.exists) {
       console.log("No such document!");
     } else {
-      setUserData(doc.data());
+      setCatData(doc.data());
     }
   };
 
@@ -114,64 +109,45 @@ const EditUserProfile = () => {
   }
 
   const handleUpdate = async () => {
-    updateProfile(auth.currentUser, {
-      displayName: displayName,
-      photoURL: image,
-    });
-
     firestore
-      .collection("users")
-      .doc(auth.currentUser.uid)
+      .collection("cats")
+      .doc(route.params.paramkey)
       .update({
-        name: userData.name,
-        username: displayName,
-        phone: userData.phone,
-        gender: userData.gender,
+        name: catData.name,
+        gender: catData.gender,
+        birthdate: date,
+        allergy: catData.allergy,
+        vaccinated: catData.vaccinated,
+        neutered: catData.neutered,
         image: image,
       })
       .then(() => {
         console.log("User Updated!");
         Alert.alert(
-          "Profile Updated!",
-          "Your profile has been updated successfully :3"
+          "Cat Details Updated!",
+          "Your cat details has been updated successfully :3"
         );
       })
       .catch((error) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.replace("UserProfile");
+    // navigation.replace("AdminCCatPage");
   };
 
   useEffect(() => {
-    getUser();
+    getCat();
   }, []);
 
   return (
-    <ScrollView stickyHeaderIndices={[0]}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        {/* <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("UserProfile")}
-            >
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "EDIT PROFILE",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        /> */}
-
+    <SafeAreaView style={{ backgroundColor: COLORS.adminBackground }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 25,
+                marginTop: 20,
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -187,7 +163,7 @@ const EditUserProfile = () => {
                   }}
                 >
                   <ImageBackground
-                    source={image ? { uri: image } : { uri: photo }}
+                    source={image ? { uri: image } : { uri: catData.image }}
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -213,8 +189,21 @@ const EditUserProfile = () => {
                 </View>
                 {/* <Avatar.Image
                   source={image ? { uri: image } : { uri: photo }}
-                  size={90}
-                /> */}
+                  size={90}>
+                <Icon
+                    name="camera"
+                    size={90}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
+                  />
+                </Avatar.Image> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -222,7 +211,7 @@ const EditUserProfile = () => {
                 style={{
                   marginTop: 10,
                   marginBottom: 5,
-                  color: "#665444",
+                  color: "#4b5142",
                   fontSize: 15,
                   fontWeight: "bold",
                 }}
@@ -237,34 +226,7 @@ const EditUserProfile = () => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
-              marginLeft: 5,
-              marginBottom: 5,
-            }}
-          >
-            Username
-          </Text>
-          <View style={styles.row}>
-            <View style={styles.textBox}>
-              <Icon name="account" color="#665444" size={20} />
-              <TextInput
-                style={styles.editTextBox}
-                underlineColor={"transparent"}
-                placeholder="Username"
-                placeholderTextColor="#666666"
-                placeholderTextSize="20"
-                autoCorrect={false}
-                value={displayName || ""}
-                // onChangeText={(text) => setDisplayName(text)}
-                editable={false}
-              ></TextInput>
-            </View>
-          </View>
-
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -273,7 +235,7 @@ const EditUserProfile = () => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="account-heart" color="#665444" size={20} />
+              <Icon name="cat" color="#4b5142" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
@@ -281,10 +243,8 @@ const EditUserProfile = () => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={userData ? userData.name : ""}
-                onChangeText={(text) =>
-                  setUserData({ ...userData, name: text })
-                }
+                value={catData ? catData.name : ""}
+                onChangeText={(text) => setCatData({ ...catData, name: text })}
               ></TextInput>
             </View>
           </View>
@@ -292,35 +252,7 @@ const EditUserProfile = () => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
-              marginLeft: 5,
-              marginBottom: 5,
-            }}
-          >
-            Phone Number
-          </Text>
-          <View style={styles.row}>
-            <View style={styles.textBox}>
-              <Icon name="phone" color="#665444" size={20} />
-              <TextInput
-                style={styles.editTextBox}
-                borderColor="transparent"
-                placeholder="Phone Number"
-                placeholderTextColor="#666666"
-                placeholderTextSize="20"
-                autoCorrect={false}
-                value={userData ? userData.phone : ""}
-                onChangeText={(text) =>
-                  setUserData({ ...userData, phone: text })
-                }
-              ></TextInput>
-            </View>
-          </View>
-
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -329,33 +261,183 @@ const EditUserProfile = () => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="human-male-female" color="#665444" size={20} />
+              <Icon name="human-male-female" color="#4b5142" size={20} />
               <Picker
-                selectedValue={userData.gender}
-                style={{ height: 50, width: 290, marginLeft: 15 }}
+                selectedValue={catData.gender}
+                style={{ height: 50, width: 290, marginLeft: 20 }}
                 onValueChange={(itemValue) =>
-                  setUserData({ ...userData, gender: itemValue })
+                  setCatData({ ...catData, gender: itemValue })
                 }
               >
                 <Picker.Item label="Not Set" value="" />
                 <Picker.Item label="Female" value="Female" />
                 <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Others" value="Others" />
+              </Picker>
+            </View>
+          </View>
+
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#4b5142",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
+            Birth Date
+          </Text>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="cake-variant" color="#4b5142" size={20} />
+              <DatePicker
+                inputProps={{readOnly: true}}
+                style={styles.datePickerStyle}
+                date={date}
+                mode="date"
+                placeholder={catData.birthdate}
+                format="DD/MM/YYYY"
+                minDate="01-01-1900"
+                showIcon={false}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  // dateIcon: {
+                  //   position: 'absolute',
+                  //   right: -5,
+                  //   top: 4,
+                  //   marginLeft: 0,
+                  // },
+                  dateInput: {
+                    borderColor: "#b3a396",
+                    alignItems: "flex-start",
+                    fontSize: 16,
+                    marginLeft: 20,
+                    borderWidth: 0,
+                    borderBottomWidth: 0.6,
+                  },
+                  placeholderText: {
+                    fontSize: 15,
+                    color: "#666666",
+                  },
+                  dateText: {
+                    fontSize: 17,
+                  },
+                }}
+                // value={catData ? catData.birth_date : ""}
+                // onChangeText={(date) =>
+                //   setCatData({ ...catData, birth_date: date })
+                // }
+                onDateChange={(date) => {
+                  setDate(date);
+                }}
+              />
+              {/* <TextInput
+                    style={styles.editTextBox}
+                    placeholder="Birth Date"
+                    placeholderTextColor="#666666"
+                    placeholderTextSize="20"
+                    // autoCorrect={false}
+                    // value={userData ? userData.name : ""}
+                    // onChangeText={(text) =>
+                    //   setUserData({ ...userData, name: text })
+                    // }
+                  ></TextInput> */}
+            </View>
+          </View>
+
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#4b5142",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
+            Allergy
+          </Text>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon3 name="add-circle" color="#4b5142" size={20} />
+              <TextInput
+                style={styles.editTextBox}
+                placeholder="Allergy"
+                placeholderTextColor="#666666"
+                placeholderTextSize="20"
+                autoCorrect={false}
+                value={catData ? catData.allergy : ""}
+                onChangeText={(text) =>
+                  setCatData({ ...catData, allergy: text })
+                }
+              ></TextInput>
+            </View>
+          </View>
+
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#4b5142",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
+            Vaccinated
+          </Text>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Fontisto name="injection-syringe" color="#4b5142" size={20} />
+              <Picker
+                selectedValue={catData.vaccinated}
+                style={{ height: 50, width: 290, marginLeft: 20 }}
+                onValueChange={(itemValue) =>
+                  setCatData({ ...catData, vaccinated: itemValue })
+                }
+              >
+                <Picker.Item label="Not Set" value="" />
+                <Picker.Item label="Yes" value="Yes" />
+                <Picker.Item label="No" value="No" />
+              </Picker>
+            </View>
+          </View>
+
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#4b5142",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}
+          >
+            Neutered / Spayed
+          </Text>
+          <View style={styles.row}>
+            <View style={styles.textBox}>
+              <Icon name="hand-heart" color="#4b5142" size={20} />
+              <Picker
+                selectedValue={catData.neutered}
+                style={{ height: 50, width: 290, marginLeft: 20 }}
+                onValueChange={(itemValue) =>
+                  setCatData({ ...catData, neutered: itemValue })
+                }
+              >
+                <Picker.Item label="Not Set" value="" />
+                <Picker.Item label="Yes" value="Yes" />
+                <Picker.Item label="No" value="No" />
               </Picker>
             </View>
           </View>
         </View>
+
         <View style={styles.button}>
           <Text style={styles.buttonText} onPress={handleUpdate}>
             Save Edit
           </Text>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default EditUserProfile;
+export default AdminEditCats;
 
 const styles = StyleSheet.create({
   container: {
@@ -419,7 +501,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -429,9 +511,9 @@ const styles = StyleSheet.create({
   editTextBox: {
     height: 40,
     alignItems: "center",
-    paddingLeft: 20,
+    marginLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -443,7 +525,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
@@ -451,5 +533,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  datePickerStyle: {
+    width: 310,
   },
 });

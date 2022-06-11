@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import COLORS from '../../consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -19,7 +20,6 @@ const ServiceLists = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
-        flex: 1,
       }}>
       <StatusBar
         barStyle="light-content"
@@ -83,6 +83,19 @@ const ServiceLists = ({navigation, route}) => {
             </Text>
           </View>
         </View>
+        <View style={style.btn}>
+          <TouchableOpacity
+            // onPress={() => navigation.navigate("ChooseCat")}
+            style={style.button}
+          >
+            <Text style={style.buttonText}>Book Now</Text>
+          </TouchableOpacity>
+          {/* <Text
+            style={{ color: COLORS.white, fontSize: 18, fontWeight: "bold" }}
+          >
+            Book Now
+          </Text> */}
+        </View>
       </View>
     </ScrollView>
   );
@@ -133,6 +146,18 @@ const style = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     justifyContent: 'space-between',
+  },
+  button: {
+    backgroundColor: "#e8a468",
+    width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
   },
 });
 

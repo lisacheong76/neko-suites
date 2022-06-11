@@ -17,7 +17,6 @@ import {
   TextInput,
   TouchableRipple,
 } from "react-native-paper";
-import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -111,22 +110,6 @@ const AdminChangePassword = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <ScrollView>
-        <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AdminProfile")}
-            >
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "CHANGE PASSWORD",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        />
-
         <View>
           <View style={styles.userInfoSection}>
             <View

@@ -93,7 +93,7 @@ const AdminViewCustomer = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -117,7 +117,7 @@ const AdminViewCustomer = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -141,7 +141,7 @@ const AdminViewCustomer = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -165,7 +165,7 @@ const AdminViewCustomer = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -176,7 +176,6 @@ const AdminViewCustomer = ({ navigation, route }) => {
         </View>
         <View
           style={{
-            marginTop: 20,
             flexDirection: "row",
             justifyContent: "space-between",
             paddingLeft: 20,
@@ -264,7 +263,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: "10%",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },

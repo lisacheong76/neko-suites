@@ -157,12 +157,12 @@ const ChooseCat = () => {
                 style={styles.CatsCardImage}
                 source={{ uri: item.image }}
               />
-              <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+              <View style={{ paddingVertical: 2 }}>
                 <CheckBox
                   checked={isSelected}
                   onPress={() => setSelection({ checked: item.id })}
                   style={styles.checkbox}
-                />
+                ></CheckBox>
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item.name}
                 </Text>

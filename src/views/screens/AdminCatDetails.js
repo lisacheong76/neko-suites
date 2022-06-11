@@ -110,7 +110,7 @@ const CatDetails = ({ navigation, route }) => {
             size={23}
             color={"#665444"}
             onPress={() =>
-              navigation.replace("EditCatDetails", {
+              navigation.replace("AdminEditCats", {
                 paramkey: route.params.paramkey,
               })
             }

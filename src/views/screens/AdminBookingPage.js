@@ -62,7 +62,7 @@ const AdminBookingPage = ({ navigation }) => {
           <Icon3
             name="arrow-right"
             size={23}
-            color={"#665444"}
+            color={"#4b5142"}
             // onPress={() =>
             //   navigation.navigate("AdminViewCustomer", { paramkey: item.id })
             // }
@@ -73,15 +73,16 @@ const AdminBookingPage = ({ navigation }) => {
   };
   return (
     <SafeAreaView
-      style={{ backgroundColor: COLORS.secondary, flex: 1, paddingTop: 20 }}
+      style={{ backgroundColor: COLORS.adminBackground, flex: 1, paddingTop: 20 }}
     >
       <View>
         <Text
           style={{
             fontWeight: "bold",
-            color: "#665444",
+            color: COLORS.adminFont,
             marginLeft: 23,
             fontSize: 17,
+            marginBottom: 5
           }}
         >
           Booking List

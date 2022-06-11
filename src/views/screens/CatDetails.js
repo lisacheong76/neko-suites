@@ -80,7 +80,7 @@ const CatDetails = ({ navigation, route }) => {
             name="arrow-back-ios"
             size={28}
             color={COLORS.white}
-            onPress={navigation.goBack}
+            onPress={navigation.navigate}
           />
         </View>
       </ImageBackground>

@@ -21,6 +21,7 @@ import COLORS from "../../consts/colors";
 import hotels from "../../consts/roomType";
 import services from "../../consts/otherServices";
 import { auth } from "../../../firebase";
+// import { Icon } from "react-native-elements";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 1.8;

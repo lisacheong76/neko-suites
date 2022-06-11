@@ -121,23 +121,21 @@ const TabBar = () => {
                 name="menu"
                 size={23}
                 color={"#fff"}
-                style={{ paddingTop: 10 }}
               />
             </TouchableOpacity>
           ),
-          // headerRight: () => (
-          //   <TouchableOpacity
-          //     style={{ marginRight: SIZES.padding }}
-          //     onPress={() => console.log("Menu")}
-          //   >
-          //     <Icon
-          //       name="local-grocery-store"
-          //       size={23}
-          //       color={"#fff"}
-          //       style={{ paddingTop: 10 }}
-          //     />
-          //   </TouchableOpacity>
-          // ),
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginRight: SIZES.padding }}
+              onPress={() => console.log("Menu")}
+            >
+              <Icon
+                name="local-grocery-store"
+                size={23}
+                color={"#fff"}
+              />
+            </TouchableOpacity>
+          ),
         }}
       />
       <Tab.Screen
@@ -154,20 +152,7 @@ const TabBar = () => {
           },
           headerStyle: {
             backgroundColor: COLORS.primary,
-          },
-          headerRight: () => (
-            <TouchableOpacity
-              style={{ marginRight: SIZES.padding }}
-              onPress={() => console.log("Menu")}
-            >
-              <Icon
-                name="local-grocery-store"
-                size={23}
-                color={"#fff"}
-                style={{ paddingTop: 10 }}
-              />
-            </TouchableOpacity>
-          ),
+          }
         }}
       />
       <Tab.Screen
@@ -192,9 +177,8 @@ const TabBar = () => {
             >
               <Icon
                 name="add"
-                size={27}
+                size={23}
                 color={"#fff"}
-                style={{ paddingTop: 10 }}
               />
             </TouchableOpacity>
           ),
@@ -224,7 +208,6 @@ const TabBar = () => {
                 name="edit"
                 size={23}
                 color={"#fff"}
-                style={{ paddingTop: 10 }}
               />
             </TouchableOpacity>
           ),

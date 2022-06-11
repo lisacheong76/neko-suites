@@ -134,6 +134,7 @@ const UserChangePassword = () => {
               <Icon name="key" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
+                underlineColor={"transparent"}
                 secureTextEntry={passwordVisible}
                 placeholder="New Password"
                 placeholderTextColor="#666666"
@@ -157,6 +158,7 @@ const UserChangePassword = () => {
               <Icon name="key-change" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
+                underlineColor={"transparent"}
                 secureTextEntry={passwordVisible2}
                 placeholder="Confirm New Password"
                 placeholderTextColor="#666666"

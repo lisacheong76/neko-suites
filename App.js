@@ -45,6 +45,11 @@ import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
 import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
 import AdminCCatPage from "./src/views/screens/AdminCCatPage";
 import AdminBookingPage from "./src/views/screens/AdminBookingPage";
+import BookingHistoryDetails from "./src/views/screens/BookingHistoryDetails";
+import BookingPage from "./src/views/screens/BookingPage";
+import UserFeedback from "./src/views/screens/UserFeedback";
+import AdminEditCats from "./src/views/screens/AdminEditCats";
+import AdminViewFeedback from "./src/views/screens/AdminViewFeedback";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -53,6 +58,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {/*--------- For page without header --------- */}
         <Stack.Screen
           options={{ headerShown: false }}
           name="Login"
@@ -65,22 +71,17 @@ export default function App() {
           component={Register}
         />
 
-        {/* <Stack.Screen
-          options={{ headerShown: false }}
-          name="Homepage"
-          component={Homepage}
-        /> */}
-
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Dashboard"
-          component={Dashboard}
-        />
-
         <Stack.Screen
           options={{ headerShown: false }}
           name="ResetPassword"
           component={ResetPassword}
+        />
+
+        {/*------------- User Section -------------*/}
+        <Stack.Screen
+          name="Homepage"
+          component={TabBar}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
@@ -89,111 +90,16 @@ export default function App() {
           component={RoomDetails}
         />
 
-        {/* <Stack.Screen
+        <Stack.Screen
           options={{ headerShown: false }}
-          name="RoomDetails2"
-          component={RoomDetails2}
-        /> */}
+          name="ServiceLists"
+          component={ServiceLists}
+        />
 
         <Stack.Screen
           options={{ headerShown: false }}
           name="UserProfile"
           component={UserProfile}
-        />
-
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="AdminCatPage"
-          component={AdminCatPage}
-        />
-
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="AdminCatDetails"
-          component={AdminCatDetails}
-        />
-
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="AdminAddCats"
-          component={AdminAddCats}
-        />
-
-        <Stack.Screen
-          name="AdminCustomerPage"
-          component={AdminCustomerPage}
-          options={{
-            headerTitleAlign: "center",
-            title: "CUSTOMERS",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-          }}
-        />
-
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="AdminViewCustomer"
-          component={AdminViewCustomer}
-        />
-
-        <Stack.Screen
-          name="AdminCCatPage"
-          component={AdminCCatPage}
-          options={({ navigation, route }) => ({
-            headerTitleAlign: "center",
-            title: "CATS",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-            headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: SIZES.padding }}
-                onPress={() =>
-                  navigation.replace("AdminAddCats", {
-                    paramkey: route.params.paramkey,
-                  })
-                }
-              >
-                <Icon
-                  name="add"
-                  size={27}
-                  color={"#fff"}
-                  style={{ paddingTop: 10 }}
-                />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-
-        <Stack.Screen
-          name="AdminBookingPage"
-          component={AdminBookingPage}
-          options={{
-            headerTitleAlign: "center",
-            title: "BOOKINGS",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-          }}
         />
 
         <Stack.Screen
@@ -215,24 +121,9 @@ export default function App() {
         />
 
         <Stack.Screen
-          options={{ headerShown: false }}
-          name="ServiceLists"
-          component={ServiceLists}
-        />
-
-        <Stack.Screen name="AdminProfile" component={AdminProfile} />
-
-        <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
-
-        <Stack.Screen
-          name="AdminChangePassword"
-          component={AdminChangePassword}
-        />
-
-        <Stack.Screen
           name="UserChangePassword"
           component={UserChangePassword}
-          options={{
+          options={({ navigation, route }) => ({
             headerTitleAlign: "center",
             title: "CHANGE PASSWORD",
             headerTitleStyle: {
@@ -244,21 +135,59 @@ export default function App() {
             headerStyle: {
               backgroundColor: COLORS.primary,
             },
-          }}
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{ marginRight: SIZES.padding }}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="UserFeedback"
+          component={UserFeedback}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "FEEDBACK",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{ marginRight: SIZES.padding }}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen name="CatPage" component={CatPage} />
 
         <Stack.Screen
-          // options={{ headerShown: false }}
           name="CatDetails"
           component={CatDetails}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
           name="AddCats"
           component={AddCats}
-          options={{
+          options={({ navigation, route }) => ({
             headerTitleAlign: "center",
             title: "ADD CAT",
             headerTitleStyle: {
@@ -270,13 +199,23 @@ export default function App() {
             headerStyle: {
               backgroundColor: COLORS.primary,
             },
-          }}
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{ marginRight: SIZES.padding }}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen
           name="EditCatDetails"
           component={EditCatDetails}
-          options={{
+          options={({ navigation, route }) => ({
             headerTitleAlign: "center",
             title: "EDIT CAT INFO",
             headerTitleStyle: {
@@ -288,33 +227,24 @@ export default function App() {
             headerStyle: {
               backgroundColor: COLORS.primary,
             },
-            // headerLeft: () => (
-            //   <TouchableOpacity
-            //     style={{ marginLeft: SIZES.padding }}
-            //     onPress={ () => { navigation.goBack() }}
-            //   >
-            //     <Icon
-            //       name="arrow-back-ios"
-            //       size={23}
-            //       color={"#fff"}
-            //       style={{ marginLeft: -20 }}
-            //     />
-            //   </TouchableOpacity>
-            // ),
-          }}
-        />
-        <Stack.Screen
-          name="Homepage"
-          component={TabBar}
-          options={{ headerShown: false }}
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen
           name="ChooseCat"
           component={ChooseCat}
-          options={{
+          options={({ navigation, route }) => ({
             headerTitleAlign: "center",
-            title: "CAT TO BE BOARD",
+            title: "CHOOSE YOUR CAT",
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 17,
@@ -324,13 +254,22 @@ export default function App() {
             headerStyle: {
               backgroundColor: COLORS.primary,
             },
-          }}
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen
           name="ChooseDate"
           component={ChooseDate}
-          options={{
+          options={({ navigation, route }) => ({
             headerTitleAlign: "center",
             title: "CHOOSE DATE",
             headerTitleStyle: {
@@ -342,10 +281,378 @@ export default function App() {
             headerStyle: {
               backgroundColor: COLORS.primary,
             },
-          }}
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+              // onPress={() => console.log("Menu")}
+              >
+                <Icon name="local-grocery-store" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen
+          name="Checkout"
+          component={Checkout}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "CHECKOUT",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.replace("Homepage")}>
+                <Icon name="home" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="BookingHistoryDetails"
+          component={BookingHistoryDetails}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "MY CATS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        {/*------------- Admin Section -------------*/}
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Dashboard"
+          component={Dashboard}
+        />
+
+        <Stack.Screen
+          name="AdminProfile"
+          component={AdminProfile}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "MY PROFILE",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.replace("Dashboard");
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("EditAdminProfile");
+                }}
+              >
+                <Icon name="edit" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="EditAdminProfile"
+          component={EditAdminProfile}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "EDIT PROFILE",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminChangePassword"
+          component={AdminChangePassword}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "CHANGE PASSWORD",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminCatPage"
+          component={AdminCatPage}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminCatDetails"
+          component={AdminCatDetails}
+        />
+
+        <Stack.Screen
+          name="AdminAddCats"
+          component={AdminAddCats}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "ADD CAT",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminCustomerPage"
+          component={AdminCustomerPage}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "CUSTOMERS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminViewCustomer"
+          component={AdminViewCustomer}
+        />
+
+        <Stack.Screen
+          name="AdminCCatPage"
+          component={AdminCCatPage}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "CATS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.replace("AdminAddCats", {
+                    paramkey: route.params.paramkey,
+                  })
+                }
+              >
+                <Icon name="add" size={25} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminEditCats"
+          component={AdminEditCats}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "EDIT CAT INFO",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminBookingPage"
+          component={AdminBookingPage}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "BOOKINGS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminViewFeedback"
+          component={AdminViewFeedback}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "VIEW FEEDBACKS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        {/* <Stack.Screen
+          options={{ headerShown: false }}
+          name="RoomDetails2"
+          component={RoomDetails2}
+        /> */}
+
+        {/* <Stack.Screen
           name="ChooseOption"
           component={ChooseOption}
           options={{
@@ -361,24 +668,7 @@ export default function App() {
               backgroundColor: COLORS.primary,
             },
           }}
-        />
-        <Stack.Screen
-          name="Checkout"
-          component={Checkout}
-          options={{
-            headerTitleAlign: "center",
-            title: "CHECKOUT",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-          }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -65,9 +65,9 @@ const BookingPage = ({ navigation }) => {
             name="arrow-right"
             size={23}
             color={"#665444"}
-            // onPress={() =>
-            //   navigation.navigate("AdminViewCustomer", { paramkey: item.id })
-            // }
+            onPress={() =>
+              navigation.navigate("BookingHistoryDetails", { paramkey: item.id })
+            }
           />
         </View>
       </View>

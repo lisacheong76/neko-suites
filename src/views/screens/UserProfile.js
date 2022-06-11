@@ -181,10 +181,25 @@ const UserProfile = () => {
           </TouchableRipple>
           <TouchableRipple
             style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
+            onPress={() => navigation.navigate("UserFeedback")}
+          >
+            <View style={styles.menuItem}>
+              <Icon name="comment-text-multiple-outline" color="#fa9c4b" size={23} />
+              <Text style={styles.menuItemText}>Feedback</Text>
+              <Icon2
+                name="keyboard-arrow-right"
+                color="grey"
+                size={23}
+                style={{ paddingLeft: 210 }}
+              />
+            </View>
+          </TouchableRipple>
+          <TouchableRipple
+            style={{ borderBottomColor: "#e6e4e3", borderBottomWidth: 1 }}
             onPress={handleSignOut}
           >
             <View style={styles.menuItem}>
-              <Icon name="logout" color="#fa9c4b" size={25} />
+              <Icon name="logout" color="#fa9c4b" size={23} />
               <Text style={styles.menuItemText}>Log out</Text>
               <Icon2
                 name="keyboard-arrow-right"

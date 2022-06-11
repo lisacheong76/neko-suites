@@ -22,7 +22,6 @@ import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
-import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
@@ -157,31 +156,8 @@ const EditAdminProfile = () => {
   // };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
       <ScrollView>
-        <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AdminProfile")}
-            >
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "EDIT PROFILE",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        />
-        {/* <View style={styles.header}>
-          <Icon2
-            name="arrow-back-ios"
-            size={28}
-            color={"#665444"}
-            onPress={navigation.goBack}
-          />
-        </View> */}
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -238,7 +214,7 @@ const EditAdminProfile = () => {
                 style={{
                   marginTop: 10,
                   marginBottom: 5,
-                  color: "#665444",
+                  color: "#4b5142",
                   fontSize: 15,
                   fontWeight: "bold",
                 }}
@@ -253,7 +229,7 @@ const EditAdminProfile = () => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -262,7 +238,7 @@ const EditAdminProfile = () => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="account" color="#665444" size={20} />
+              <Icon name="account" color="#4b5142" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 placeholder="Username"
@@ -271,13 +247,14 @@ const EditAdminProfile = () => {
                 autoCorrect={false}
                 value={displayName || ""}
                 editable={false}
+                underlineColor="transparent"
               ></TextInput>
             </View>
           </View>
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -286,7 +263,7 @@ const EditAdminProfile = () => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="account-heart" color="#665444" size={20} />
+              <Icon name="account-heart" color="#4b5142" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 placeholder="Name"
@@ -303,7 +280,7 @@ const EditAdminProfile = () => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -312,7 +289,7 @@ const EditAdminProfile = () => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="phone" color="#665444" size={20} />
+              <Icon name="phone" color="#4b5142" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 placeholder="Company Phone Number"
@@ -401,7 +378,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -413,7 +390,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -426,7 +403,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 70,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
