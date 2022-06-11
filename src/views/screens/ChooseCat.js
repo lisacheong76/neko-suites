@@ -1,218 +1,148 @@
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/core";
+import React, { useState } from "react";
 import {
-  View,
-  SafeAreaView,
-  StyleSheet,
   ImageBackground,
-  TouchableOpacity,
-  Image,
-  Text,
-  FlatList,
   ScrollView,
-  Dimensions,
-  Animated,
+  StatusBar,
+  StyleSheet,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  Picker,
 } from "react-native";
-import { CheckBox } from "react-native-elements";
-import { Header } from "react-native-elements";
+import {
+  Avatar,
+  Title,
+  Caption,
+  Text,
+  TextInput,
+  TouchableRipple,
+} from "react-native-paper";
+import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-import cats from "../../consts/catType";
-import { firestore, auth } from "../../../firebase";
-//import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-//import Icon3 from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import style from "react-native-datepicker/style";
+import { firestore } from "../../../firebase";
 
-const ChooseCat = () => {
+const ChooseCat = ({ route }) => {
   const navigation = useNavigation();
-  const [cats, setCats] = useState([]);
-  const [numCols, setColumnNo] = useState(2);
-  const [isSelected, setSelection] = useState(false);
+  const [bookingData, setBookingData] = useState("");
 
-  // const CatsCard = ({ cat }) => {
-  //   return (
-  //     <TouchableOpacity
-  //       activeOpacity={1}
-  //       onPress={() => navigation.navigate("CatDetails", cat)}
-  //     >
-  //       <Animated.View style={styles.CatsCard}>
-  //         <Image style={styles.CatsCardImage} source={cat.image} />
-  //         <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-  //           <Text style={{ fontSize: 16, fontWeight: "bold" }}>{cat.name}</Text>
-  //           <Text
-  //             style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}
-  //           >
-  //             {cat.age}
-  //           </Text>
-  //         </View>
-  //       </Animated.View>
-  //     </TouchableOpacity>
-  //   );
+  // const handleUpdate = async () => {
+  //   firestore
+  //     .collection("booking")
+  //     .doc(route.params.paramkey)
+  //     .update({
+  //       service: bookingData.service,
+  //       pickup: bookingData.pickup,
+  //     })
+  //     .then(() => {
+  //       console.log("Success");
+  //     })
+  //     .catch((error) => {
+  //       alert(firebaseErrors[error.code] || error.message);
+  //     });
+
+  //   navigation.navigate("Checkout", {
+  //     paramkey: route.params.paramkey,
+  //   });
   // };
-
-  const catRef = firestore
-    .collection("cats")
-    .where("owner", "==", auth.currentUser.uid);
-
-  useEffect(async () => {
-    catRef.onSnapshot((querySnapshot) => {
-      const catArray = [];
-      querySnapshot.forEach((doc) => {
-        const {
-          id,
-          allergy,
-          birthdate,
-          gender,
-          name,
-          neutered,
-          owner,
-          vaccinated,
-          image,
-          checked,
-        } = doc.data();
-        catArray.push({
-          id: doc.id,
-          allergy,
-          birthdate,
-          gender,
-          name,
-          neutered,
-          owner,
-          vaccinated,
-          image,
-          checked,
-        });
-      });
-      setCats(catArray);
-    });
-  }, []);
-
-  const handleAdd = async () => {
-    firestore
-      .collection("booking")
-      .add({
-        cats: "",
-        start: "",
-        end: "",
-        service: "",
-        pickup: "",
-        by: auth.currentUser.uid,
-      })
-      .then((docRef) => {
-        const id = docRef.id;
-        navigation.navigate("ChooseDate", {
-          paramkey: id,
-        });
-      });
-  };
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 50 }}
     >
-      {/* for button */}
-      {/* <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("AddCats")}
-          style={styles.menuButton}
-        >
-          <Image
-            source={require("../../assets/happy.png")}
-            resizeMode="center"
-            style={styles.menuImage2}
-          />
-          <Text style={styles.menuText}>Add new cat</Text>
-        </TouchableOpacity>
-      </View> */}
-
-      {/* cats */}
-      <View style={styles.container}>
-        {/* <Text
+      <View style={styles.userInfoSection}>
+        <Text
           style={{
             fontWeight: "bold",
             color: "#665444",
-            marginLeft: 12,
-            marginBottom: -20,
-            fontSize: 20,
+            marginLeft: 5,
+            marginBottom: 5,
+            fontSize: 15,
           }}
         >
-          Registered Cat Lists
-        </Text> */}
-        <FlatList
-          data={cats}
-          contentContainerStyle={{
-            paddingBottom: 30,
+          Number of cats to be board
+        </Text>
+        <View style={styles.row}>
+          <View style={styles.textBox}>
+            <Icon name="heart-plus" color="#665444" size={20} />
+            <TextInput
+              style={styles.editTextBox}
+              borderColor="transparent"
+              placeholder="Num of cats"
+              placeholderTextColor="#666666"
+              placeholderTextSize="20"
+              autoCorrect={false}
+              // value={userData ? userData.phone : ""}
+              // onChangeText={(text) =>
+              //   setUserData({ ...userData, phone: text })
+              // }
+            ></TextInput>
+          </View>
+        </View>
+        <Text
+          style={{
+            fontWeight: "bold",
+            color: "#665444",
+            marginLeft: 5,
+            marginBottom: 5,
+            marginTop: 15,
+            fontSize: 15,
           }}
-          key={numCols}
-          numColumns={numCols}
-          // renderItem={({ item }) => <CatsCard cat={item} />}
-          renderItem={({ item }) => (
-            // <TouchableOpacity
-            //   activeOpacity={1}
-            //   onPress={() =>
-            //     navigation.replace("CatDetails", { paramkey: item.id })
-            //   }
-            // >
-            <Animated.View style={styles.CatsCard}>
-              <Image
-                style={styles.CatsCardImage}
-                source={{ uri: item.image }}
-              />
-              <View style={{ paddingVertical: 2 }}>
-                <CheckBox
-                  checked={isSelected}
-                  onPress={() => setSelection({ checked: item.id })}
-                  style={styles.checkbox}
-                ></CheckBox>
-                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                  {item.name}
-                </Text>
-                {/* <Text
-                  style={{
-                    fontSize: 11,
-                    fontWeight: "bold",
-                    color: COLORS.grey,
-                  }}
-                >
-                  {item.birthdate}
-                </Text> */}
-              </View>
-              {/* <View style={styles.container}>
-                <View style={styles.checkboxContainer}>
-                  <CheckBox
-                    checked={isSelected}
-                    onPress={() => setSelection({ checked: item.id })}
-                    style={styles.checkbox}
-                  />
-                  <Text style={styles.label}>Do you like React Native?</Text>
-                </View>
-                <Text>Is CheckBox selected: {isSelected ? "👍" : "👎"}</Text>
-              </View> */}
-            </Animated.View>
-            // </TouchableOpacity>
-          )}
-        />
-        <View style={{ paddingBottom: 20 }}>
-          <TouchableOpacity onPress={handleAdd} style={styles.button}>
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
+        >
+          Cat Name
+        </Text>
+        <View style={styles.row}>
+          <View style={styles.textBox}>
+            <Icon name="cat" color="#665444" size={20} />
+            <TextInput
+              style={styles.editTextBox}
+              borderColor="transparent"
+              placeholder="Cat1 name, Cat2 name, ..."
+              placeholderTextColor="#666666"
+              placeholderTextSize="20"
+              autoCorrect={false}
+              // value={userData ? userData.phone : ""}
+              // onChangeText={(text) =>
+              //   setUserData({ ...userData, phone: text })
+              // }
+            ></TextInput>
+          </View>
+        </View>
+      </View>
+      <View style={styles.container}>
+        <View style={styles.buttonContainer}>
+          <View style={{ paddingBottom: 20 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ChooseDate")}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </SafeAreaView>
   );
 };
-export default ChooseCat;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginLeft: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    flex: 1,
+    marginTop: 250,
   },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
   },
   caption: {
@@ -223,20 +153,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  button: {
-    height: 52,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
   },
   infoBoxWrapper: {
     borderBottomColor: "#dddddd",
@@ -251,27 +167,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  name: {
-    fontSize: 15,
-    fontWeight: "bold",
-  },
   menuWrapper: {
     marginTop: 10,
-  },
-  cardImage: {
-    height: 200,
-    width: "100%",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  cardButton: {
-    alignItems: "center",
-    backgroundColor: "#ffe3c9",
-    borderColor: "#e0c3a8",
-    borderRadius: 15,
-    height: 250,
-    width: 200,
-    marginTop: 30,
   },
   menuItem: {
     flexDirection: "row",
@@ -304,51 +201,32 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     flexDirection: "row",
   },
-  menuImage: {
-    marginTop: 20,
-    width: 50,
-    height: 80,
-  },
-  menuImage2: {
-    marginTop: 20,
-    width: 45,
-    height: 80,
-  },
-  menuImage3: {
-    marginTop: 20,
-    width: 45,
-    height: 80,
-  },
-  menuText: {
-    fontSize: 12,
-    marginTop: -10,
-  },
-  menuButton: {
+  editTextBox: {
+    height: 40,
     alignItems: "center",
-    backgroundColor: "#ffe3c9",
-    borderColor: "#e0c3a8",
-    borderRadius: 15,
-    height: 150,
-    width: 120,
-    marginLeft: 16,
-    marginTop: 30,
+    paddingLeft: 20,
+    flex: 1,
+    backgroundColor: COLORS.secondary,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    flexDirection: "row",
+    fontSize: 15,
   },
-  CatsCard: {
-    height: 160,
-    width: Dimensions.get("window").width / 2.4,
-    backgroundColor: COLORS.white,
-    elevation: 15,
-    marginHorizontal: 13,
+  button: {
+    height: 52,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    marginHorizontal: 16,
     borderRadius: 10,
-    marginTop: 15,
   },
-  CatsCardImage: {
-    height: 105,
-    width: "100%",
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  checkbox: {
-    alignSelf: "center",
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
   },
 });
+
+export default ChooseCat;
