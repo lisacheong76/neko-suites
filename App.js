@@ -53,6 +53,7 @@ import AdminEditCats from "./src/views/screens/AdminEditCats";
 import AdminViewFeedback from "./src/views/screens/AdminViewFeedback";
 import AdminAddBookings from "./src/views/screens/AdminAddBookings";
 import AdminAddBookingsDate from "./src/views/screens/AdminAddBookingsDate";
+import BookingSuccess from "./src/views/screens/BookingSuccess";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -338,28 +339,7 @@ export default function App() {
         <Stack.Screen
           name="BookingHistoryDetails"
           component={BookingHistoryDetails}
-          options={({ navigation, route }) => ({
-            headerTitleAlign: "center",
-            title: "MY CATS",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-            headerLeft: () => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              >
-                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
-              </TouchableOpacity>
-            ),
-          })}
+          options={{ headerShown: false }}
         />
 
         {/*------------- Admin Section -------------*/}
@@ -687,6 +667,12 @@ export default function App() {
               </TouchableOpacity>
             ),
           })}
+        />
+
+        <Stack.Screen
+          name="BookingSuccess"
+          component={BookingSuccess}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen

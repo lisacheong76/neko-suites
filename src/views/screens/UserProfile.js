@@ -190,7 +190,7 @@ const UserProfile = () => {
                 name="keyboard-arrow-right"
                 color="grey"
                 size={23}
-                style={{ paddingLeft: 210 }}
+                style={{ paddingLeft: 211 }}
               />
             </View>
           </TouchableRipple>
@@ -205,7 +205,7 @@ const UserProfile = () => {
                 name="keyboard-arrow-right"
                 color="grey"
                 size={25}
-                style={{ paddingLeft: 217 }}
+                style={{ paddingLeft: 224 }}
               />
             </View>
           </TouchableRipple>
