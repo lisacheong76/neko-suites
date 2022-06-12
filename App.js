@@ -50,6 +50,8 @@ import BookingPage from "./src/views/screens/BookingPage";
 import UserFeedback from "./src/views/screens/UserFeedback";
 import AdminEditCats from "./src/views/screens/AdminEditCats";
 import AdminViewFeedback from "./src/views/screens/AdminViewFeedback";
+import AdminAddBookings from "./src/views/screens/AdminAddBookings";
+import AdminAddBookingsDate from "./src/views/screens/AdminAddBookingsDate";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -598,6 +600,67 @@ export default function App() {
           options={({ navigation, route }) => ({
             headerTitleAlign: "center",
             title: "BOOKINGS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AdminAddBookings")}
+              >
+                <Icon name="add" size={25} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminAddBookings"
+          component={AdminAddBookings}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "ADD BOOKINGS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminAddBookingsDate"
+          component={AdminAddBookingsDate}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "ADD BOOKINGS",
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 17,
