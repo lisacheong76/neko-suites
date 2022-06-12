@@ -86,7 +86,7 @@ const BookingPage = ({ navigation }) => {
             fontSize: 17,
           }}
         >
-          Booking History
+          All Bookings
         </Text>
 
         <FlatList

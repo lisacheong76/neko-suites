@@ -110,16 +110,6 @@ const CatDetails = ({ navigation, route }) => {
               justifyContent: "space-between",
             }}
           ></View>
-          <Icon2
-            name="edit"
-            size={23}
-            color={"#4b5142"}
-            onPress={() =>
-              navigation.replace("EditCatDetails", {
-                paramkey: route.params.paramkey,
-              })
-            }
-          />
         </View>
         <View
           style={{
