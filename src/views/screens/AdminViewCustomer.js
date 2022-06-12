@@ -194,6 +194,19 @@ const AdminViewCustomer = ({ navigation, route }) => {
             View Cats
           </Text>
         </View>
+
+        <View style={style.button2}>
+          <Text
+            style={style.buttonText2}
+            onPress={() =>
+              navigation.replace("AdminAddBookings", {
+                paramkey: route.params.paramkey,
+              })
+            }
+          >
+            Add Booking
+          </Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -267,8 +280,24 @@ const style = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 10,
   },
+  button2: {
+    height: 52,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "3%",
+    backgroundColor: COLORS.white,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: COLORS.adminPrimary,
+  },
   buttonText: {
     color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  buttonText2: {
+    color: COLORS.adminPrimary,
     fontWeight: "700",
     fontSize: 16,
   },

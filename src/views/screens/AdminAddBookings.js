@@ -20,7 +20,8 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-// import { firestore } from "../../../firebase";
+import { firestore } from "../../../firebase";
+import firebaseErrors from "../../../firebaseErrors";
 
 const AdminAddBookings = ({ route }) => {
   const navigation = useNavigation();
@@ -31,8 +32,9 @@ const AdminAddBookings = ({ route }) => {
   //     .collection("booking")
   //     .doc(route.params.paramkey)
   //     .update({
-  //       service: bookingData.service,
-  //       pickup: bookingData.pickup,
+  //       cats: bookingData.cats,
+  //       pax: bookingData.pax,
+  //       completed: false,
   //     })
   //     .then(() => {
   //       console.log("Success");
@@ -41,10 +43,33 @@ const AdminAddBookings = ({ route }) => {
   //       alert(firebaseErrors[error.code] || error.message);
   //     });
 
-  //   navigation.navigate("Checkout", {
+  //   navigation.navigate("AdminAddBookingsRoom", {
   //     paramkey: route.params.paramkey,
   //   });
   // };
+
+  const handleAdd = async () => {
+    firestore
+      .collection("booking")
+      .add({
+        roomID: "",
+        roomName: "",
+        cats: bookingData.cats,
+        pax: bookingData.pax,
+        start: "",
+        end: "",
+        service: "",
+        pickup: "",
+        by: route.params.paramkey,
+        completed: false,
+      })
+      .then((docRef) => {
+        const id = docRef.id;
+        navigation.navigate("AdminAddBookingsRoom", {
+          paramkey: id,
+        });
+      });
+  };
 
   return (
     <SafeAreaView
@@ -76,10 +101,10 @@ const AdminAddBookings = ({ route }) => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
-              // value={userData ? userData.phone : ""}
-              // onChangeText={(text) =>
-              //   setUserData({ ...userData, phone: text })
-              // }
+              value={bookingData ? bookingData.pax : ""}
+              onChangeText={(text) =>
+                setBookingData({ ...bookingData, pax: text })
+              }
             ></TextInput>
           </View>
         </View>
@@ -105,21 +130,45 @@ const AdminAddBookings = ({ route }) => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
-              // value={userData ? userData.phone : ""}
-              // onChangeText={(text) =>
-              //   setUserData({ ...userData, phone: text })
-              // }
+              value={bookingData ? bookingData.cats : ""}
+              onChangeText={(text) =>
+                setBookingData({ ...bookingData, cats: text })
+              }
             ></TextInput>
           </View>
         </View>
+
+        {/* <Text
+          style={{
+            fontWeight: "bold",
+            color: "#4b514",
+            marginLeft: 5,
+            marginBottom: 5,
+            marginTop: 15,
+            fontSize: 15,
+          }}
+        >
+          Customer
+        </Text>
+        <View style={styles.row}>
+          <View style={styles.textBox}>
+            <Icon name="cat" color="#4b514" size={20} />
+            <Picker
+              selectedValue={userData.username}
+              style={{ height: 50, width: 100 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setUserData({ pax: itemValue })
+              }
+            >
+              <Picker.Item label="Java" value="java" />
+            </Picker>
+          </View>
+        </View> */}
       </View>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <View style={{ paddingBottom: 20 }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AdminAddBookingsDate")}
-              style={styles.button}
-            >
+            <TouchableOpacity onPress={handleAdd} style={styles.button}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>

@@ -53,6 +53,7 @@ import AdminEditCats from "./src/views/screens/AdminEditCats";
 import AdminViewFeedback from "./src/views/screens/AdminViewFeedback";
 import AdminAddBookings from "./src/views/screens/AdminAddBookings";
 import AdminAddBookingsDate from "./src/views/screens/AdminAddBookingsDate";
+import AdminAddBookingsRoom from "./src/views/screens/AdminAddBookingsRoom";
 import BookingSuccess from "./src/views/screens/BookingSuccess";
 
 const Stack = createNativeStackNavigator();
@@ -648,6 +649,33 @@ export default function App() {
           options={({ navigation, route }) => ({
             headerTitleAlign: "center",
             title: "ADD BOOKINGS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminAddBookingsRoom"
+          component={AdminAddBookingsRoom}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "ADD ROOM",
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 17,

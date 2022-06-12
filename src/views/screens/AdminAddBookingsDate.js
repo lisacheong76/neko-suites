@@ -7,10 +7,11 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
 import COLORS from "../../consts/colors";
-// import { firestore } from "../../../firebase";
+import { firestore } from "../../../firebase";
 
 const AdminAddBookingsDate = ({ navigation, route }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
@@ -26,28 +27,28 @@ const AdminAddBookingsDate = ({ navigation, route }) => {
     }
   };
 
-  //   const handleUpdate = async () => {
-  //     let startDate = new Date(selectedStartDate);
-  //     let endDate = new Date(selectedEndDate);
+  const handleUpdate = async () => {
+    let startDate = new Date(selectedStartDate);
+    let endDate = new Date(selectedEndDate);
 
-  //     firestore
-  //       .collection("booking")
-  //       .doc(route.params.paramkey)
-  //       .update({
-  //         start: startDate.toDateString(),
-  //         end: endDate.toDateString(),
-  //       })
-  //       .then(() => {
-  //         console.log("Success");
-  //       })
-  //       .catch((error) => {
-  //         alert(firebaseErrors[error.code] || error.message);
-  //       });
+    firestore
+      .collection("booking")
+      .doc(route.params.paramkey)
+      .update({
+        start: startDate.toDateString(),
+        end: endDate.toDateString(),
+        completed: true,
+      })
+      .then(() => {
+        console.log("Success");
+        Alert.alert("Successful!", "Booking has been made successfully :3");
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
+      });
 
-  //     navigation.navigate("Checkout", {
-  //       paramkey: route.params.paramkey,
-  //     });
-  //   };
+    navigation.navigate("AdminCustomerPage");
+  };
 
   return (
     // <ScrollView showsVerticalScrollIndicator={false}>
@@ -97,7 +98,7 @@ const AdminAddBookingsDate = ({ navigation, route }) => {
         </View>
       </View>
       <View>
-        <TouchableOpacity onPress={{}} style={styles.button}>
+        <TouchableOpacity onPress={handleUpdate} style={styles.button}>
           <Text style={styles.buttonText}>Book Now</Text>
         </TouchableOpacity>
       </View>
