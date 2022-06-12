@@ -45,6 +45,7 @@ import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
 import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
 import AdminCCatPage from "./src/views/screens/AdminCCatPage";
 import AdminBookingPage from "./src/views/screens/AdminBookingPage";
+import AdminViewBooking from "./src/views/screens/AdminViewBooking";
 import BookingHistoryDetails from "./src/views/screens/BookingHistoryDetails";
 import BookingPage from "./src/views/screens/BookingPage";
 import UserFeedback from "./src/views/screens/UserFeedback";
@@ -364,6 +365,12 @@ export default function App() {
           options={{ headerShown: false }}
           name="Dashboard"
           component={Dashboard}
+        />
+
+        <Stack.Screen
+          name="AdminViewBooking"
+          component={AdminViewBooking}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen

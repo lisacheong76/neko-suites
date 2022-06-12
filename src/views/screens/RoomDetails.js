@@ -11,9 +11,33 @@ import {
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ChooseCat from "./ChooseCat";
+import { firestore, auth } from "../../../firebase";
 
 const RoomDetails = ({ navigation, route }) => {
   const item = route.params;
+
+  const handleAdd = async () => {
+    firestore
+      .collection("booking")
+      .add({
+        roomID: item.id,
+        roomName: item.name,
+        cats: "",
+        pax: "",
+        start: "",
+        end: "",
+        service: "",
+        pickup: "",
+        by: auth.currentUser.uid,
+        completed: false,
+      })
+      .then((docRef) => {
+        const id = docRef.id;
+        navigation.navigate("ChooseCat", {
+          paramkey: id,
+        });
+      });
+  };
 
   return (
     <ScrollView
@@ -115,10 +139,7 @@ const RoomDetails = ({ navigation, route }) => {
           </View>
         </View>
         <View style={style.btn}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ChooseCat")}
-            style={style.button}
-          >
+          <TouchableOpacity onPress={handleAdd} style={style.button}>
             <Text style={style.buttonText}>Book Now</Text>
           </TouchableOpacity>
           {/* <Text
