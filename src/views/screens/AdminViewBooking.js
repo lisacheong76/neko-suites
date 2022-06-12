@@ -79,7 +79,7 @@ const CatDetails = ({ navigation, route }) => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.adminBackground,
         paddingBottom: 20,
       }}
     >
@@ -113,7 +113,7 @@ const CatDetails = ({ navigation, route }) => {
           <Icon2
             name="edit"
             size={23}
-            color={"#665444"}
+            color={"#4b5142"}
             onPress={() =>
               navigation.replace("EditCatDetails", {
                 paramkey: route.params.paramkey,
@@ -136,7 +136,7 @@ const CatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -162,7 +162,7 @@ const CatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -186,7 +186,7 @@ const CatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -210,7 +210,7 @@ const CatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -234,7 +234,7 @@ const CatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -258,7 +258,7 @@ const CatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -341,7 +341,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: "10%",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
