@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -53,7 +53,7 @@ const Checkout = ({ navigation, route }) => {
     return (
       <SwipeListView
         data={bookingData}
-        keyExtractor={item => `${item.id}`}
+        keyExtractor={(item) => `${item.id}`}
         contentContainerStyle={{
           marginTop: 10,
           paddingHorizontal: 10,
@@ -63,48 +63,46 @@ const Checkout = ({ navigation, route }) => {
         rightOpenValue={-75}
         renderItem={(item, rowMap) => (
           <View
-              style={{
-                height: 100,
-                backgroundColor: COLORS.white,
-                ...styles.cartItemContainer
-              }}
+            style={{
+              height: 100,
+              backgroundColor: COLORS.white,
+              ...styles.cartItemContainer,
+            }}
           >
             <View
               style={{
                 width: 90,
                 height: 100,
-                marginLeft: -10
+                marginLeft: -10,
               }}
             >
-              <Image 
+              <Image
                 source={item.image}
                 resizeMode="contain"
                 style={{
                   width: "100%",
                   height: "100%",
                   position: "absolute",
-                  top: 10
+                  top: 10,
                 }}
               />
             </View>
 
             <View
               style={{
-                flex: 1
+                flex: 1,
               }}
             >
               <Text>{item.roomName}</Text>
               <Text>RM{item.price}</Text>
             </View>
-            
           </View>
         )}
       />
-    )
+    );
   }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.background }}>
-
       {renderCartList()}
 
       {/* <Text>Checkout Screen</Text>
@@ -113,7 +111,7 @@ const Checkout = ({ navigation, route }) => {
   );
 };
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   cartItemContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -121,5 +119,5 @@ const styles = StyleSheet.create ({
     paddingHorizontal: 10,
     borderRadius: 5,
   },
-})
+});
 export default Checkout;
