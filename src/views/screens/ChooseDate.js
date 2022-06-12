@@ -36,6 +36,7 @@ const ChooseDate = ({ navigation, route }) => {
       .update({
         start: startDate.toDateString(),
         end: endDate.toDateString(),
+        completed: true,
       })
       .then(() => {
         console.log("Success");

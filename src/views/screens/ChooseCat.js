@@ -27,25 +27,26 @@ const ChooseCat = ({ route }) => {
   const navigation = useNavigation();
   const [bookingData, setBookingData] = useState("");
 
-  // const handleUpdate = async () => {
-  //   firestore
-  //     .collection("booking")
-  //     .doc(route.params.paramkey)
-  //     .update({
-  //       service: bookingData.service,
-  //       pickup: bookingData.pickup,
-  //     })
-  //     .then(() => {
-  //       console.log("Success");
-  //     })
-  //     .catch((error) => {
-  //       alert(firebaseErrors[error.code] || error.message);
-  //     });
+  const handleUpdate = async () => {
+    firestore
+      .collection("booking")
+      .doc(route.params.paramkey)
+      .update({
+        cats: bookingData.cats,
+        pax: bookingData.pax,
+        completed: false,
+      })
+      .then(() => {
+        console.log("Success");
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
+      });
 
-  //   navigation.navigate("Checkout", {
-  //     paramkey: route.params.paramkey,
-  //   });
-  // };
+    navigation.navigate("ChooseDate", {
+      paramkey: route.params.paramkey,
+    });
+  };
 
   return (
     <SafeAreaView
@@ -73,10 +74,10 @@ const ChooseCat = ({ route }) => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
-              // value={userData ? userData.phone : ""}
-              // onChangeText={(text) =>
-              //   setUserData({ ...userData, phone: text })
-              // }
+              value={bookingData ? bookingData.pax : ""}
+              onChangeText={(text) =>
+                setBookingData({ ...bookingData, pax: text })
+              }
             ></TextInput>
           </View>
         </View>
@@ -102,10 +103,10 @@ const ChooseCat = ({ route }) => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               autoCorrect={false}
-              // value={userData ? userData.phone : ""}
-              // onChangeText={(text) =>
-              //   setUserData({ ...userData, phone: text })
-              // }
+              value={bookingData ? bookingData.cats : ""}
+              onChangeText={(text) =>
+                setBookingData({ ...bookingData, cats: text })
+              }
             ></TextInput>
           </View>
         </View>
@@ -113,10 +114,7 @@ const ChooseCat = ({ route }) => {
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <View style={{ paddingBottom: 20 }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("ChooseDate")}
-              style={styles.button}
-            >
+            <TouchableOpacity onPress={handleUpdate} style={styles.button}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>
