@@ -45,7 +45,7 @@ const ChooseDate = ({ navigation, route }) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.navigate("Checkout", {
+    navigation.navigate("BookingSuccess", {
       paramkey: route.params.paramkey,
     });
   };
@@ -99,7 +99,7 @@ const ChooseDate = ({ navigation, route }) => {
       </View>
       <View>
         <TouchableOpacity onPress={handleUpdate} style={styles.button}>
-          <Text style={styles.buttonText}>Add to cart</Text>
+          <Text style={styles.buttonText}>Book Now</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
