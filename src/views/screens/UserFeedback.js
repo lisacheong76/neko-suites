@@ -20,7 +20,17 @@ import {
   TouchableRipple,
 } from "react-native-paper";
 import COLORS from "../../consts/colors";
+import { useNavigation } from "@react-navigation/core";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import uuid from "uuid";
+import {
+  auth,
+  firestore,
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytes,
+} from "../../../firebase";
 
 const UselessTextInput = (props) => {
   return (
@@ -30,15 +40,26 @@ const UselessTextInput = (props) => {
       maxLength={5000}
     />
   );
-}
+};
 
 const UserFeedback = () => {
-  const [rating, setRating] = useState(0);
+  const [ratingData, setRatingData] = useState(0);
+  const [feedbackData, setFeedbackData] = useState("");
+  const navigation = useNavigation();
 
-  const onSubmit = () => {
-    // Actions on submit button click.
-    console.log("Form submitted"); 
+  const handleAdd = async () => {
+    firestore.collection("feedback").add({
+      message: feedbackData.message,
+      rating: ratingData,
+    });
+
+    navigation.replace("Homepage");
   };
+
+  // const onSubmit = () => {
+  //   // Actions on submit button click.
+  //   console.log("Form submitted");
+  // };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
@@ -55,22 +76,29 @@ const UserFeedback = () => {
         Meow!
       </Text>
       <StarRating
-        rating={rating}
-        onChange={setRating}
+        rating={ratingData}
+        onChange={(number) => {setRatingData(number)}}
         style={{ alignSelf: "center", marginTop: 30 }}
+        enableHalfStar={false}
+        minRating={1}
+        maxStars={5}
       />
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <View style={styles.textBox}>
             <UselessTextInput
               style={styles.editTextBox}
-              placeholder="Hoping for a kind feedback :>"
+              placeholder="Hoping for a purrfect feedback :3"
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               multiline
-              numberOfLines={4}
+              numberOfLines={6}
               borderBottomColor={COLORS.secondary}
               underlineColor={"transparent"}
+              value={feedbackData ? feedbackData.message : ""}
+              onChangeText={(text) =>
+                setFeedbackData({ ...feedbackData, message: text })
+              }
               // value={displayName || ""}
               // onChangeText={(text) => setDisplayName(text)}
             ></UselessTextInput>
@@ -78,7 +106,7 @@ const UserFeedback = () => {
         </View>
       </View>
       <View style={styles.button}>
-        <Text style={styles.buttonText} onPress={onSubmit}>
+        <Text style={styles.buttonText} onPress={handleAdd}>
           Submit
         </Text>
       </View>
@@ -103,7 +131,7 @@ const styles = StyleSheet.create({
     marginBottom: 13,
   },
   textBox: {
-    height: 150,
+    height: 170,
     flex: 1,
     backgroundColor: COLORS.secondary,
     borderTopLeftRadius: 10,
@@ -114,8 +142,8 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.secondary,
   },
   editTextBox: {
-    height: 150,
-    paddingLeft: 10,
+    marginTop: 10,
+    marginHorizontal: 10,
     flex: 1,
     backgroundColor: COLORS.secondary,
     borderTopLeftRadius: 10,
@@ -123,12 +151,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     flexDirection: "row",
-    fontSize: 15,
+    fontSize: 16,
     borderBottomColor: COLORS.secondary,
-    overflow: "scroll"
+    overflow: "scroll",
   },
   button: {
-    marginTop: 120,
+    marginTop: 100,
     height: 52,
     justifyContent: "center",
     alignItems: "center",

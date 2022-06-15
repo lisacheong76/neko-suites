@@ -79,9 +79,10 @@ const BookingSuccess = ({ navigation, route }) => {
           textAlign: "center",
           fontFamily: "sans-serif-medium",
           marginTop: 10,
+          lineHeight: 23,
         }}
       >
-        Booking ID: {route.params.paramkey}
+        Booking ID: {"\n"}{route.params.paramkey}
       </Text>
       <Text
         style={{
