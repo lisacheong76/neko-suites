@@ -126,7 +126,10 @@ const Dashboard = ({ route }) => {
             <Text style={style.menuText}>Manage Customers</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={style.menuButton}>
+          <TouchableOpacity
+            style={style.menuButton}
+            onPress={() => navigation.navigate("AdminPickup")}
+          >
             <Image
               source={require("../../assets/pickup-truck.png")}
               resizeMode="center"

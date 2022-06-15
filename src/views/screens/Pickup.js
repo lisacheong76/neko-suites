@@ -21,7 +21,6 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import style from "react-native-datepicker/style";
 import { firestore } from "../../../firebase";
 import firebaseErrors from "../../../firebaseErrors";
 
@@ -43,7 +42,7 @@ const ChooseCat = ({ route }) => {
         console.log("Success");
         Alert.alert(
           "Service Request Successful!",
-          "We have receive your request :3"
+          "We have received your request :3"
         );
       })
       .catch((error) => {
@@ -53,6 +52,65 @@ const ChooseCat = ({ route }) => {
     navigation.navigate("BookingHistoryDetails", {
       paramkey: route.params.paramkey,
     });
+  };
+
+  const handleCancel = async () => {
+    // firestore
+    //   .collection("booking")
+    //   .doc(route.params.paramkey)
+    //   .update({
+    //     pickup: "",
+    //     address: "",
+    //   })
+    //   .then(() => {
+    //     console.log("Success");
+    //     Alert.alert(
+    //       "Service Request Cancellation Successful!",
+    //       "Your request has been cancelled successfully :3"
+    //     );
+    //   })
+    //   .catch((error) => {
+    //     alert(firebaseErrors[error.code] || error.message);
+    //   });
+
+    // navigation.navigate("BookingHistoryDetails", {
+    //   paramkey: route.params.paramkey,
+    // });
+
+    Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to cancel your request? :3",
+      [
+        {
+          text: "No",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            firestore
+              .collection("booking")
+              .doc(route.params.paramkey)
+              .update({
+                pickup: "",
+                address: "",
+              })
+              .then(() => {
+                navigation.navigate("BookingHistoryDetails", {
+                  paramkey: route.params.paramkey,
+                });
+                console.log("Success");
+                Alert.alert(
+                  "Service Request Cancellation Successful!",
+                  "Request cancelled successfully :3"
+                );
+              })
+              .catch((error) => {
+                alert(firebaseErrors[error.code] || error.message);
+              });
+          },
+        },
+      ]
+    );
   };
 
   const getBooking = async () => {
@@ -105,7 +163,6 @@ const ChooseCat = ({ route }) => {
                 setBookingData({ ...bookingData, pickup: itemValue })
               }
             >
-              <Picker.Item label="No" value="No" />
               <Picker.Item label="Pickup Only" value="Pickup" />
               <Picker.Item label="Return Only" value="Return" />
               <Picker.Item label="Both" value="Both" />
@@ -175,7 +232,7 @@ const ChooseCat = ({ route }) => {
             <TouchableOpacity onPress={handleUpdate} style={styles.button}>
               <Text style={styles.buttonText}>Request</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleUpdate} style={styles.button2}>
+            <TouchableOpacity onPress={handleCancel} style={styles.button2}>
               <Text style={styles.buttonText2}>Cancel Request</Text>
             </TouchableOpacity>
           </View>

@@ -262,7 +262,7 @@ const CatDetails = ({ navigation, route }) => {
                 marginRight: 15,
               }}
             >
-              {bookingData.pickup ? bookingData.pickup : "Pickup Unavailable"}
+              {bookingData.pickup ? bookingData.pickup : "No Request"}
             </Text>
           </View>
         </View>

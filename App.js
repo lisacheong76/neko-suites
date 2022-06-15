@@ -42,6 +42,7 @@ import ChooseCat from "./src/views/screens/ChooseCat";
 import ChooseDate from "./src/views/screens/ChooseDate";
 import ChooseOption from "./src/views/screens/ChooseOption";
 import Checkout from "./src/views/screens/Checkout";
+import AdminPickup from "./src/views/screens/AdminPickup";
 import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
 import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
 import AdminCCatPage from "./src/views/screens/AdminCCatPage";
@@ -605,6 +606,40 @@ export default function App() {
                 }}
               >
                 <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="AdminPickup"
+          component={AdminPickup}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "PICKUP / RETURN",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AdminAddBookings")}
+              >
+                <Icon name="add" size={25} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}
