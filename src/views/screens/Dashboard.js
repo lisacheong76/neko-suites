@@ -59,16 +59,6 @@ const Dashboard = ({ route }) => {
         <Header
           backgroundColor="#97ad86"
           placement="center"
-          leftComponent={
-            <TouchableOpacity>
-              <Icon
-                name="menu"
-                size={23}
-                color={"#fff"}
-                style={{ paddingTop: 10 }}
-              />
-            </TouchableOpacity>
-          }
           centerComponent={{
             text: "DASHBOARD",
             style: {

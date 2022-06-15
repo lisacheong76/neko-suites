@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, ImageBackground, } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/core";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -16,6 +16,7 @@ import CatPage from "../views/screens/CatPage";
 import AddCats from "../views/screens/AddCats";
 import BookingPage from "../views/screens/BookingPage";
 import ChooseDate from "../views/screens/ChooseDate";
+import { auth } from "../../firebase";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,8 @@ const tabOptions = {
 
 const TabBar = () => {
   const navigation = useNavigation();
+  const photo = auth.currentUser.photoURL;
+
   return (
     <Tab.Navigator
       tabBarOptions={tabOptions}
@@ -112,29 +115,17 @@ const TabBar = () => {
           headerStyle: {
             backgroundColor: COLORS.primary,
           },
-          headerLeft: ({ onPress }) => (
+          headerRight: ({ onPress }) => (
             <TouchableOpacity
-              style={{ marginLeft: SIZES.padding }}
-              onPress={onPress}
-            >
-              <Icon
-                name="menu"
-                size={23}
-                color={"#fff"}
-              />
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
-            <TouchableOpacity
-              style={{ marginRight: SIZES.padding }}
-              onPress={() => console.log("Menu")}
-            >
-              <Icon
-                name="local-grocery-store"
-                size={23}
-                color={"#fff"}
-              />
-            </TouchableOpacity>
+            style={{ paddingRight: 15 }}
+            onPress={() => navigation.replace("UserProfile")}
+          >
+            <ImageBackground
+              source={{ uri: photo }}
+              style={{ width: 38, height: 38 }}
+              imageStyle={{ borderRadius: 25 }}
+            />
+          </TouchableOpacity>
           ),
         }}
       />

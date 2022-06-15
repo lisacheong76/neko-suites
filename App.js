@@ -104,9 +104,42 @@ export default function App() {
         />
 
         <Stack.Screen
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
           name="UserProfile"
           component={UserProfile}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "MY PROFILE",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Homepage");
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: (onPress) => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EditUserProfile")}
+              >
+                <Icon
+                  name="edit"
+                  size={23}
+                  color={"#fff"}
+                />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen
@@ -196,7 +229,7 @@ export default function App() {
           component={Pickup}
           options={({ navigation, route }) => ({
             headerTitleAlign: "center",
-            title: "PICKUP / RETURN SERVICE",
+            title: "PICKUP SERVICE",
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 17,
