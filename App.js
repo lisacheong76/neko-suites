@@ -37,6 +37,7 @@ import EditCatDetails from "./src/views/screens/EditCatDetails";
 import AdminCatPage from "./src/views/screens/AdminCatPage";
 import AdminCatDetails from "./src/views/screens/AdminCatDetails";
 import AdminAddCats from "./src/views/screens/AdminAddCats";
+import Pickup from "./src/views/screens/Pickup";
 import ChooseCat from "./src/views/screens/ChooseCat";
 import ChooseDate from "./src/views/screens/ChooseDate";
 import ChooseOption from "./src/views/screens/ChooseOption";
@@ -187,6 +188,33 @@ export default function App() {
           name="CatDetails"
           component={CatDetails}
           options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Pickup"
+          component={Pickup}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "PICKUP / RETURN SERVICE",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen

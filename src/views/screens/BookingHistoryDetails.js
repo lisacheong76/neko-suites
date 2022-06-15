@@ -22,25 +22,6 @@ const CatDetails = ({ navigation, route }) => {
   const [imageData, setImageData] = useState("");
   const [userData, setUserData] = useState("");
 
-  // const handleDelete = async () => {
-  //   firestore
-  //     .collection("booking")
-  //     .doc(route.params.paramkey)
-  //     .delete()
-  //     .then(() => {
-  //       console.log("Doc deleted");
-  //       Alert.alert(
-  //         "Booking Deleted!",
-  //         "Booking details has been deleted successfully :3"
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error removing document: ", error);
-  //     });
-
-  //   navigation.replace("BookingPage");
-  // };
-
   const handleDelete = async () => {
     Alert.alert(
       "Are your sure?",
@@ -267,7 +248,45 @@ const CatDetails = ({ navigation, route }) => {
             paddingLeft: 20,
             alignItems: "center",
           }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            Pickup / Return
+          </Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#4b5142",
+                marginLeft: 5,
+                marginRight: 15,
+              }}
+            >
+              {bookingData.pickup ? bookingData.pickup : "Pickup Unavailable"}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingLeft: 20,
+            alignItems: "center",
+          }}
         ></View>
+        <View style={style.button}>
+          <Text
+            style={style.buttonText}
+            onPress={() =>
+              navigation.replace("Pickup", {
+                paramkey: route.params.paramkey,
+              })
+            }
+          >
+            Pickup / Return Service
+          </Text>
+        </View>
         <View style={style.button2}>
           <Text style={style.buttonText2} onPress={handleDelete}>
             Cancel Booking
@@ -341,7 +360,7 @@ const style = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "10%",
+    marginTop: "3%",
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
     borderRadius: 10,
