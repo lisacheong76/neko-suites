@@ -15,13 +15,7 @@ import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import hotels from "../../consts/roomType";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
+import { firestore } from "../../../firebase";
 
 const CatDetails = ({ navigation, route }) => {
   const [bookingData, setBookingData] = useState("");
@@ -46,6 +40,38 @@ const CatDetails = ({ navigation, route }) => {
 
   //   navigation.replace("BookingPage");
   // };
+
+  const handleDelete = async () => {
+    Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to cancel your booking? :3",
+      [
+        {
+          text: "No",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            firestore
+              .collection("booking")
+              .doc(route.params.paramkey)
+              .delete()
+              .then(() => {
+                navigation.replace("Homepage");
+                console.log("Doc deleted");
+                Alert.alert(
+                  "Booking Deleted!",
+                  "Booking details has been deleted successfully :3"
+                );
+              })
+              .catch((error) => {
+                console.error("Error removing document: ", error);
+              });
+          },
+        },
+      ]
+    );
+  };
 
   const getBooking = async () => {
     const bookingRef = firestore
@@ -79,7 +105,7 @@ const CatDetails = ({ navigation, route }) => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-        backgroundColor: COLORS.Background,
+        backgroundColor: COLORS.white,
         paddingBottom: 20,
       }}
     >
@@ -242,6 +268,11 @@ const CatDetails = ({ navigation, route }) => {
             alignItems: "center",
           }}
         ></View>
+        <View style={style.button2}>
+          <Text style={style.buttonText2} onPress={handleDelete}>
+            Cancel Booking
+          </Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -317,6 +348,22 @@ const style = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  button2: {
+    height: 52,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "3%",
+    backgroundColor: COLORS.white,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
+  },
+  buttonText2: {
+    color: COLORS.primary,
     fontWeight: "700",
     fontSize: 16,
   },

@@ -18,7 +18,8 @@ const BookingPage = ({ navigation }) => {
 
   const bookingRef = firestore
     .collection("booking")
-    .where("by", "==", auth.currentUser.uid);
+    .where("by", "==", auth.currentUser.uid)
+    .orderBy("start");
 
   useEffect(async () => {
     bookingRef.onSnapshot((querySnapshot) => {
@@ -66,7 +67,9 @@ const BookingPage = ({ navigation }) => {
             size={23}
             color={"#665444"}
             onPress={() =>
-              navigation.navigate("BookingHistoryDetails", { paramkey: item.id })
+              navigation.navigate("BookingHistoryDetails", {
+                paramkey: item.id,
+              })
             }
           />
         </View>
