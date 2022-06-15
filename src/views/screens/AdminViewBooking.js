@@ -23,7 +23,7 @@ import {
   getDownloadURL,
 } from "../../../firebase";
 
-const CatDetails = ({ navigation, route }) => {
+const AdminViewBooking = ({ navigation, route }) => {
   const [bookingData, setBookingData] = useState("");
   const [imageData, setImageData] = useState("");
   const [userData, setUserData] = useState("");
@@ -342,4 +342,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default CatDetails;
+export default AdminViewBooking;
