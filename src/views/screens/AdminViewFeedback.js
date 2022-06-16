@@ -8,17 +8,19 @@ import {
   FlatList,
   Dimensions,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
 import COLORS from "../../consts/colors";
 // import { PrimaryButton } from "../../consts/button";
-import { firestore } from "../../../firebase";
+import { firestore, auth } from "../../../firebase";
 
 const AdminViewFeedback = ({ navigation }) => {
   const [feedback, setFeedback] = useState([]);
   const [numCols, setColumnNo] = useState(2);
 
+  const photo = auth.currentUser.photoURL;
   const feedbackRef = firestore.collection("feedback");
 
   useEffect(async () => {
@@ -41,14 +43,23 @@ const AdminViewFeedback = ({ navigation }) => {
       <View style={style.cartCard}>
         <View
           style={{
-            height: 220,
             marginLeft: 10,
             paddingTop: 20,
-            flex: 1,
             alignSelf: "flex-start",
           }}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+          <Text>
+            <ImageBackground
+              source={{ uri: photo }}
+              style={{ width: 28, height: 28 }}
+              imageStyle={{ borderRadius: 25 }}
+            />
+            <Text style={{ fontSize: 11, color: COLORS.adminFont }}>
+              {item.name}
+            </Text>
+          </Text>
+
+          <Text style={{ fontWeight: "bold", fontSize: 25, paddingTop: 5}}>
             {item.rating}
             <Text> </Text>
             <Image
@@ -90,10 +101,9 @@ const AdminViewFeedback = ({ navigation }) => {
           Feedback List
         </Text>
         <FlatList
-          showsVerticalScrollIndicator={false}
           key={numCols}
           numColumns={numCols}
-          contentContainerStyle={{ paddingBottom: 80, marginLeft: 15 }}
+          contentContainerStyle={{ marginLeft: 15 }}
           data={feedback}
           renderItem={({ item }) => <CartCard item={item} />}
         />
@@ -109,14 +119,15 @@ const style = StyleSheet.create({
     marginHorizontal: 20,
   },
   cartCard: {
-    height: "100%",
+    height: 250,
     width: Dimensions.get("window").width / 2.4,
     elevation: 10,
     borderRadius: 10,
     backgroundColor: COLORS.white,
-    marginVertical: 10,
     marginHorizontal: 10,
     paddingHorizontal: 10,
+    marginBottom: 13,
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
   },
