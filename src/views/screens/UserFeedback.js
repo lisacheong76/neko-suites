@@ -31,13 +31,14 @@ import {
   getDownloadURL,
   uploadBytes,
 } from "../../../firebase";
+import firebaseErrors from "../../../firebaseErrors";
 
 const UselessTextInput = (props) => {
   return (
     <TextInput
       {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
       editable
-      maxLength={5000}
+      maxLength={30}
     />
   );
 };
@@ -48,18 +49,22 @@ const UserFeedback = () => {
   const navigation = useNavigation();
 
   const handleAdd = async () => {
-    firestore.collection("feedback").add({
-      message: feedbackData.message,
-      rating: ratingData,
-    });
+    firestore
+      .collection("feedback")
+      .add({
+        message: feedbackData.message,
+        rating: ratingData,
+      })
+      .then(() => {
+        console.log("Success");
+        Alert.alert("Feedback Submitted!", "Purrrfect feedback :3");
+      })
+      .catch((error) => {
+        alert(firebaseErrors[error.code] || error.message);
+      });
 
     navigation.replace("Homepage");
   };
-
-  // const onSubmit = () => {
-  //   // Actions on submit button click.
-  //   console.log("Form submitted");
-  // };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
@@ -77,7 +82,9 @@ const UserFeedback = () => {
       </Text>
       <StarRating
         rating={ratingData}
-        onChange={(number) => {setRatingData(number)}}
+        onChange={(number) => {
+          setRatingData(number);
+        }}
         style={{ alignSelf: "center", marginTop: 30 }}
         enableHalfStar={false}
         minRating={1}
@@ -92,7 +99,7 @@ const UserFeedback = () => {
               placeholderTextColor="#666666"
               placeholderTextSize="20"
               multiline
-              numberOfLines={6}
+              numberOfLines={2}
               borderBottomColor={COLORS.secondary}
               underlineColor={"transparent"}
               value={feedbackData ? feedbackData.message : ""}
@@ -138,7 +145,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
-    flexDirection: "row",
     borderBottomColor: COLORS.secondary,
   },
   editTextBox: {
@@ -150,7 +156,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
-    flexDirection: "row",
     fontSize: 16,
     borderBottomColor: COLORS.secondary,
     overflow: "scroll",
