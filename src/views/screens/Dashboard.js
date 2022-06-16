@@ -97,9 +97,9 @@ const Dashboard = ({ route }) => {
             onPress={() => navigation.navigate("AdminBookingPage")}
           >
             <Image
-              source={require("../../assets/animal-shelter.png")}
+              source={require("../../assets/event.png")}
               resizeMode="center"
-              style={style.menuImage}
+              style={style.menuImage2}
             />
             <Text style={style.menuText}>Manage Bookings</Text>
           </TouchableOpacity>
@@ -123,7 +123,7 @@ const Dashboard = ({ route }) => {
             <Image
               source={require("../../assets/pickup-truck.png")}
               resizeMode="center"
-              style={style.menuImage2}
+              style={style.menuImage}
             />
             <Text style={style.menuText}>Manage Pickup</Text>
           </TouchableOpacity>
@@ -131,11 +131,11 @@ const Dashboard = ({ route }) => {
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity style={style.menuButton}>
             <Image
-              source={require("../../assets/event.png")}
+              source={require("../../assets/animal-shelter.png")}
               resizeMode="center"
-              style={style.menuImage2}
+              style={style.menuImage}
             />
-            <Text style={style.menuText}>Manage Events</Text>
+            <Text style={style.menuText}>Manage Rooms</Text>
           </TouchableOpacity>
 
           <TouchableOpacity

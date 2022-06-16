@@ -57,6 +57,7 @@ import AdminAddBookings from "./src/views/screens/AdminAddBookings";
 import AdminAddBookingsDate from "./src/views/screens/AdminAddBookingsDate";
 import AdminAddBookingsRoom from "./src/views/screens/AdminAddBookingsRoom";
 import BookingSuccess from "./src/views/screens/BookingSuccess";
+import AdminViewPickup from "./src/views/screens/AdminViewPickup";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -415,6 +416,33 @@ export default function App() {
         />
 
         <Stack.Screen
+          name="AdminViewPickup"
+          component={AdminViewPickup}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "PICKUP DETAILS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("AdminPickup");
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+
+        <Stack.Screen
           name="AdminProfile"
           component={AdminProfile}
           options={({ navigation, route }) => ({
@@ -662,13 +690,6 @@ export default function App() {
                 }}
               >
                 <Icon name="arrow-back-ios" size={23} color={"#fff"} />
-              </TouchableOpacity>
-            ),
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("AdminAddBookings")}
-              >
-                <Icon name="add" size={25} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}

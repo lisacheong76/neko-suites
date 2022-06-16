@@ -76,7 +76,7 @@ const AdminCustomerPage = ({ navigation }) => {
             size={23}
             color={"#4b5142"}
             onPress={() =>
-              navigation.navigate("AdminViewBooking", { paramkey: item.id })
+              navigation.navigate("AdminViewPickup", { paramkey: item.id })
             }
           />
         </View>
