@@ -132,11 +132,7 @@ export default function App() {
               <TouchableOpacity
                 onPress={() => navigation.navigate("EditUserProfile")}
               >
-                <Icon
-                  name="edit"
-                  size={23}
-                  color={"#fff"}
-                />
+                <Icon name="edit" size={23} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}
@@ -700,13 +696,6 @@ export default function App() {
                 }}
               >
                 <Icon name="arrow-back-ios" size={23} color={"#fff"} />
-              </TouchableOpacity>
-            ),
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("AdminAddBookings")}
-              >
-                <Icon name="add" size={25} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}

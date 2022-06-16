@@ -290,7 +290,7 @@ const AdminEditCats = ({ navigation, route }) => {
             <View style={styles.textBox}>
               <Icon name="cake-variant" color="#4b5142" size={20} />
               <DatePicker
-                inputProps={{readOnly: true}}
+                inputProps={{ readOnly: true }}
                 style={styles.datePickerStyle}
                 date={date}
                 mode="date"
@@ -528,6 +528,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
+    marginBottom: 20,
   },
   buttonText: {
     color: "white",

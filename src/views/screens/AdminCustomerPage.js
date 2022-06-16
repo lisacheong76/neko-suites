@@ -77,7 +77,6 @@ const AdminCustomerPage = ({ navigation }) => {
     <SafeAreaView style={{ backgroundColor: COLORS.adminBackground, flex: 1 }}>
       <FlatList
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 80 }}
         data={users}
         renderItem={({ item }) => <CartCard item={item} />}
       />

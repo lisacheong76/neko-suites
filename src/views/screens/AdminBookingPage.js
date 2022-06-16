@@ -94,7 +94,7 @@ const AdminBookingPage = ({ navigation }) => {
 
         <FlatList
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 80 }}
+          contentContainerStyle={{ paddingBottom: 40 }}
           data={booking}
           renderItem={({ item }) => <CartCard item={item} />}
         />

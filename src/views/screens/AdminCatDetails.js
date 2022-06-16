@@ -336,7 +336,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: "10%",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },

@@ -83,7 +83,7 @@ const AdminCCatPage = ({ navigation, route }) => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+      style={{ flex: 1, backgroundColor: COLORS.white, paddingTop: 20 }}
     >
       {/* for button */}
       {/* <View style={{ flexDirection: "row" }}>

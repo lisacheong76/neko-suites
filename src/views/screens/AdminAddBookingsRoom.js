@@ -80,7 +80,6 @@ const AdminAddBookingsRoom = ({ route, navigation }) => {
     <SafeAreaView style={{ backgroundColor: COLORS.adminBackground, flex: 1 }}>
       <FlatList
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 80 }}
         data={hotels}
         renderItem={({ item }) => <CartCard item={item} />}
       />
