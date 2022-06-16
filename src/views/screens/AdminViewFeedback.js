@@ -14,24 +14,23 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
 import COLORS from "../../consts/colors";
 // import { PrimaryButton } from "../../consts/button";
-import { firestore, auth } from "../../../firebase";
+import { firestore } from "../../../firebase";
 
 const AdminViewFeedback = ({ navigation }) => {
   const [feedback, setFeedback] = useState([]);
   const [numCols, setColumnNo] = useState(2);
 
-  const photo = auth.currentUser.photoURL;
   const feedbackRef = firestore.collection("feedback");
 
   useEffect(async () => {
     feedbackRef.onSnapshot((querySnapshot) => {
       const feedbackArray = [];
       querySnapshot.forEach((doc) => {
-        const { message, rating } = doc.data();
+        const { message, rating, profile } = doc.data();
         feedbackArray.push({
-          id: doc.id,
           message,
           rating,
+          profile,
         });
       });
       setFeedback(feedbackArray);
@@ -50,7 +49,7 @@ const AdminViewFeedback = ({ navigation }) => {
         >
           <Text>
             <ImageBackground
-              source={{ uri: photo }}
+              source={{ uri: item.profile }}
               style={{ width: 28, height: 28 }}
               imageStyle={{ borderRadius: 25 }}
             />
@@ -59,7 +58,7 @@ const AdminViewFeedback = ({ navigation }) => {
             </Text>
           </Text>
 
-          <Text style={{ fontWeight: "bold", fontSize: 25, paddingTop: 5}}>
+          <Text style={{ fontWeight: "bold", fontSize: 25, paddingTop: 5 }}>
             {item.rating}
             <Text> </Text>
             <Image
@@ -86,6 +85,7 @@ const AdminViewFeedback = ({ navigation }) => {
         backgroundColor: COLORS.adminBackground,
         flex: 1,
         paddingTop: 20,
+        paddingBottom: 40,
       }}
     >
       <View>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StarRating from "react-native-star-rating-widget";
 import {
   Share,
@@ -23,14 +23,7 @@ import COLORS from "../../consts/colors";
 import { useNavigation } from "@react-navigation/core";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import uuid from "uuid";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-  uploadBytes,
-} from "../../../firebase";
+import { auth, firestore } from "../../../firebase";
 import firebaseErrors from "../../../firebaseErrors";
 
 const UselessTextInput = (props) => {
@@ -46,7 +39,22 @@ const UselessTextInput = (props) => {
 const UserFeedback = () => {
   const [ratingData, setRatingData] = useState(0);
   const [feedbackData, setFeedbackData] = useState("");
+  const [userData, setUserData] = useState("");
   const navigation = useNavigation();
+
+  const getUser = async () => {
+    const userRef = firestore.collection("users").doc(auth.currentUser.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      setUserData(doc.data());
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const handleAdd = async () => {
     firestore
@@ -54,6 +62,8 @@ const UserFeedback = () => {
       .add({
         message: feedbackData.message,
         rating: ratingData,
+        by: auth.currentUser.uid,
+        profile: userData.image,
       })
       .then(() => {
         console.log("Success");
