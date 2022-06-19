@@ -22,7 +22,7 @@ import {
   getDownloadURL,
 } from "../../../firebase";
 
-const CatDetails = ({ navigation, route }) => {
+const AdminCatDetails = ({ navigation, route }) => {
   const [catData, setCatData] = useState("");
   const [userData, setUserData] = useState("");
 
@@ -347,4 +347,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default CatDetails;
+export default AdminCatDetails;

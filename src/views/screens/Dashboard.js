@@ -261,5 +261,6 @@ const style = StyleSheet.create({
   menuText: {
     fontSize: 12,
     marginTop: -10,
+    textAlign: "center"
   },
 });

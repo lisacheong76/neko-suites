@@ -40,7 +40,7 @@ import AdminAddCats from "./src/views/screens/AdminAddCats";
 import Pickup from "./src/views/screens/Pickup";
 import ChooseCat from "./src/views/screens/ChooseCat";
 import ChooseDate from "./src/views/screens/ChooseDate";
-import ChooseOption from "./src/views/screens/ChooseOption";
+// import ChooseOption from "./src/views/screens/ChooseOption";
 import Checkout from "./src/views/screens/Checkout";
 import AdminPickup from "./src/views/screens/AdminPickup";
 import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
@@ -49,7 +49,7 @@ import AdminCCatPage from "./src/views/screens/AdminCCatPage";
 import AdminBookingPage from "./src/views/screens/AdminBookingPage";
 import AdminViewBooking from "./src/views/screens/AdminViewBooking";
 import BookingHistoryDetails from "./src/views/screens/BookingHistoryDetails";
-import BookingPage from "./src/views/screens/BookingPage";
+// import BookingPage from "./src/views/screens/BookingPage";
 import UserFeedback from "./src/views/screens/UserFeedback";
 import AdminEditCats from "./src/views/screens/AdminEditCats";
 import AdminViewFeedback from "./src/views/screens/AdminViewFeedback";
@@ -858,7 +858,7 @@ export default function App() {
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.goBack();
+                  navigation.navigate("Dashboard");
                 }}
               >
                 <Icon name="arrow-back-ios" size={23} color={"#fff"} />
@@ -877,19 +877,63 @@ export default function App() {
         />
         
         <Stack.Screen
-          options={{ headerShown: false }}
           name="AddRoom"
           component={AddRoom}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "ADD ROOM",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("AdminRoomPage");
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
+
         <Stack.Screen
           options={{ headerShown: false }}
           name="AdminRoomDetails"
           component={AdminRoomDetails}
         />
+
         <Stack.Screen
-          options={{ headerShown: false }}
           name="AdminEditRoom"
           component={AdminEditRoom}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "EDIT ROOM",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         {/* <Stack.Screen
