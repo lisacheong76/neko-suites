@@ -58,6 +58,10 @@ import AdminAddBookingsDate from "./src/views/screens/AdminAddBookingsDate";
 import AdminAddBookingsRoom from "./src/views/screens/AdminAddBookingsRoom";
 import BookingSuccess from "./src/views/screens/BookingSuccess";
 import AdminViewPickup from "./src/views/screens/AdminViewPickup";
+import AdminRoomDetails from "./src/views/screens/AdminRoomDetails";
+import AdminRoomPage from "./src/views/screens/AdminRoomPage";
+import AddRoom from "./src/views/screens/AddRoom";
+import EditRoomDetails from "./src/views/screens/EditRoomDetails";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -834,6 +838,58 @@ export default function App() {
               </TouchableOpacity>
             ),
           })}
+        />
+        
+        <Stack.Screen
+          name="AdminRoomPage"
+          component={AdminRoomPage}
+          options={({ navigation, route }) => ({
+            headerTitleAlign: "center",
+            title: "ROOMS",
+            headerTitleStyle: {
+              color: "#FFF",
+              fontSize: 17,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+            },
+            headerStyle: {
+              backgroundColor: COLORS.adminPrimary,
+            },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.replace("AddRoom")
+                }
+              >
+                <Icon name="add" size={25} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AddRoom"
+          component={AddRoom}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="AdminRoomDetails"
+          component={AdminRoomDetails}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="EditRoomDetails"
+          component={EditRoomDetails}
         />
 
         {/* <Stack.Screen

@@ -129,7 +129,9 @@ const Dashboard = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={style.menuButton}>
+          <TouchableOpacity 
+            style={style.menuButton}
+            onPress={() => navigation.navigate("AdminRoomPage")}>
             <Image
               source={require("../../assets/animal-shelter.png")}
               resizeMode="center"
