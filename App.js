@@ -61,7 +61,7 @@ import AdminViewPickup from "./src/views/screens/AdminViewPickup";
 import AdminRoomDetails from "./src/views/screens/AdminRoomDetails";
 import AdminRoomPage from "./src/views/screens/AdminRoomPage";
 import AddRoom from "./src/views/screens/AddRoom";
-import EditRoomDetails from "./src/views/screens/EditRoomDetails";
+import AdminEditRoom from "./src/views/screens/AdminEditRoom";
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
@@ -888,8 +888,8 @@ export default function App() {
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="EditRoomDetails"
-          component={EditRoomDetails}
+          name="AdminEditRoom"
+          component={AdminEditRoom}
         />
 
         {/* <Stack.Screen

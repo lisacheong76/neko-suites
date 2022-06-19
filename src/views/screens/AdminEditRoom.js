@@ -10,7 +10,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  TextArea,
 } from "react-native";
 import {
   Avatar,
@@ -38,8 +37,9 @@ import {
   uploadBytes,
 } from "../../../firebase";
 
-const EditRoomDetails = ({ navigation, route }) => {
-  const [roomData, setRoomData] = useState("");
+const AdminEditRoom = ({ navigation, route }) => {
+  const [date, setDate] = useState("");
+  const [roomsData, setRoomsData] = useState("");
   const [image, setImage] = useState("");
 
   const getRooms = async () => {
@@ -48,7 +48,7 @@ const EditRoomDetails = ({ navigation, route }) => {
     if (!doc.exists) {
       console.log("No such document!");
     } else {
-      setRoomData(doc.data());
+      setRoomsData(doc.data());
     }
   };
 
@@ -113,24 +113,24 @@ const EditRoomDetails = ({ navigation, route }) => {
       .collection("rooms")
       .doc(route.params.paramkey)
       .update({
-        name: roomData.roomName,
-        detail: roomData.roomDetail,
-        price: roomData.roomPrice,
-        pax: roomData.roomPax,
+        name: roomsData.roomName,
+        detail: roomsData.roomDetail,
+        price: roomsData.roomPrice,
+        pax: roomsData.roomPax,
         image: roomImage,
       })
       .then(() => {
         console.log("User Updated!");
         Alert.alert(
-          "Rooms Details Updated!",
-          "The room details has been updated successfully :3"
+            "Rooms Details Updated!",
+            "The room details has been updated successfully :3"
         );
       })
       .catch((error) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    navigation.replace("AdminRoomPage");
+    // navigation.replace("AdminRoomPage");
   };
 
   useEffect(() => {
@@ -138,9 +138,8 @@ const EditRoomDetails = ({ navigation, route }) => {
   }, []);
 
   return (
-    
-      <SafeAreaView style={{ backgroundColor: COLORS.background }}><ScrollView showsVerticalScrollIndicator={false}>
-        
+    <SafeAreaView style={{ backgroundColor: COLORS.adminBackground }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -162,7 +161,7 @@ const EditRoomDetails = ({ navigation, route }) => {
                   }}
                 >
                   <ImageBackground
-                    source={image ? { uri: image } : { uri: roomData.image }}
+                    source={image ? { uri: image } : { uri: roomsData.image }}
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -186,7 +185,23 @@ const EditRoomDetails = ({ navigation, route }) => {
                     </View>
                   </ImageBackground>
                 </View>
-                
+                {/* <Avatar.Image
+                  source={image ? { uri: image } : { uri: photo }}
+                  size={90}>
+                <Icon
+                    name="camera"
+                    size={90}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
+                  />
+                </Avatar.Image> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -194,7 +209,7 @@ const EditRoomDetails = ({ navigation, route }) => {
                 style={{
                   marginTop: 10,
                   marginBottom: 5,
-                  color: "#665444",
+                  color: "#4b5142",
                   fontSize: 15,
                   fontWeight: "bold",
                 }}
@@ -206,7 +221,7 @@ const EditRoomDetails = ({ navigation, route }) => {
         </View>
 
         <View style={styles.userInfoSection}>
-          <Text
+        <Text
             style={{
               fontWeight: "bold",
               color: "#665444",
@@ -214,11 +229,11 @@ const EditRoomDetails = ({ navigation, route }) => {
               marginBottom: 5,
             }}
           >
-            Room Name *
+            Room Name 
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="cat" color="#665444" size={20} />
+              <Icon3 name="bed" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
@@ -226,8 +241,8 @@ const EditRoomDetails = ({ navigation, route }) => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomData ? roomData.name : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, name: text })}
+                value={roomsData ? roomsData.name : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, name: text })}
               ></TextInput>
             </View>
           </View>
@@ -235,33 +250,35 @@ const EditRoomDetails = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
+              marginTop: 10,
               marginLeft: 5,
               marginBottom: 5,
             }}
           >
-            Room Details *
+            Room Details
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon3 name="information-outline" color="#665444" size={20} />
-              <TextArea
+              <Icon3 name="information-circle" color="#665444" size={20} />
+              <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
                 placeholder="Room Details"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
+                numberOfLines = {4}
                 autoCorrect={false}
-                value={roomData ? roomData.detail : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, detail: text })}
-              ></TextArea>
+                value={roomsData ? roomsData.detail : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, detail: text })}
+              ></TextInput>
             </View>
           </View>
 
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -270,7 +287,7 @@ const EditRoomDetails = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="cake-variant" color="#665444" size={20} />
+              <Icon3 name="md-logo-usd" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
@@ -278,8 +295,8 @@ const EditRoomDetails = ({ navigation, route }) => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomData ? roomData.price : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, price: text })}
+                value={roomsData ? roomsData.price : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, price: text })}
               ></TextInput>
             </View>
           </View>
@@ -287,24 +304,24 @@ const EditRoomDetails = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
           >
-            Room Pax *
+            Room Pax 
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon3 name="add-circle" color="#665444" size={20} />
+              <Icon3 name="md-heart-circle-outline" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 placeholder="Room Pax"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomData ? roomData.pax : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, pax: text })}
+                value={roomsData ? roomsData.pax : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, pax: text })}
               ></TextInput>
             </View>
           </View>
@@ -314,13 +331,13 @@ const EditRoomDetails = ({ navigation, route }) => {
           <Text style={styles.buttonText} onPress={handleUpdate}>
             Save Edit
           </Text>
-        </View></ScrollView>
-      </SafeAreaView>
-    
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default EditRoomDetails;
+export default AdminEditRoom;
 
 const styles = StyleSheet.create({
   container: {
@@ -380,11 +397,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   textBox: {
-    height: 40,
+    height: 50,
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -392,11 +409,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   editTextBox: {
-    height: 40,
+    height: 50,
     alignItems: "center",
     marginLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -408,9 +425,10 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
+    marginBottom: 20,
   },
   buttonText: {
     color: "white",

@@ -54,7 +54,7 @@ const AdminRoomPage = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background, paddingTop: 20 }}
+      style={{ flex: 1, backgroundColor: COLORS.adminBackground, paddingTop: 20 }}
     >
       <View style={styles.container}>
         
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   },
   CatsCard: {
     height: 160,
-    width: 160,
+    width: Dimensions.get("window").width / 2.4,
     backgroundColor: COLORS.white,
     elevation: 15,
     marginHorizontal: 13,

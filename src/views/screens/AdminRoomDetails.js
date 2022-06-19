@@ -101,9 +101,9 @@ const AdminRoomDetails = ({ navigation, route }) => {
           <Icon2
             name="edit"
             size={23}
-            color={"#665444"}
+            color={"#4b5142"}
             onPress={() =>
-              navigation.replace("EditRoomDetails", {
+              navigation.replace("AdminEditRoom", {
                 paramkey: route.params.paramkey,
               })
             }
@@ -118,13 +118,13 @@ const AdminRoomDetails = ({ navigation, route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Room Details</Text>
+          
           <View>
             <Text
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -148,7 +148,7 @@ const AdminRoomDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -157,56 +157,7 @@ const AdminRoomDetails = ({ navigation, route }) => {
             </Text>
           </View>
         </View>
-        {/* <View
-          style={{
-            marginTop: 20,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingLeft: 20,
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Vaccinated</Text>
-          <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "bold",
-                color: "#665444",
-                marginLeft: 5,
-                marginRight: 15,
-              }}
-            >
-              {catData.vaccinated ? catData.vaccinated : "Not Set"}
-            </Text>
-          </View>
-        </View> */}
-        {/* <View
-          style={{
-            marginTop: 20,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingLeft: 20,
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-            Neutered / Spayed
-          </Text>
-          <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "bold",
-                color: "#665444",
-                marginLeft: 5,
-                marginRight: 15,
-              }}
-            >
-              {catData.neutered ? catData.neutered : "Not Set"}
-            </Text>
-          </View>
-        </View> */}
+        
         <View
           style={{
             marginTop: 20,
@@ -222,7 +173,7 @@ const AdminRoomDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: "#4b5142",
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -247,7 +198,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
@@ -258,7 +209,7 @@ const style = StyleSheet.create({
     marginLeft: 40,
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     flexDirection: "row",
@@ -267,7 +218,7 @@ const style = StyleSheet.create({
     position: "absolute",
     height: 60,
     width: 60,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     top: -30,
     right: 20,
     borderRadius: 30,
@@ -305,7 +256,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: "10%",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },

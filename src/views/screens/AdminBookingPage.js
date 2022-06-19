@@ -119,6 +119,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
+    
   },
   actionBtn: {
     width: 80,

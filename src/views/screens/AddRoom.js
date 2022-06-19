@@ -8,7 +8,6 @@ import {
   View,
   TouchableOpacity,
   Picker,
-  TextArea,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import {
@@ -119,7 +118,7 @@ const AddRoom = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background }}
+      style={{ flex: 1, backgroundColor: COLORS.adminBackground }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
 
@@ -195,11 +194,11 @@ const AddRoom = () => {
               marginBottom: 5,
             }}
           >
-            Room Name *
+            Room Name
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="cat" color="#665444" size={20} />
+              <Icon3 name="bed" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
@@ -221,21 +220,22 @@ const AddRoom = () => {
               marginBottom: 5,
             }}
           >
-            Room Details *
+            Room Details
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon3 name="information-outline" color="#665444" size={20} />
-              <TextArea
+              <Icon3 name="information-circle" color="#665444" size={20} />
+              <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
                 placeholder="Room Details"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
+                numberOfLines = {4}
                 autoCorrect={false}
                 value={roomData ? roomData.detail : ""}
                 onChangeText={(text) => setRoomData({ ...roomData, detail: text })}
-              ></TextArea>
+              ></TextInput>
             </View>
           </View>
 
@@ -251,7 +251,7 @@ const AddRoom = () => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="cake-variant" color="#665444" size={20} />
+              <Icon3 name="md-logo-usd" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
@@ -273,11 +273,11 @@ const AddRoom = () => {
               marginBottom: 5,
             }}
           >
-            Room Pax *
+            Room Pax
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon3 name="add-circle" color="#665444" size={20} />
+              <Icon3 name="md-heart-circle-outline" color="#665444" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 placeholder="Room Pax"
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },
