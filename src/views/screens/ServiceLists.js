@@ -20,6 +20,7 @@ const ServiceLists = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
+        flex: 1
       }}>
       <StatusBar
         barStyle="light-content"
@@ -82,19 +83,6 @@ const ServiceLists = ({navigation, route}) => {
               }}>
             </Text>
           </View>
-        </View>
-        <View style={style.btn}>
-          <TouchableOpacity
-            // onPress={() => navigation.navigate("ChooseCat")}
-            style={style.button}
-          >
-            <Text style={style.buttonText}>Book Now</Text>
-          </TouchableOpacity>
-          {/* <Text
-            style={{ color: COLORS.white, fontSize: 18, fontWeight: "bold" }}
-          >
-            Book Now
-          </Text> */}
         </View>
       </View>
     </ScrollView>
