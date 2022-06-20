@@ -40,7 +40,7 @@ import {
 const AdminEditRoom = ({ navigation, route }) => {
   const [date, setDate] = useState("");
   const [roomsData, setRoomsData] = useState("");
-  const [image, setImage] = useState("");
+  const [roomImage, setRoomImage] = useState("");
 
   const getRooms = async () => {
     const roomRef = firestore.collection("rooms").doc(route.params.paramkey);
@@ -63,7 +63,7 @@ const AdminEditRoom = ({ navigation, route }) => {
     console.log({ pickerResult });
 
     if (!pickerResult.cancelled) {
-      setImage(pickerResult);
+      setRoomImage(pickerResult);
     }
 
     handleImagePicked(pickerResult);
@@ -72,12 +72,12 @@ const AdminEditRoom = ({ navigation, route }) => {
   const handleImagePicked = async (pickerResult) => {
     try {
       // this.setState({ uploading: true });
-      setImage({ uploading: true });
+      setRoomImage({ uploading: true });
 
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImageAsync(pickerResult.uri);
         // this.setState({ image: uploadUrl });
-        setImage(uploadUrl);
+        setRoomImage(uploadUrl);
       }
     } catch (e) {
       console.log(e);
@@ -113,11 +113,11 @@ const AdminEditRoom = ({ navigation, route }) => {
       .collection("rooms")
       .doc(route.params.paramkey)
       .update({
-        name: roomsData.roomName,
-        detail: roomsData.roomDetail,
-        price: roomsData.roomPrice,
-        pax: roomsData.roomPax,
-        image: roomImage,
+        roomnName: roomsData.roomName,
+        roomDetail: roomsData.roomDetail,
+        roomPrice: roomsData.roomPrice,
+        roomPax: roomsData.roomPax,
+        roomImage: roomImage,
       })
       .then(() => {
         console.log("User Updated!");
@@ -130,7 +130,7 @@ const AdminEditRoom = ({ navigation, route }) => {
         alert(firebaseErrors[error.code] || error.message);
       });
 
-    // navigation.replace("AdminRoomPage");
+    navigation.replace("AdminRoomPage");
   };
 
   useEffect(() => {
@@ -161,7 +161,7 @@ const AdminEditRoom = ({ navigation, route }) => {
                   }}
                 >
                   <ImageBackground
-                    source={image ? { uri: image } : { uri: roomsData.image }}
+                    source={roomImage ? { uri: roomImage } : { uri: roomsData.roomImage }}
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -241,8 +241,8 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomsData ? roomsData.name : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, name: text })}
+                value={roomsData ? roomsData.roomName : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, roomName: text })}
               ></TextInput>
             </View>
           </View>
@@ -269,8 +269,8 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextSize="20"
                 numberOfLines = {4}
                 autoCorrect={false}
-                value={roomsData ? roomsData.detail : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, detail: text })}
+                value={roomsData ? roomsData.roomDetail : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, roomDetail: text })}
               ></TextInput>
             </View>
           </View>
@@ -295,8 +295,8 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomsData ? roomsData.price : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, price: text })}
+                value={roomsData ? roomsData.roomPrice : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, roomPrice: text })}
               ></TextInput>
             </View>
           </View>
@@ -320,8 +320,8 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomsData ? roomsData.pax : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, pax: text })}
+                value={roomsData ? roomsData.roomPax : ""}
+                onChangeText={(text) => setRoomsData({ ...roomsData, roomPax: text })}
               ></TextInput>
             </View>
           </View>

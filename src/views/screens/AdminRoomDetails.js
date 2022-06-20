@@ -184,7 +184,7 @@ const AdminRoomDetails = ({ navigation, route }) => {
         </View>
         <View style={style.button}>
           <Text style={style.buttonText} onPress={handleDelete}>
-            Delete Cat
+            Delete Room
           </Text>
         </View>
       </View>

@@ -146,6 +146,11 @@ const AdminAddCats = ({ navigation, route }) => {
                 marginTop: 15,
                 alignItems: "center",
                 justifyContent: "center",
+                backgroundColor: COLORS.adminSecondary,
+                borderRadius: 50,
+                height: 95,
+                width: 95,
+                alignSelf: "center"
               }}
             >
               <TouchableOpacity onPress={() => pickImage()}>
@@ -160,7 +165,7 @@ const AdminAddCats = ({ navigation, route }) => {
                 >
                   <ImageBackground
                     source={image ? { uri: image } : { uri: catData.image }}
-                    style={{ height: 95, width: 95 }}
+                    style={{ height: 95, width: 95, color: "black" }}
                     imageStyle={{ borderRadius: 50 }}
                   >
                     <View
@@ -173,7 +178,7 @@ const AdminAddCats = ({ navigation, route }) => {
                       <Icon
                         name="camera"
                         size={33}
-                        color="#fff"
+                        color="white"
                         style={{
                           opacity: 0.7,
                           alignItems: "center",
@@ -188,9 +193,9 @@ const AdminAddCats = ({ navigation, route }) => {
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   marginBottom: 5,
-                  color: "#665444",
+                  color: "#4b5142",
                   fontSize: 15,
                   fontWeight: "bold",
                 }}
@@ -205,7 +210,7 @@ const AdminAddCats = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -214,7 +219,7 @@ const AdminAddCats = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="cat" color="#665444" size={20} />
+              <Icon name="cat" color="#4b5142" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 borderColor="transparent"
@@ -231,7 +236,7 @@ const AdminAddCats = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -240,7 +245,7 @@ const AdminAddCats = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="human-male-female" color="#665444" size={20} />
+              <Icon name="human-male-female" color="#4b5142" size={20} />
               <Picker
                 selectedValue={catData.gender}
                 style={{ height: 50, width: 290, marginLeft: 20 }}
@@ -258,7 +263,7 @@ const AdminAddCats = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -267,7 +272,7 @@ const AdminAddCats = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="cake-variant" color="#665444" size={20} />
+              <Icon name="cake-variant" color="#4b5142" size={20} />
               <DatePicker
                 style={styles.datePickerStyle}
                 date={date}
@@ -326,7 +331,7 @@ const AdminAddCats = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -335,7 +340,7 @@ const AdminAddCats = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon3 name="add-circle" color="#665444" size={20} />
+              <Icon3 name="add-circle" color="#4b5142" size={20} />
               <TextInput
                 style={styles.editTextBox}
                 placeholder="Allergy"
@@ -353,7 +358,7 @@ const AdminAddCats = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -362,7 +367,7 @@ const AdminAddCats = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Fontisto name="injection-syringe" color="#665444" size={20} />
+              <Fontisto name="injection-syringe" color="#4b5142" size={20} />
               <Picker
                 selectedValue={catData.vaccinated}
                 style={{ height: 50, width: 290, marginLeft: 20 }}
@@ -380,7 +385,7 @@ const AdminAddCats = ({ navigation, route }) => {
           <Text
             style={{
               fontWeight: "bold",
-              color: "#665444",
+              color: "#4b5142",
               marginLeft: 5,
               marginBottom: 5,
             }}
@@ -389,7 +394,7 @@ const AdminAddCats = ({ navigation, route }) => {
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="hand-heart" color="#665444" size={20} />
+              <Icon name="hand-heart" color="#4b5142" size={20} />
               <Picker
                 selectedValue={catData.neutered}
                 style={{ height: 50, width: 290, marginLeft: 20 }}
@@ -479,7 +484,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -491,7 +496,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,

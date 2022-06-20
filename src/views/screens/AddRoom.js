@@ -37,7 +37,7 @@ import {
   uploadBytes,
 } from "../../../firebase";
 
-const AddRoom = () => {
+const AddRoom = ({route}) => {
   const navigation = useNavigation();
   const [roomData, setRoomData] = useState("");
   const [roomImage, setImage] = useState("");
@@ -79,14 +79,15 @@ const AddRoom = () => {
 
   const handleAddRoom = async () => {
     firestore.collection("rooms").add({
-      name: roomData.roomName,
-      detail: roomData.roomDetail,
-      price: roomData.roomPrice,
-      pax: roomData.roomPax,
-      image: roomImage,
+      roomName: roomData.roomName,
+      roomDetail: roomData.roomDetail,
+      roomPrice: roomData.roomPrice,
+      roomPax: roomData.roomPax,
+      roomImage: roomImage,
     });
 
-    navigation.replace("RoomPage");
+    navigation.replace("AdminRoomPage"
+    );
   };
 
   // useEffect(() => {
@@ -130,6 +131,11 @@ const AddRoom = () => {
                 marginTop: 15,
                 alignItems: "center",
                 justifyContent: "center",
+                backgroundColor: COLORS.adminSecondary,
+                borderRadius: 50,
+                height: 95,
+                width: 95,
+                alignSelf: "center"
               }}
             >
               <TouchableOpacity onPress={() => pickImage()}>
@@ -143,7 +149,7 @@ const AddRoom = () => {
                   }}
                 >
                   <ImageBackground
-                    source={roomImage ? { uri: roomImage } : { uri: roomData.image }}
+                    source={roomImage ? { uri: roomImage } : { uri: roomData.roomImage }}
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -157,7 +163,7 @@ const AddRoom = () => {
                       <Icon
                         name="camera"
                         size={33}
-                        color="#fff"
+                        color="white"
                         style={{
                           opacity: 0.7,
                           alignItems: "center",
@@ -172,7 +178,7 @@ const AddRoom = () => {
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text
                 style={{
-                  marginTop: 10,
+                  marginTop: 5,
                   marginBottom: 5,
                   color: "#665444",
                   fontSize: 15,
@@ -206,8 +212,8 @@ const AddRoom = () => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomData ? roomData.name : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, name: text })}
+                value={roomData ? roomData.roomName : ""}
+                onChangeText={(text) => setRoomData({ ...roomData, roomName: text })}
               ></TextInput>
             </View>
           </View>
@@ -233,8 +239,8 @@ const AddRoom = () => {
                 placeholderTextSize="20"
                 numberOfLines = {4}
                 autoCorrect={false}
-                value={roomData ? roomData.detail : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, detail: text })}
+                value={roomData ? roomData.roomDetail : ""}
+                onChangeText={(text) => setRoomData({ ...roomData, roomDetail: text })}
               ></TextInput>
             </View>
           </View>
@@ -259,8 +265,8 @@ const AddRoom = () => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomData ? roomData.price : ""}
-                onChangeText={(number) => setRoomData({ ...roomData, price: number })}
+                value={roomData ? roomData.roomPrice : ""}
+                onChangeText={(text) => setRoomData({ ...roomData, roomPrice: text })}
               ></TextInput>
             </View>
           </View>
@@ -284,8 +290,8 @@ const AddRoom = () => {
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
                 autoCorrect={false}
-                value={roomData ? roomData.pax : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, pax: text })}
+                value={roomData ? roomData.roomPax : ""}
+                onChangeText={(text) => setRoomData({ ...roomData, roomPax: text })}
               ></TextInput>
             </View>
           </View>
