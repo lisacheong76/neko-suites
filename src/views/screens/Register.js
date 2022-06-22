@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TextInput,
@@ -109,7 +108,6 @@ const Register = () => {
         <TouchableOpacity onPress={handleSignUp} style={styles.button}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity */}
         <Text style={[styles.textBody, { paddingTop: 20 }, { fontSize: 13 }]}>
           Already have an account?
         </Text>
@@ -119,9 +117,6 @@ const Register = () => {
         >
           Click here
         </Text>
-        {/* style={[styles.button, styles.buttonOutline]} */}
-        {/* <Text style={styles.buttonOutlineText}>Back</Text> */}
-        {/* </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -159,19 +154,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#e8a468",
-    borderWidth: 2,
-  },
   buttonText: {
     color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#e8a468",
     fontWeight: "700",
     fontSize: 16,
   },

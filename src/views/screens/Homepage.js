@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/core";
 import React, { useState, useEffect } from "react";
 import {
   Dimensions,
@@ -7,20 +6,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Image,
   Animated,
-  ImageBackground,
-  StatusBar,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
-import hotels from "../../consts/roomType";
 import services from "../../consts/otherServices";
 import { auth, firestore } from "../../../firebase";
-// import { Icon } from "react-native-elements";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 1.8;
@@ -115,22 +109,6 @@ const Homepage = () => {
                 </Text>
               </View>
             </View>
-            {/* <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: 10,
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Icon name="star" size={15} color={COLORS.orange} />
-                <Icon name="star" size={15} color={COLORS.orange} />
-                <Icon name="star" size={15} color={COLORS.orange} />
-                <Icon name="star" size={15} color={COLORS.orange} />
-                <Icon name="star" size={15} color={COLORS.orange} />
-              </View> */}
-            {/* <Text style={{fontSize: 10, color: COLORS.grey}}>365reviews</Text> */}
-            {/* </View> */}
           </View>
         </Animated.View>
       </TouchableOpacity>
@@ -199,6 +177,7 @@ const Homepage = () => {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 16,
                 color: "#665444",
                 marginLeft: 12,
                 marginBottom: -30,
@@ -241,37 +220,6 @@ const style = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     marginTop: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  header: {
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-  },
-  searchInputContainer: {
-    height: 50,
-    backgroundColor: COLORS.light,
-    marginTop: 15,
-    marginLeft: 20,
-    borderTopLeftRadius: 30,
-    borderBottomLeftRadius: 30,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  categoryListContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-    marginTop: 30,
-  },
-  categoryListText: {
-    fontSize: 17,
-    fontWeight: "bold",
   },
   card: {
     height: 280,

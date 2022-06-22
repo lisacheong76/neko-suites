@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/core";
 import {
   SafeAreaView,
   StyleSheet,
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
@@ -51,7 +49,6 @@ const ChooseDate = ({ navigation, route }) => {
   };
 
   return (
-    // <ScrollView showsVerticalScrollIndicator={false}>
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <CalendarPicker
@@ -86,16 +83,6 @@ const ChooseDate = ({ navigation, route }) => {
           }}
           onDateChange={onDateChange}
         />
-        <View style={styles.textStyle}>
-          <Text style={styles.textStyle}>Start Date :</Text>
-          <Text style={styles.textStyle}>
-            {selectedStartDate ? selectedStartDate.toString() : ""}
-          </Text>
-          <Text style={styles.textStyle}>End Date :</Text>
-          <Text style={styles.textStyle}>
-            {selectedEndDate ? selectedEndDate.toString() : ""}
-          </Text>
-        </View>
       </View>
       <View>
         <TouchableOpacity onPress={handleUpdate} style={styles.button}>
@@ -103,7 +90,6 @@ const ChooseDate = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
     </SafeAreaView>
-    // </ScrollView>
   );
 };
 export default ChooseDate;
@@ -117,12 +103,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     marginTop: 10,
-  },
-  titleStyle: {
-    color: "#665444",
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 25,
   },
   button: {
     height: 52,

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
@@ -11,22 +9,13 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 import DatePicker from "react-native-datepicker";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/Ionicons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import * as ImagePicker from "expo-image-picker";
-import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
@@ -71,12 +60,10 @@ const EditCatDetails = ({ navigation, route }) => {
 
   const handleImagePicked = async (pickerResult) => {
     try {
-      // this.setState({ uploading: true });
       setImage({ uploading: true });
 
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImageAsync(pickerResult.uri);
-        // this.setState({ image: uploadUrl });
         setImage(uploadUrl);
       }
     } catch (e) {
@@ -142,20 +129,6 @@ const EditCatDetails = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.background }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity onPress={navigation.goBack}>
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "EDIT CAT DETAILS",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        /> */}
-
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -201,23 +174,6 @@ const EditCatDetails = ({ navigation, route }) => {
                     </View>
                   </ImageBackground>
                 </View>
-                {/* <Avatar.Image
-                  source={image ? { uri: image } : { uri: photo }}
-                  size={90}>
-                <Icon
-                    name="camera"
-                    size={90}
-                    color="#fff"
-                    style={{
-                      opacity: 0.7,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderWidth: 1,
-                      borderColor: '#fff',
-                      borderRadius: 10,
-                    }}
-                  />
-                </Avatar.Image> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -314,12 +270,6 @@ const EditCatDetails = ({ navigation, route }) => {
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
                 customStyles={{
-                  // dateIcon: {
-                  //   position: 'absolute',
-                  //   right: -5,
-                  //   top: 4,
-                  //   marginLeft: 0,
-                  // },
                   dateInput: {
                     borderColor: "#b3a396",
                     alignItems: "flex-start",
@@ -336,25 +286,10 @@ const EditCatDetails = ({ navigation, route }) => {
                     fontSize: 17,
                   },
                 }}
-                // value={catData ? catData.birth_date : ""}
-                // onChangeText={(date) =>
-                //   setCatData({ ...catData, birth_date: date })
-                // }
                 onDateChange={(date) => {
                   setDate(date);
                 }}
               />
-              {/* <TextInput
-                    style={styles.editTextBox}
-                    placeholder="Birth Date"
-                    placeholderTextColor="#666666"
-                    placeholderTextSize="20"
-                    // autoCorrect={false}
-                    // value={userData ? userData.name : ""}
-                    // onChangeText={(text) =>
-                    //   setUserData({ ...userData, name: text })
-                    // }
-                  ></TextInput> */}
             </View>
           </View>
 
@@ -453,54 +388,16 @@ const EditCatDetails = ({ navigation, route }) => {
 export default EditCatDetails;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
   },
   row: {
     flexDirection: "row",
     marginBottom: 13,
   },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   menuWrapper: {
     marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
   },
   header: {
     marginTop: 10,

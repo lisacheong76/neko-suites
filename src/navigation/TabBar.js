@@ -11,11 +11,8 @@ import SIZES from "../consts/sizes";
 
 import icons from "../consts/icons";
 import UserProfile from "../views/screens/UserProfile";
-import RoomDetails from "../views/screens/RoomDetails";
 import CatPage from "../views/screens/CatPage";
-import AddCats from "../views/screens/AddCats";
 import BookingPage from "../views/screens/BookingPage";
-import ChooseDate from "../views/screens/ChooseDate";
 import { auth } from "../../firebase";
 
 const Tab = createBottomTabNavigator();

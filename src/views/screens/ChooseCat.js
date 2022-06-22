@@ -1,26 +1,9 @@
 import React, { useState } from "react";
-import {
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  SafeAreaView,
-  View,
-  TouchableOpacity,
-  Picker,
-} from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { StyleSheet, SafeAreaView, View, TouchableOpacity } from "react-native";
+import { Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import style from "react-native-datepicker/style";
 import { firestore } from "../../../firebase";
 
 const ChooseCat = ({ route }) => {
@@ -139,53 +122,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginBottom: 35,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

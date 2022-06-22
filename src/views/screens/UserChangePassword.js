@@ -1,40 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
   Alert,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
-import { Header } from "react-native-elements";
+import { Avatar, Title, Caption, Text, TextInput } from "react-native-paper";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import firebaseErrors from "../../../firebaseErrors";
-import {
-  auth,
-  firestore,
-  updatePassword,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
-
-// import Share from 'react-native-share';
-
-// import files from "../../assets/filesBase64";
+import { auth, firestore, updatePassword } from "../../../firebase";
 
 const UserChangePassword = () => {
   const navigation = useNavigation();
@@ -82,22 +59,6 @@ const UserChangePassword = () => {
   return (
     <ScrollView>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        {/* <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("UserProfile")}
-            >
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "CHANGE PASSWORD",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        /> */}
-
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -191,10 +152,6 @@ const UserChangePassword = () => {
 export default UserChangePassword;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
@@ -211,41 +168,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

@@ -1,28 +1,9 @@
 import React, { useState, useEffect } from "react";
 import StarRating from "react-native-star-rating-widget";
-import {
-  Share,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  Picker,
-  Alert,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { View, SafeAreaView, StyleSheet, Alert } from "react-native";
+import { Text, TextInput } from "react-native-paper";
 import COLORS from "../../consts/colors";
 import { useNavigation } from "@react-navigation/core";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import uuid from "uuid";
 import { auth, firestore } from "../../../firebase";
 import firebaseErrors from "../../../firebaseErrors";
 
@@ -31,7 +12,7 @@ const UselessTextInput = (props) => {
     <TextInput
       {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
       editable
-      maxLength={30}
+      maxLength={100}
     />
   );
 };
@@ -116,8 +97,6 @@ const UserFeedback = () => {
               onChangeText={(text) =>
                 setFeedbackData({ ...feedbackData, message: text })
               }
-              // value={displayName || ""}
-              // onChangeText={(text) => setDisplayName(text)}
             ></UselessTextInput>
           </View>
         </View>
@@ -185,82 +164,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-// import React from 'react';
-// import {
-//   StyleSheet,
-//   View
-// } from 'react-native';
-// import DynamicForm from '@coffeebeanslabs/react-native-form-builder';
-
-// const UserFeedback = ({ props, navigation, route }) => {
-//   const formTemplate = {
-//     data: [
-//       {
-//         component: 'image',
-//         field_name: 'headerImage',
-//         meta: {
-//           label: 'alt text for header image',
-//           source: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg'
-//         },
-//         style: {
-//           width: 200,
-//           height: 200
-//         }
-//       },
-//       {
-//         component: 'input-text',
-//         field_name: 'name',
-//         is_mandatory: 'true',
-//         meta: {
-//           label: 'Name',
-//           placeholder: 'Enter name..'
-//         }
-//       },
-//       {
-//         component: 'input-date',
-//         field_name: 'birthDate',
-//         is_mandatory: 'true',
-//         meta: {
-//           title: 'Birth Date'
-//         }
-//       },
-//       {
-//         component: 'input-radio',
-//         field_name: 'gender',
-//         is_mandatory: 'true',
-//         meta: {
-//           text: 'Your Gender',
-//           data: [
-//             {
-//               label: 'Male',
-//               value: 'male'
-//             },
-//             {
-//               label: 'Female',
-//               value: 'female'
-//             }
-//           ]
-//         }
-//       }
-//     ]
-//   }
-
-//   const onSubmit = formFields => {
-//     // Actions on submit button click.
-//     console.log('Form submitted with fields: ', formFields);
-//   }
-
-//   return (
-//     <View style={styles.container}>
-//       <DynamicForm formTemplate={formTemplate} onSubmit={onSubmit} />
-//     </View>
-//   )
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-// });
-
-// export default UserFeedback;

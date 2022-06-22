@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import { useNavigation } from "@react-navigation/core";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,32 +7,31 @@ import {
   TouchableOpacity,
   View,
   Image,
-} from 'react-native';
-import { auth, sendPasswordResetEmail } from '../../../firebase';
+} from "react-native";
+import { auth, sendPasswordResetEmail } from "../../../firebase";
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const navigation = useNavigation();
 
   const handleBack = () => {
-    navigation.replace('Login');
+    navigation.replace("Login");
   };
 
   const resetPassword = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        alert('Password reset email sent! Check your inbox');
-        navigation.replace('Login');
+        alert("Password reset email sent! Check your inbox");
+        navigation.replace("Login");
       })
       .catch((error) => alert(error.message));
   };
 
   return (
-    // <ScrollView style = {{backgroundColor: 'white'}}>
     <View style={styles.container} behavior="padding">
       <Image
-        source={require('../../assets/nekosuites2.png')}
+        source={require("../../assets/nekosuites2.png")}
         resizeMode="center"
         style={styles.image}
       />
@@ -56,14 +55,13 @@ const ResetPassword = () => {
           Recall your password?
         </Text>
         <Text
-          style={[styles.textBody, { color: '#e8a468' }, { fontSize: 13 }]}
+          style={[styles.textBody, { color: "#e8a468" }, { fontSize: 13 }]}
           onPress={handleBack}
         >
           Login here
         </Text>
       </View>
     </View>
-    // </ScrollView>
   );
 };
 
@@ -72,47 +70,36 @@ export default ResetPassword;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff5ed',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff5ed",
   },
   inputContainer: {
-    width: '80%',
+    width: "80%",
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
   },
   buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#e8a468',
-    width: '100%',
+    backgroundColor: "#e8a468",
+    width: "100%",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor: '#e8a468',
-    borderWidth: 2,
+    alignItems: "center",
   },
   buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: '#e8a468',
-    fontWeight: '700',
+    color: "white",
+    fontWeight: "700",
     fontSize: 16,
   },
   image: {
@@ -121,20 +108,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   textTitle: {
-    fontFamily: 'sans-serif-medium',
-    color: '#665444',
+    fontFamily: "sans-serif-medium",
+    color: "#665444",
     fontSize: 35,
     marginVertical: 10,
   },
   textBody: {
-    fontFamily: 'sans-serif-medium',
-    color: '#665444',
+    fontFamily: "sans-serif-medium",
+    color: "#665444",
     fontSize: 15,
-  },
-  textBody2: {
-    fontFamily: 'sans-serif-medium',
-    color: '#665444',
-    fontSize: 13,
-    marginTop: 5,
   },
 });

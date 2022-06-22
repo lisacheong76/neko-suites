@@ -82,7 +82,8 @@ const BookingSuccess = ({ navigation, route }) => {
           lineHeight: 23,
         }}
       >
-        Booking ID: {"\n"}{route.params.paramkey}
+        Booking ID: {"\n"}
+        {route.params.paramkey}
       </Text>
       <Text
         style={{

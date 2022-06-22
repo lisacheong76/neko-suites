@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
   ScrollView,
   RefreshControl,
-  TouchableOpacity,
 } from "react-native";
 import {
   Avatar,
@@ -19,19 +17,7 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
-import { Header } from "react-native-elements";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
-
-// import Share from 'react-native-share';
-
-// import files from "../../assets/filesBase64";
+import { auth, firestore } from "../../../firebase";
 
 const UserProfile = () => {
   const navigation = useNavigation();
@@ -82,26 +68,6 @@ const UserProfile = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {/* <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "MY PROFILE",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-          rightComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("EditUserProfile")}
-            >
-              <Icon2 name="edit" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-        /> */}
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -184,7 +150,11 @@ const UserProfile = () => {
             onPress={() => navigation.navigate("UserFeedback")}
           >
             <View style={styles.menuItem}>
-              <Icon name="comment-text-multiple-outline" color="#fa9c4b" size={23} />
+              <Icon
+                name="comment-text-multiple-outline"
+                color="#fa9c4b"
+                size={23}
+              />
               <Text style={styles.menuItemText}>Feedback</Text>
               <Icon2
                 name="keyboard-arrow-right"
@@ -239,19 +209,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 13,
   },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   menuWrapper: {
     marginTop: 0,
   },
@@ -266,13 +223,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

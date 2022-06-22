@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -6,12 +6,11 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-} from 'react-native';
-import COLORS from '../../consts/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import COLORS from "../../consts/colors";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-const ServiceLists = ({navigation, route}) => {
+const ServiceLists = ({ navigation, route }) => {
   const item = route.params;
 
   return (
@@ -20,8 +19,9 @@ const ServiceLists = ({navigation, route}) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
-        flex: 1
-      }}>
+        flex: 1,
+      }}
+    >
       <StatusBar
         barStyle="light-content"
         translucent
@@ -38,17 +38,17 @@ const ServiceLists = ({navigation, route}) => {
         </View>
       </ImageBackground>
       <View>
-        <View style={{marginTop: 20, paddingHorizontal: 20}}>
-          <Text style={{fontSize: 26, fontWeight: 'bold'}}>{item.name}</Text>
+        <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
+          <Text style={{ fontSize: 26, fontWeight: "bold" }}>{item.name}</Text>
           <View
             style={{
               marginTop: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-          </View>
-          <View style={{marginTop: 5}}>
-            <Text style={{lineHeight: 20, color: COLORS.grey}}>
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          ></View>
+          <View style={{ marginTop: 5 }}>
+            <Text style={{ lineHeight: 20, color: COLORS.grey }}>
               {item.details}
             </Text>
           </View>
@@ -56,32 +56,34 @@ const ServiceLists = ({navigation, route}) => {
         <View
           style={{
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             paddingLeft: 20,
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
             Price per session
           </Text>
           <View style={style.priceTag}>
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: '#665444',
+                fontWeight: "bold",
+                color: "#665444",
                 marginLeft: 5,
-              }}>
+              }}
+            >
               RM {item.price}
             </Text>
             <Text
               style={{
                 fontSize: 12,
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 color: COLORS.grey,
                 marginLeft: 5,
-              }}>
-            </Text>
+              }}
+            ></Text>
           </View>
         </View>
       </View>
@@ -90,62 +92,29 @@ const ServiceLists = ({navigation, route}) => {
 };
 
 const style = StyleSheet.create({
-  btn: {
-    height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-
   priceTag: {
     height: 40,
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 40,
     paddingLeft: 20,
     flex: 1,
     backgroundColor: COLORS.secondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    flexDirection: 'row',
-  },
-  iconContainer: {
-    position: 'absolute',
-    height: 60,
-    width: 60,
-    backgroundColor: COLORS.primary,
-    top: -30,
-    right: 20,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
   },
   headerImage: {
     height: 400,
     borderBottomRightRadius: 40,
     borderBottomLeftRadius: 40,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   header: {
     marginTop: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    justifyContent: 'space-between',
-  },
-  button: {
-    backgroundColor: "#e8a468",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
+    flexDirection: "row",
     alignItems: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
+    marginHorizontal: 20,
+    justifyContent: "space-between",
   },
 });
 

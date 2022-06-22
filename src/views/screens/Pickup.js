@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  ImageBackground,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   SafeAreaView,
   View,
@@ -10,14 +7,7 @@ import {
   Picker,
   Alert,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -55,28 +45,6 @@ const ChooseCat = ({ route }) => {
   };
 
   const handleCancel = async () => {
-    // firestore
-    //   .collection("booking")
-    //   .doc(route.params.paramkey)
-    //   .update({
-    //     pickup: "",
-    //     address: "",
-    //   })
-    //   .then(() => {
-    //     console.log("Success");
-    //     Alert.alert(
-    //       "Service Request Cancellation Successful!",
-    //       "Your request has been cancelled successfully :3"
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     alert(firebaseErrors[error.code] || error.message);
-    //   });
-
-    // navigation.navigate("BookingHistoryDetails", {
-    //   paramkey: route.params.paramkey,
-    // });
-
     Alert.alert(
       "Are your sure?",
       "Are you sure you want to cancel your request? :3",
@@ -257,53 +225,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginBottom: 35,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

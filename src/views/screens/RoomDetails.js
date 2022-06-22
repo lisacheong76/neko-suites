@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import ChooseCat from "./ChooseCat";
 import { firestore, auth } from "../../../firebase";
 
 const RoomDetails = ({ navigation, route }) => {
@@ -78,47 +77,20 @@ const RoomDetails = ({ navigation, route }) => {
             color={COLORS.white}
             onPress={navigation.goBack}
           />
-          {/* <Icon name="bookmark-border" size={28} color={COLORS.white} /> */}
         </View>
       </ImageBackground>
       <View>
-        {/* <View style={style.iconContainer}>
-          <Icon name="place" color={COLORS.white} size={28} />
-        </View> */}
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
           <Text style={{ fontSize: 26, fontWeight: "bold" }}>
             {roomData.roomName}
           </Text>
-          {/* <Text
-            style={{
-              fontSize: 12,
-              fontWeight: '400',
-              color: COLORS.grey,
-              marginTop: 5,
-            }}>
-            {item.location}
-          </Text> */}
           <View
             style={{
               marginTop: 10,
               flexDirection: "row",
               justifyContent: "space-between",
             }}
-          >
-            {/* <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Icon name="star" size={20} color={COLORS.orange} />
-                <Icon name="star" size={20} color={COLORS.orange} />
-                <Icon name="star" size={20} color={COLORS.orange} />
-                <Icon name="star" size={20} color={COLORS.orange} />
-                <Icon name="star" size={20} color={COLORS.grey} />
-              </View>
-              <Text style={{fontWeight: 'bold', fontSize: 18, marginLeft: 5}}>
-                4.0
-              </Text>
-            </View> */}
-            {/* <Text style={{fontSize: 13, color: COLORS.grey}}>365reviews</Text> */}
-          </View>
+          ></View>
           <View style={{ marginTop: 5 }}>
             <Text style={{ lineHeight: 20, color: COLORS.grey }}>
               {roomData.roomDetail}
@@ -162,11 +134,6 @@ const RoomDetails = ({ navigation, route }) => {
           <TouchableOpacity onPress={handleAdd} style={style.button}>
             <Text style={style.buttonText}>Book Now</Text>
           </TouchableOpacity>
-          {/* <Text
-            style={{ color: COLORS.white, fontSize: 18, fontWeight: "bold" }}
-          >
-            Book Now
-          </Text> */}
         </View>
       </View>
     </ScrollView>
@@ -194,17 +161,6 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     flexDirection: "row",
-  },
-  iconContainer: {
-    position: "absolute",
-    height: 60,
-    width: 60,
-    backgroundColor: COLORS.primary,
-    top: -30,
-    right: 20,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
   },
   headerImage: {
     height: 400,

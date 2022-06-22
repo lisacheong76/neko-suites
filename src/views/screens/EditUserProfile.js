@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
@@ -11,26 +9,16 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
+import { useNavigation } from "@react-navigation/core";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import * as ImagePicker from "expo-image-picker";
-import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
   auth,
   firestore,
-  firebase,
   updateProfile,
   getStorage,
   ref,
@@ -150,22 +138,6 @@ const EditUserProfile = () => {
   return (
     <ScrollView stickyHeaderIndices={[0]}>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        {/* <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity
-              onPress={() => navigation.navigate("UserProfile")}
-            >
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "EDIT PROFILE",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        /> */}
-
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -211,10 +183,6 @@ const EditUserProfile = () => {
                     </View>
                   </ImageBackground>
                 </View>
-                {/* <Avatar.Image
-                  source={image ? { uri: image } : { uri: photo }}
-                  size={90}
-                /> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -255,7 +223,6 @@ const EditUserProfile = () => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={displayName || ""}
-                // onChangeText={(text) => setDisplayName(text)}
                 editable={false}
               ></TextInput>
             </View>
@@ -358,54 +325,13 @@ const EditUserProfile = () => {
 export default EditUserProfile;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
   },
   header: {
     marginTop: 10,

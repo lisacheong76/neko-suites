@@ -146,9 +146,9 @@ export default function App() {
         <Stack.Screen
           name="EditUserProfile"
           component={EditUserProfile}
-          options={{
+          options={({ navigation, route }) => ({
             headerTitleAlign: "center",
-            title: "EDIT PROFILE",
+            title: "MY PROFILE",
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 17,
@@ -158,7 +158,16 @@ export default function App() {
             headerStyle: {
               backgroundColor: COLORS.primary,
             },
-          }}
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
+              </TouchableOpacity>
+            ),
+          })}
         />
 
         <Stack.Screen
@@ -298,7 +307,7 @@ export default function App() {
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.goBack();
+                  navigation.navigate("Homepage");
                 }}
               >
                 <Icon name="arrow-back-ios" size={23} color={"#fff"} />
@@ -356,13 +365,6 @@ export default function App() {
                 }}
               >
                 <Icon name="arrow-back-ios" size={23} color={"#fff"} />
-              </TouchableOpacity>
-            ),
-            headerRight: () => (
-              <TouchableOpacity
-              // onPress={() => console.log("Menu")}
-              >
-                <Icon name="local-grocery-store" size={23} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}
