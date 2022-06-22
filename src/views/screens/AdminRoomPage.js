@@ -26,19 +26,14 @@ const AdminRoomPage = () => {
   const [room, setRooms] = useState([]);
   const [numCols, setColumnNo] = useState(2);
 
-  const roomRef = firestore.collection("rooms");
+  const roomRef = firestore.collection("rooms").orderBy("roomName");
 
   useEffect(async () => {
     roomRef.onSnapshot((querySnapshot) => {
       const roomArray = [];
       querySnapshot.forEach((doc) => {
-        const {
-          roomName,
-          roomDetail,
-          roomPax,
-          roomPrice,
-          roomImage,
-        } = doc.data();
+        const { roomName, roomDetail, roomPax, roomPrice, roomImage } =
+          doc.data();
         roomArray.push({
           id: doc.id,
           roomName,
@@ -54,10 +49,13 @@ const AdminRoomPage = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.adminBackground, paddingTop: 20 }}
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.adminBackground,
+        paddingTop: 20,
+      }}
     >
       <View style={styles.container}>
-        
         <FlatList
           data={room}
           contentContainerStyle={{

@@ -16,13 +16,15 @@ import { firestore } from "../../../firebase";
 import firebaseErrors from "../../../firebaseErrors";
 
 const AdminAddBookingsRoom = ({ route, navigation }) => {
+  const [rooms, setRooms] = useState("");
+
   const handleUpdate = async (item) => {
     firestore
       .collection("booking")
       .doc(route.params.paramkey)
       .update({
         roomID: item.id,
-        roomName: item.name,
+        roomName: item.roomName,
         completed: false,
       })
       .then(() => {
@@ -37,16 +39,34 @@ const AdminAddBookingsRoom = ({ route, navigation }) => {
     });
   };
 
-  //   const selectRoom = (item) => {
-  //     const value = "Selected Student : " + item.name;
-  //     console.log(value);
-  //     setRoom(item);
-  //   };
+  const roomRef = firestore.collection("rooms").orderBy("roomName");
+
+  useEffect(async () => {
+    roomRef.onSnapshot((querySnapshot) => {
+      const roomArray = [];
+      querySnapshot.forEach((doc) => {
+        const { roomName, roomDetail, roomPax, roomPrice, roomImage } =
+          doc.data();
+        roomArray.push({
+          id: doc.id,
+          roomName,
+          roomPax,
+          roomDetail,
+          roomPrice,
+          roomImage,
+        });
+      });
+      setRooms(roomArray);
+    });
+  }, []);
 
   const CartCard = ({ item }) => {
     return (
       <View style={style.cartCard}>
-        <Image source={item.image} style={{ height: 80, width: 80 }} />
+        <Image
+          source={{ uri: item.roomImage }}
+          style={{ height: 80, width: 80 }}
+        />
         <View
           style={{
             height: 100,
@@ -56,10 +76,10 @@ const AdminAddBookingsRoom = ({ route, navigation }) => {
           }}
         >
           <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-            {item.name ? item.name : "Name not set"}
+            {item.roomName ? item.roomName : "Name not set"}
           </Text>
           <Text style={{ fontSize: 13, color: COLORS.grey }}>
-            RM {item.price ? item.price : "Price not set"}
+            RM {item.roomPrice ? item.roomPrice : "Price not set"}
           </Text>
           {/* <Text style={{ fontSize: 17, fontWeight: "bold" }}>
             @{item.username}
@@ -80,7 +100,7 @@ const AdminAddBookingsRoom = ({ route, navigation }) => {
     <SafeAreaView style={{ backgroundColor: COLORS.adminBackground, flex: 1 }}>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={hotels}
+        data={rooms}
         renderItem={({ item }) => <CartCard item={item} />}
       />
     </SafeAreaView>
