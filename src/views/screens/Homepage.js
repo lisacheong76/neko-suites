@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dimensions,
   FlatList,
@@ -19,7 +19,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import hotels from "../../consts/roomType";
 import services from "../../consts/otherServices";
-import { auth } from "../../../firebase";
+import { auth, firestore } from "../../../firebase";
 // import { Icon } from "react-native-elements";
 
 const { width } = Dimensions.get("screen");
@@ -29,9 +29,31 @@ const Homepage = () => {
   const navigation = useNavigation();
   const photo = auth.currentUser.photoURL;
   const [numCols, setColumnNo] = useState(2);
+  const [rooms, setRooms] = useState([]);
 
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  const roomRef = firestore.collection("rooms").orderBy("roomName");
+
+  useEffect(async () => {
+    roomRef.onSnapshot((querySnapshot) => {
+      const roomArray = [];
+      querySnapshot.forEach((doc) => {
+        const { roomName, roomDetail, roomPax, roomPrice, roomImage } =
+          doc.data();
+        roomArray.push({
+          id: doc.id,
+          roomName,
+          roomPax,
+          roomDetail,
+          roomPrice,
+          roomImage,
+        });
+      });
+      setRooms(roomArray);
+    });
+  }, []);
 
   const Card = ({ hotel, index }) => {
     const inputRange = [
@@ -51,7 +73,7 @@ const Homepage = () => {
       <TouchableOpacity
         disabled={activeCardIndex != index}
         activeOpacity={1}
-        onPress={() => navigation.navigate("RoomDetails", hotel)}
+        onPress={() => navigation.navigate("RoomDetails", hotel.id)}
       >
         <Animated.View style={{ ...style.card, transform: [{ scale }] }}>
           <Animated.View style={{ ...style.cardOverLay, opacity }} />
@@ -59,20 +81,20 @@ const Homepage = () => {
             <Text
               style={{ color: COLORS.white, fontSize: 20, fontWeight: "bold" }}
             >
-              RM{hotel.price}
+              RM{hotel.roomPrice}
             </Text>
           </View>
-          <Image source={hotel.image} style={style.cardImage} />
+          <Image source={{ uri: hotel.roomImage }} style={style.cardImage} />
           <View style={style.cardDetails}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
                 <Text style={{ fontWeight: "bold", fontSize: 17 }}>
-                  {hotel.name}
+                  {hotel.roomName}
                 </Text>
                 <Text style={{ color: COLORS.grey, fontSize: 12 }}>
-                  {hotel.location}
+                  {hotel.roomPax}
                 </Text>
               </View>
               <Icon name="bookmark-border" size={26} color={COLORS.primary} />
@@ -138,7 +160,7 @@ const Homepage = () => {
                 { useNativeDriver: true }
               )}
               horizontal
-              data={hotels}
+              data={rooms}
               contentContainerStyle={{
                 paddingVertical: 30,
                 paddingLeft: 20,
@@ -280,7 +302,7 @@ const style = StyleSheet.create({
   },
   ServiceCard: {
     height: 160,
-    width: Dimensions.get('window').width/2.6,
+    width: Dimensions.get("window").width / 2.6,
     backgroundColor: COLORS.white,
     elevation: 15,
     marginHorizontal: 13,

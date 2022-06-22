@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -15,13 +15,28 @@ import { firestore, auth } from "../../../firebase";
 
 const RoomDetails = ({ navigation, route }) => {
   const item = route.params;
+  const [roomData, setRoomData] = useState("");
+
+  const getRoom = async () => {
+    const userRef = firestore.collection("rooms").doc(item);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      setRoomData(doc.data());
+    }
+  };
+
+  useEffect(() => {
+    getRoom();
+  }, []);
 
   const handleAdd = async () => {
     firestore
       .collection("booking")
       .add({
-        roomID: item.id,
-        roomName: item.name,
+        roomID: item,
+        roomName: roomData.roomName,
         cats: "",
         pax: "",
         start: "",
@@ -52,7 +67,10 @@ const RoomDetails = ({ navigation, route }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={style.headerImage} source={item.image}>
+      <ImageBackground
+        style={style.headerImage}
+        source={{ uri: roomData.roomImage }}
+      >
         <View style={style.header}>
           <Icon
             name="arrow-back-ios"
@@ -68,7 +86,9 @@ const RoomDetails = ({ navigation, route }) => {
           <Icon name="place" color={COLORS.white} size={28} />
         </View> */}
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-          <Text style={{ fontSize: 26, fontWeight: "bold" }}>{item.name}</Text>
+          <Text style={{ fontSize: 26, fontWeight: "bold" }}>
+            {roomData.roomName}
+          </Text>
           {/* <Text
             style={{
               fontSize: 12,
@@ -101,7 +121,7 @@ const RoomDetails = ({ navigation, route }) => {
           </View>
           <View style={{ marginTop: 5 }}>
             <Text style={{ lineHeight: 20, color: COLORS.grey }}>
-              {item.details}
+              {roomData.roomDetail}
             </Text>
           </View>
         </View>
@@ -126,7 +146,7 @@ const RoomDetails = ({ navigation, route }) => {
                 marginLeft: 5,
               }}
             >
-              RM {item.price}
+              RM {roomData.roomPrice}
             </Text>
             <Text
               style={{

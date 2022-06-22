@@ -63,10 +63,14 @@ const CatDetails = ({ navigation, route }) => {
       console.log("No such document!");
     } else {
       setBookingData(doc.data());
-      const found = hotels.find((obj) => {
-        return obj.id === doc.data().roomID;
-      });
-      setImageData(found);
+
+      const imageRef = firestore.collection("rooms").doc(doc.data().roomID);
+      const docImage = await imageRef.get();
+      if (!docImage.exists) {
+        console.log("No such document!");
+      } else {
+        setImageData(docImage.data());
+      }
     }
 
     const userRef = firestore.collection("users").doc(doc.data().by);
@@ -95,7 +99,10 @@ const CatDetails = ({ navigation, route }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={style.headerImage} source={imageData.image}>
+      <ImageBackground
+        style={style.headerImage}
+        source={{ uri: imageData.roomImage }}
+      >
         <View style={style.header}>
           <Icon
             name="arrow-back-ios"
