@@ -47,6 +47,10 @@ const AdminRoomPage = () => {
     });
   }, []);
 
+  room.sort((a, b) => {
+    return a.roomPrice - b.roomPrice;
+  });
+
   return (
     <SafeAreaView
       style={{

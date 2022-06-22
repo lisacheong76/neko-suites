@@ -37,7 +37,7 @@ import {
   uploadBytes,
 } from "../../../firebase";
 
-const AddRoom = ({route}) => {
+const AddRoom = ({ route }) => {
   const navigation = useNavigation();
   const [roomData, setRoomData] = useState("");
   const [roomImage, setImage] = useState("");
@@ -86,8 +86,7 @@ const AddRoom = ({route}) => {
       roomImage: roomImage,
     });
 
-    navigation.replace("AdminRoomPage"
-    );
+    navigation.replace("AdminRoomPage");
   };
 
   // useEffect(() => {
@@ -118,11 +117,8 @@ const AddRoom = ({route}) => {
   }
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.adminBackground }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -135,7 +131,7 @@ const AddRoom = ({route}) => {
                 borderRadius: 50,
                 height: 95,
                 width: 95,
-                alignSelf: "center"
+                alignSelf: "center",
               }}
             >
               <TouchableOpacity onPress={() => pickImage()}>
@@ -149,7 +145,11 @@ const AddRoom = ({route}) => {
                   }}
                 >
                   <ImageBackground
-                    source={roomImage ? { uri: roomImage } : { uri: roomData.roomImage }}
+                    source={
+                      roomImage
+                        ? { uri: roomImage }
+                        : { uri: roomData.roomImage }
+                    }
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -213,7 +213,9 @@ const AddRoom = ({route}) => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={roomData ? roomData.roomName : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, roomName: text })}
+                onChangeText={(text) =>
+                  setRoomData({ ...roomData, roomName: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -237,10 +239,12 @@ const AddRoom = ({route}) => {
                 placeholder="Room Details"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
-                numberOfLines = {4}
+                numberOfLines={4}
                 autoCorrect={false}
                 value={roomData ? roomData.roomDetail : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, roomDetail: text })}
+                onChangeText={(text) =>
+                  setRoomData({ ...roomData, roomDetail: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -266,7 +270,9 @@ const AddRoom = ({route}) => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={roomData ? roomData.roomPrice : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, roomPrice: text })}
+                onChangeText={(text) =>
+                  setRoomData({ ...roomData, roomPrice: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -291,7 +297,9 @@ const AddRoom = ({route}) => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={roomData ? roomData.roomPax : ""}
-                onChangeText={(text) => setRoomData({ ...roomData, roomPax: text })}
+                onChangeText={(text) =>
+                  setRoomData({ ...roomData, roomPax: text })
+                }
               ></TextInput>
             </View>
           </View>

@@ -69,6 +69,11 @@ const Homepage = () => {
       inputRange,
       outputRange: [0.8, 1, 0.8],
     });
+
+    rooms.sort((a, b) => {
+      return a.roomPrice - b.roomPrice;
+    });
+
     return (
       <TouchableOpacity
         disabled={activeCardIndex != index}
@@ -90,16 +95,27 @@ const Homepage = () => {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
-                <Text style={{ fontWeight: "bold", fontSize: 17 }}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
                   {hotel.roomName}
                 </Text>
-                <Text style={{ color: COLORS.grey, fontSize: 12 }}>
+                <Text
+                  style={{
+                    color: COLORS.grey,
+                    fontSize: 15,
+                    textAlign: "center",
+                  }}
+                >
                   {hotel.roomPax}
                 </Text>
               </View>
-              <Icon name="bookmark-border" size={26} color={COLORS.primary} />
             </View>
-            <View
+            {/* <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -112,9 +128,9 @@ const Homepage = () => {
                 <Icon name="star" size={15} color={COLORS.orange} />
                 <Icon name="star" size={15} color={COLORS.orange} />
                 <Icon name="star" size={15} color={COLORS.orange} />
-              </View>
-              {/* <Text style={{fontSize: 10, color: COLORS.grey}}>365reviews</Text> */}
-            </View>
+              </View> */}
+            {/* <Text style={{fontSize: 10, color: COLORS.grey}}>365reviews</Text> */}
+            {/* </View> */}
           </View>
         </Animated.View>
       </TouchableOpacity>
@@ -130,11 +146,11 @@ const Homepage = () => {
         <Animated.View style={style.ServiceCard}>
           <Image style={style.ServiceCardImage} source={service.image} />
           <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-            <Text style={{ fontSize: 13, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
               {service.name}
             </Text>
             <Text
-              style={{ fontSize: 11, fontWeight: "bold", color: COLORS.grey }}
+              style={{ fontSize: 12, fontWeight: "bold", color: COLORS.grey }}
             >
               {service.location}
             </Text>
@@ -284,13 +300,14 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   cardDetails: {
-    height: 100,
+    height: 90,
     borderRadius: 15,
     backgroundColor: COLORS.white,
     position: "absolute",
     bottom: 0,
     padding: 20,
     width: "100%",
+    alignItems: "center",
   },
   cardOverLay: {
     height: 280,

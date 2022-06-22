@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   ImageBackground,
   ScrollView,
-  StatusBar,
   StyleSheet,
   SafeAreaView,
   View,
@@ -10,23 +9,14 @@ import {
   Picker,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 import DatePicker from "react-native-datepicker";
-import { Header } from "react-native-elements";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/Ionicons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import * as ImagePicker from "expo-image-picker";
-import firebaseErrors from "../../../firebaseErrors";
+// import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
   auth,
@@ -93,10 +83,6 @@ const AddCats = () => {
     navigation.replace("CatPage");
   };
 
-  // useEffect(() => {
-  //   getCat();
-  // }, []);
-
   async function uploadImageAsync(uri) {
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -121,24 +107,8 @@ const AddCats = () => {
   }
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.background }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <Header
-          backgroundColor="#e8a468"
-          placement="center"
-          leftComponent={
-            <TouchableOpacity onPress={navigation.goBack}>
-              <Icon2 name="arrow-back-ios" size={23} color={"#fff"} />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "ADD CATS",
-            style: { color: "#fff", fontWeight: "bold", fontSize: 15 },
-          }}
-        /> */}
-
         <View>
           <View style={styles.userInfoSection}>
             <View
@@ -280,12 +250,6 @@ const AddCats = () => {
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
                 customStyles={{
-                  // dateIcon: {
-                  //   position: 'absolute',
-                  //   right: -5,
-                  //   top: 4,
-                  //   marginLeft: 0,
-                  // },
                   dateInput: {
                     borderColor: "#b3a396",
                     alignItems: "flex-start",
@@ -302,25 +266,10 @@ const AddCats = () => {
                     fontSize: 17,
                   },
                 }}
-                // value={catData ? catData.birth_date : ""}
-                // onChangeText={(date) =>
-                //   setCatData({ ...catData, birth_date: date })
-                // }
                 onDateChange={(date) => {
                   setDate(date);
                 }}
               />
-              {/* <TextInput
-                    style={styles.editTextBox}
-                    placeholder="Birth Date"
-                    placeholderTextColor="#666666"
-                    placeholderTextSize="20"
-                    // autoCorrect={false}
-                    // value={userData ? userData.name : ""}
-                    // onChangeText={(text) =>
-                    //   setUserData({ ...userData, name: text })
-                    // }
-                  ></TextInput> */}
             </View>
           </View>
 
