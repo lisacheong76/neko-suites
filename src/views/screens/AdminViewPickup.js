@@ -214,7 +214,7 @@ const AdminViewPickup = ({ navigation, route }) => {
             </Text>
           </View>
         </View>
-        {/* <View
+        <View
           style={{
             marginTop: 20,
             flexDirection: "row",
@@ -223,7 +223,7 @@ const AdminViewPickup = ({ navigation, route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>End Date</Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Address</Text>
           <View>
             <Text
               style={{
@@ -234,10 +234,12 @@ const AdminViewPickup = ({ navigation, route }) => {
                 marginRight: 15,
               }}
             >
-              {bookingData.end ? bookingData.end : "End Date Unavailable"}
+              {bookingData.address
+                ? bookingData.address
+                : "End Date Unavailable"}
             </Text>
           </View>
-        </View> */}
+        </View>
         <View
           style={{
             marginTop: 20,
@@ -259,6 +261,30 @@ const AdminViewPickup = ({ navigation, route }) => {
               }}
             >
               {userData.name ? userData.name : userData.username}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingLeft: 20,
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Requested</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#4b5142",
+                marginLeft: 5,
+                marginRight: 15,
+              }}
+            >
+              {bookingData.pickup ? bookingData.pickup : bookingData.pickup}
             </Text>
           </View>
         </View>
@@ -335,7 +361,7 @@ const style = StyleSheet.create({
     height: 52,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "55%",
+    marginTop: "15%",
     backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,

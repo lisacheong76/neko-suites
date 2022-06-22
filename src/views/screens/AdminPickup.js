@@ -64,7 +64,7 @@ const AdminCustomerPage = ({ navigation }) => {
             Booking ID : {item.id}
           </Text>
           <Text style={{ fontSize: 15, color: COLORS.grey, marginTop: 10 }}>
-            Request From: {item.start} - {item.end}
+            {item.start} - {item.end}
           </Text>
           {/* <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 9 }}>
             Room Type
