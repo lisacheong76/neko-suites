@@ -41,7 +41,7 @@ import Pickup from "./src/views/screens/Pickup";
 import ChooseCat from "./src/views/screens/ChooseCat";
 import ChooseDate from "./src/views/screens/ChooseDate";
 // import ChooseOption from "./src/views/screens/ChooseOption";
-import Checkout from "./src/views/screens/Checkout";
+// import Checkout from "./src/views/screens/Checkout";
 import AdminPickup from "./src/views/screens/AdminPickup";
 import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
 import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
@@ -363,38 +363,6 @@ export default function App() {
               // onPress={() => console.log("Menu")}
               >
                 <Icon name="local-grocery-store" size={23} color={"#fff"} />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-
-        <Stack.Screen
-          name="Checkout"
-          component={Checkout}
-          options={({ navigation, route }) => ({
-            headerTitleAlign: "center",
-            title: "CHECKOUT",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-            headerLeft: () => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              >
-                <Icon name="arrow-back-ios" size={23} color={"#fff"} />
-              </TouchableOpacity>
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.replace("Homepage")}>
-                <Icon name="home" size={23} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}
