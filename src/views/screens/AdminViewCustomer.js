@@ -6,21 +6,10 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Alert,
 } from "react-native";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
+import { firestore } from "../../../firebase";
 
 const AdminViewCustomer = ({ navigation, route }) => {
   const [userData, setUserData] = useState("");
@@ -213,38 +202,6 @@ const AdminViewCustomer = ({ navigation, route }) => {
 };
 
 const style = StyleSheet.create({
-  btn: {
-    height: 55,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-
-  ages: {
-    height: 40,
-    alignItems: "center",
-    marginLeft: 40,
-    paddingLeft: 20,
-    flex: 1,
-    backgroundColor: COLORS.secondary,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    flexDirection: "row",
-  },
-  iconContainer: {
-    position: "absolute",
-    height: 60,
-    width: 60,
-    backgroundColor: COLORS.primary,
-    top: -30,
-    right: 20,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   headerImage: {
     height: 400,
     borderBottomRightRadius: 40,
@@ -263,7 +220,6 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
-    // marginHorizontal: 20,
     justifyContent: "space-between",
   },
   container: {

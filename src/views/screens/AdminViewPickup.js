@@ -1,27 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View, Alert } from "react-native";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from "react-native-vector-icons/FontAwesome5";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import hotels from "../../consts/roomType";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
+import { firestore } from "../../../firebase";
 
 const AdminViewPickup = ({ navigation, route }) => {
   const [bookingData, setBookingData] = useState("");
@@ -102,21 +83,6 @@ const AdminViewPickup = ({ navigation, route }) => {
         flex: 1,
       }}
     >
-      {/* <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0,0,0,0)"
-      /> */}
-      {/* <ImageBackground style={style.headerImage} source={imageData.image}>
-        <View style={style.header}>
-          <Icon
-            name="arrow-back-ios"
-            size={28}
-            color={COLORS.white}
-            onPress={navigation.goBack}
-          />
-        </View>
-      </ImageBackground> */}
       <View>
         <View style={style.header2}>
           <Text
@@ -299,44 +265,6 @@ const AdminViewPickup = ({ navigation, route }) => {
 };
 
 const style = StyleSheet.create({
-  btn: {
-    height: 55,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-
-  ages: {
-    height: 40,
-    alignItems: "center",
-    marginLeft: 40,
-    paddingLeft: 20,
-    flex: 1,
-    backgroundColor: COLORS.secondary,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    flexDirection: "row",
-  },
-  iconContainer: {
-    position: "absolute",
-    height: 60,
-    width: 60,
-    backgroundColor: COLORS.primary,
-    top: -30,
-    right: 20,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  headerImage: {
-    height: 400,
-    borderBottomRightRadius: 40,
-    borderBottomLeftRadius: 40,
-    overflow: "hidden",
-  },
   header: {
     marginTop: 60,
     flexDirection: "row",
@@ -349,7 +277,6 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
-    // marginHorizontal: 20,
     justifyContent: "space-between",
   },
   container: {

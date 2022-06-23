@@ -2,26 +2,20 @@ import { useNavigation } from "@react-navigation/core";
 import React, { Component, useEffect } from "react";
 import {
   Dimensions,
-  SectionList,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Image,
   Animated,
-  Button,
   ImageBackground,
   LogBox,
 } from "react-native";
 import { Header } from "react-native-elements";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/colors";
 import { auth } from "../../../firebase";
-import { StatusBar } from "expo-status-bar";
-import ListData from "../../consts/bookingList";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 1.8;
@@ -29,16 +23,6 @@ const cardWidth = width / 1.8;
 const Dashboard = ({ route }) => {
   const navigation = useNavigation();
   const photo = auth.currentUser.photoURL;
-  // console.log('What is this:', route.params.paramKey);
-
-  // const handleSignOut = () => {
-  //   auth
-  //     .signOut()
-  //     .then(() => {
-  //       navigation.replace("Login");
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
 
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -86,7 +70,6 @@ const Dashboard = ({ route }) => {
               style={{ fontSize: 30, fontWeight: "bold", color: "#4b5142" }}
             >
               Welcome Admin
-              {/* {route.params.paramKey} */}
             </Text>
           </View>
         </View>
@@ -129,9 +112,10 @@ const Dashboard = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={style.menuButton}
-            onPress={() => navigation.navigate("AdminRoomPage")}>
+            onPress={() => navigation.navigate("AdminRoomPage")}
+          >
             <Image
               source={require("../../assets/animal-shelter.png")}
               resizeMode="center"
@@ -152,20 +136,6 @@ const Dashboard = ({ route }) => {
             <Text style={style.menuText}>View Feedbacks</Text>
           </TouchableOpacity>
         </View>
-        {/* <View style={{ paddingTop: 30 }}>
-          <Text style={style.header2}>Recent Bookings</Text>
-        </View>
-        <SectionList
-          style={style.container2}
-          sections={ListData}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <Item title={item} />}
-        /> */}
-        {/* <View style={style.container1}>
-          <TouchableOpacity onPress={handleSignOut} style={style.button}>
-            <Text style={style.buttonText}>Sign out</Text>
-          </TouchableOpacity>
-        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -174,16 +144,6 @@ const Dashboard = ({ route }) => {
 export default Dashboard;
 
 const style = StyleSheet.create({
-  container1: {
-    flex: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  container2: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 18,
-  },
   button: {
     backgroundColor: "#e8a468",
     width: "40%",
@@ -193,34 +153,12 @@ const style = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
   },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
   header: {
     marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     fontSize: 32,
-  },
-  searchInputContainer: {
-    height: 50,
-    backgroundColor: COLORS.light,
-    marginTop: 15,
-    marginLeft: 20,
-    borderTopLeftRadius: 30,
-    borderBottomLeftRadius: 30,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  header2: {
-    fontSize: 25,
-    color: "#665444",
-    fontFamily: "sans-serif-medium",
-    paddingBottom: 10,
-    marginLeft: 25,
   },
   item: {
     borderBottomColor: "#f7d1b0",
@@ -261,6 +199,6 @@ const style = StyleSheet.create({
   menuText: {
     fontSize: 12,
     marginTop: -10,
-    textAlign: "center"
+    textAlign: "center",
   },
 });

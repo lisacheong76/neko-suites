@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/core";
 import {
   SafeAreaView,
   StyleSheet,
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
   Alert,
 } from "react-native";
@@ -51,7 +49,6 @@ const AdminAddBookingsDate = ({ navigation, route }) => {
   };
 
   return (
-    // <ScrollView showsVerticalScrollIndicator={false}>
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <CalendarPicker
@@ -86,7 +83,7 @@ const AdminAddBookingsDate = ({ navigation, route }) => {
           }}
           onDateChange={onDateChange}
         />
-        <View style={styles.textStyle}>
+        {/* <View style={styles.textStyle}>
           <Text style={styles.textStyle}>Start Date :</Text>
           <Text style={styles.textStyle}>
             {selectedStartDate ? selectedStartDate.toString() : ""}
@@ -95,7 +92,7 @@ const AdminAddBookingsDate = ({ navigation, route }) => {
           <Text style={styles.textStyle}>
             {selectedEndDate ? selectedEndDate.toString() : ""}
           </Text>
-        </View>
+        </View> */}
       </View>
       <View>
         <TouchableOpacity onPress={handleUpdate} style={styles.button}>
@@ -103,7 +100,6 @@ const AdminAddBookingsDate = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
     </SafeAreaView>
-    // </ScrollView>
   );
 };
 export default AdminAddBookingsDate;
@@ -117,12 +113,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     marginTop: 10,
-  },
-  titleStyle: {
-    color: "#665444",
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 25,
   },
   button: {
     height: 52,

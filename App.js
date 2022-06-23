@@ -1,13 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/core";
-import {
-  StyleSheet,
-  Text,
-  View,
-  LogBox,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, LogBox, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -17,12 +8,10 @@ import SIZES from "./src/consts/sizes";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import Login from "./src/views/screens/Login";
-import Homepage from "./src/views/screens/Homepage";
 import Register from "./src/views/screens/Register";
 import Dashboard from "./src/views/screens/Dashboard";
 import ResetPassword from "./src/views/screens/ResetPassword";
 import RoomDetails from "./src/views/screens/RoomDetails";
-// import RoomDetails2 from "./src/views/screens/RoomDetails2";
 import UserProfile from "./src/views/screens/UserProfile";
 import EditUserProfile from "./src/views/screens/EditUserProfile";
 import ServiceLists from "./src/views/screens/ServiceLists";
@@ -40,8 +29,6 @@ import AdminAddCats from "./src/views/screens/AdminAddCats";
 import Pickup from "./src/views/screens/Pickup";
 import ChooseCat from "./src/views/screens/ChooseCat";
 import ChooseDate from "./src/views/screens/ChooseDate";
-// import ChooseOption from "./src/views/screens/ChooseOption";
-// import Checkout from "./src/views/screens/Checkout";
 import AdminPickup from "./src/views/screens/AdminPickup";
 import AdminCustomerPage from "./src/views/screens/AdminCustomerPage";
 import AdminViewCustomer from "./src/views/screens/AdminViewCustomer";
@@ -49,7 +36,6 @@ import AdminCCatPage from "./src/views/screens/AdminCCatPage";
 import AdminBookingPage from "./src/views/screens/AdminBookingPage";
 import AdminViewBooking from "./src/views/screens/AdminViewBooking";
 import BookingHistoryDetails from "./src/views/screens/BookingHistoryDetails";
-// import BookingPage from "./src/views/screens/BookingPage";
 import UserFeedback from "./src/views/screens/UserFeedback";
 import AdminEditCats from "./src/views/screens/AdminEditCats";
 import AdminViewFeedback from "./src/views/screens/AdminViewFeedback";
@@ -109,7 +95,6 @@ export default function App() {
         />
 
         <Stack.Screen
-          // options={{ headerShown: false }}
           name="UserProfile"
           component={UserProfile}
           options={({ navigation, route }) => ({
@@ -809,7 +794,7 @@ export default function App() {
             ),
           })}
         />
-        
+
         <Stack.Screen
           name="AdminRoomPage"
           component={AdminRoomPage}
@@ -835,17 +820,13 @@ export default function App() {
               </TouchableOpacity>
             ),
             headerRight: () => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.replace("AddRoom")
-                }
-              >
+              <TouchableOpacity onPress={() => navigation.replace("AddRoom")}>
                 <Icon name="add" size={25} color={"#fff"} />
               </TouchableOpacity>
             ),
           })}
         />
-        
+
         <Stack.Screen
           name="AddRoom"
           component={AddRoom}
@@ -905,30 +886,6 @@ export default function App() {
             ),
           })}
         />
-
-        {/* <Stack.Screen
-          options={{ headerShown: false }}
-          name="RoomDetails2"
-          component={RoomDetails2}
-        /> */}
-
-        {/* <Stack.Screen
-          name="ChooseOption"
-          component={ChooseOption}
-          options={{
-            headerTitleAlign: "center",
-            title: "CHOOSE OPTION",
-            headerTitleStyle: {
-              color: "#FFF",
-              fontSize: 17,
-              fontWeight: "bold",
-              fontFamily: "roboto",
-            },
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-          }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  FlatList,
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { SafeAreaView, StyleSheet, View, Text, FlatList } from "react-native";
 import Icon3 from "react-native-vector-icons/FontAwesome5";
 import COLORS from "../../consts/colors";
-// import { PrimaryButton } from "../../consts/button";
 import { firestore } from "../../../firebase";
 
 const AdminBookingPage = ({ navigation }) => {
@@ -39,7 +30,6 @@ const AdminBookingPage = ({ navigation }) => {
   const CartCard = ({ item }) => {
     return (
       <View style={style.cartCard}>
-        {/* <Image source={{}} style={{ height: 80, width: 80 }} /> */}
         <View
           style={{
             height: 100,
@@ -54,9 +44,6 @@ const AdminBookingPage = ({ navigation }) => {
           <Text style={{ fontSize: 15, color: COLORS.grey, marginTop: 10 }}>
             {item.start} - {item.end}
           </Text>
-          {/* <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 9 }}>
-            Room Type
-          </Text> */}
         </View>
         <View style={{ marginRight: 20, alignItems: "center" }}>
           <Icon3
@@ -103,12 +90,6 @@ const AdminBookingPage = ({ navigation }) => {
   );
 };
 const style = StyleSheet.create({
-  header: {
-    paddingVertical: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-  },
   cartCard: {
     height: 130,
     elevation: 10,
@@ -119,17 +100,6 @@ const style = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
-    
-  },
-  actionBtn: {
-    width: 80,
-    height: 30,
-    backgroundColor: COLORS.primary,
-    borderRadius: 30,
-    paddingHorizontal: 5,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
   },
 });
 

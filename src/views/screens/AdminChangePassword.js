@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
   Alert,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { Avatar, Title, Caption, Text, TextInput } from "react-native-paper";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import firebaseErrors from "../../../firebaseErrors";
 import {
   auth,
@@ -30,10 +19,6 @@ import {
   ref,
   getDownloadURL,
 } from "../../../firebase";
-
-// import Share from 'react-native-share';
-
-// import files from "../../assets/filesBase64";
 
 const AdminChangePassword = () => {
   const navigation = useNavigation();
@@ -89,26 +74,10 @@ const AdminChangePassword = () => {
 
   useEffect(() => {
     getUser();
-    // getPhoto();
   }, []);
 
-  // const myCustomShare = async() => {
-  //   const shareOptions = {
-  //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   }
-
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch(error) {
-  //     console.log('Error => ', error);
-  //   }
-  // };
-
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
       <ScrollView>
         <View>
           <View style={styles.userInfoSection}>
@@ -129,7 +98,7 @@ const AdminChangePassword = () => {
                   {
                     marginTop: 15,
                     marginBottom: 5,
-                    color: "#665444",
+                    color: COLORS.adminFont,
                   },
                 ]}
               >
@@ -143,7 +112,7 @@ const AdminChangePassword = () => {
         <View style={styles.userInfoSection}>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="key" color="#665444" size={20} />
+              <Icon name="key" color={COLORS.adminFont} size={20} />
               <TextInput
                 style={styles.editTextBox}
                 secureTextEntry={passwordVisible}
@@ -157,7 +126,7 @@ const AdminChangePassword = () => {
                   <TextInput.Icon
                     name={passwordVisible ? "eye" : "eye-off"}
                     size={20}
-                    color="#665444"
+                    color={COLORS.adminFont}
                     onPress={() => setPasswordVisible(!passwordVisible)}
                   />
                 }
@@ -166,7 +135,7 @@ const AdminChangePassword = () => {
           </View>
           <View style={styles.row}>
             <View style={styles.textBox}>
-              <Icon name="key-change" color="#665444" size={20} />
+              <Icon name="key-change" color={COLORS.adminFont} size={20} />
               <TextInput
                 style={styles.editTextBox}
                 secureTextEntry={passwordVisible2}
@@ -180,7 +149,7 @@ const AdminChangePassword = () => {
                   <TextInput.Icon
                     name={passwordVisible2 ? "eye" : "eye-off"}
                     size={20}
-                    color="#665444"
+                    color={COLORS.adminFont}
                     onPress={() => setPasswordVisible2(!passwordVisible2)}
                   />
                 }
@@ -201,10 +170,6 @@ const AdminChangePassword = () => {
 export default AdminChangePassword;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
@@ -222,47 +187,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 13,
   },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
-  },
   textBox: {
     height: 40,
     alignItems: "center",
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -274,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.adminSecondary,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -287,7 +217,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 160,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.adminPrimary,
     marginHorizontal: 20,
     borderRadius: 10,
   },

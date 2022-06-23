@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   RefreshControl,
 } from "react-native";
 import {
@@ -19,17 +17,7 @@ import {
 import COLORS from "../../consts/colors";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
-
-// import Share from 'react-native-share';
-
-// import files from "../../assets/filesBase64";
+import { auth, firestore } from "../../../firebase";
 
 const AdminProfile = () => {
   const navigation = useNavigation();
@@ -71,21 +59,6 @@ const AdminProfile = () => {
       })
       .catch((error) => alert(error.message));
   };
-
-  // const myCustomShare = async() => {
-  //   const shareOptions = {
-  //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   }
-
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch(error) {
-  //     console.log('Error => ', error);
-  //   }
-  // };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
@@ -209,19 +182,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 13,
   },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   menuWrapper: {
     marginTop: 10,
   },
@@ -236,13 +196,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

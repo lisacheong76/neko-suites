@@ -1,32 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
-  Picker,
   Alert,
   ScrollView,
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
-import DatePicker from "react-native-datepicker";
+import { Text, TextInput } from "react-native-paper";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon3 from "react-native-vector-icons/Ionicons";
-import Fontisto from "react-native-vector-icons/Fontisto";
 import * as ImagePicker from "expo-image-picker";
-import { Header } from "react-native-elements";
 import firebaseErrors from "../../../firebaseErrors";
 import uuid from "uuid";
 import {
@@ -71,12 +57,10 @@ const AdminEditRoom = ({ navigation, route }) => {
 
   const handleImagePicked = async (pickerResult) => {
     try {
-      // this.setState({ uploading: true });
       setRoomImage({ uploading: true });
 
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImageAsync(pickerResult.uri);
-        // this.setState({ image: uploadUrl });
         setRoomImage(uploadUrl);
       }
     } catch (e) {
@@ -122,8 +106,8 @@ const AdminEditRoom = ({ navigation, route }) => {
       .then(() => {
         console.log("User Updated!");
         Alert.alert(
-            "Rooms Details Updated!",
-            "The room details has been updated successfully :3"
+          "Rooms Details Updated!",
+          "The room details has been updated successfully :3"
         );
       })
       .catch((error) => {
@@ -161,7 +145,11 @@ const AdminEditRoom = ({ navigation, route }) => {
                   }}
                 >
                   <ImageBackground
-                    source={roomImage ? { uri: roomImage } : { uri: roomsData.roomImage }}
+                    source={
+                      roomImage
+                        ? { uri: roomImage }
+                        : { uri: roomsData.roomImage }
+                    }
                     style={{ height: 95, width: 95 }}
                     imageStyle={{ borderRadius: 50 }}
                   >
@@ -185,23 +173,6 @@ const AdminEditRoom = ({ navigation, route }) => {
                     </View>
                   </ImageBackground>
                 </View>
-                {/* <Avatar.Image
-                  source={image ? { uri: image } : { uri: photo }}
-                  size={90}>
-                <Icon
-                    name="camera"
-                    size={90}
-                    color="#fff"
-                    style={{
-                      opacity: 0.7,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderWidth: 1,
-                      borderColor: '#fff',
-                      borderRadius: 10,
-                    }}
-                  />
-                </Avatar.Image> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -221,7 +192,7 @@ const AdminEditRoom = ({ navigation, route }) => {
         </View>
 
         <View style={styles.userInfoSection}>
-        <Text
+          <Text
             style={{
               fontWeight: "bold",
               color: "#665444",
@@ -229,7 +200,7 @@ const AdminEditRoom = ({ navigation, route }) => {
               marginBottom: 5,
             }}
           >
-            Room Name 
+            Room Name
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
@@ -242,7 +213,9 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={roomsData ? roomsData.roomName : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, roomName: text })}
+                onChangeText={(text) =>
+                  setRoomsData({ ...roomsData, roomName: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -267,10 +240,12 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholder="Room Details"
                 placeholderTextColor="#666666"
                 placeholderTextSize="20"
-                numberOfLines = {4}
+                numberOfLines={4}
                 autoCorrect={false}
                 value={roomsData ? roomsData.roomDetail : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, roomDetail: text })}
+                onChangeText={(text) =>
+                  setRoomsData({ ...roomsData, roomDetail: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -296,7 +271,9 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={roomsData ? roomsData.roomPrice : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, roomPrice: text })}
+                onChangeText={(text) =>
+                  setRoomsData({ ...roomsData, roomPrice: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -309,7 +286,7 @@ const AdminEditRoom = ({ navigation, route }) => {
               marginBottom: 5,
             }}
           >
-            Room Pax 
+            Room Pax
           </Text>
           <View style={styles.row}>
             <View style={styles.textBox}>
@@ -321,7 +298,9 @@ const AdminEditRoom = ({ navigation, route }) => {
                 placeholderTextSize="20"
                 autoCorrect={false}
                 value={roomsData ? roomsData.roomPax : ""}
-                onChangeText={(text) => setRoomsData({ ...roomsData, roomPax: text })}
+                onChangeText={(text) =>
+                  setRoomsData({ ...roomsData, roomPax: text })
+                }
               ></TextInput>
             </View>
           </View>
@@ -340,61 +319,13 @@ const AdminEditRoom = ({ navigation, route }) => {
 export default AdminEditRoom;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 50,
@@ -434,8 +365,5 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
-  },
-  datePickerStyle: {
-    width: 310,
   },
 });

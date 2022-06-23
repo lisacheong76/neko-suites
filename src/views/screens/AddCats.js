@@ -117,6 +117,11 @@ const AddCats = () => {
                 marginTop: 15,
                 alignItems: "center",
                 justifyContent: "center",
+                backgroundColor: "#f7e1cd",
+                borderRadius: 50,
+                height: 95,
+                width: 95,
+                alignSelf: "center",
               }}
             >
               <TouchableOpacity onPress={() => pickImage()}>

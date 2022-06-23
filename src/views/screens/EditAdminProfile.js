@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import {
-  Share,
   View,
   SafeAreaView,
   StyleSheet,
@@ -10,16 +9,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
 import firebaseErrors from "../../../firebaseErrors";
@@ -72,12 +63,10 @@ const EditAdminProfile = () => {
 
   const handleImagePicked = async (pickerResult) => {
     try {
-      // this.setState({ uploading: true });
       setImage({ uploading: true });
 
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImageAsync(pickerResult.uri);
-        // this.setState({ image: uploadUrl });
         setImage(uploadUrl);
       }
     } catch (e) {
@@ -140,21 +129,6 @@ const EditAdminProfile = () => {
     getUser();
   }, []);
 
-  // const myCustomShare = async() => {
-  //   const shareOptions = {
-  //     message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   }
-
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch(error) {
-  //     console.log('Error => ', error);
-  //   }
-  // };
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.adminBackground }}>
       <ScrollView>
@@ -203,10 +177,6 @@ const EditAdminProfile = () => {
                     </View>
                   </ImageBackground>
                 </View>
-                {/* <Avatar.Image
-                  source={image ? { uri: image } : { uri: photo }}
-                  size={90}
-                /> */}
               </TouchableOpacity>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -317,61 +287,13 @@ const EditAdminProfile = () => {
 export default EditAdminProfile;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 35,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
   row: {
     flexDirection: "row",
     marginBottom: 13,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    justifyContent: "space-between",
   },
   textBox: {
     height: 40,

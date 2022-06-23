@@ -6,21 +6,11 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Alert,
 } from "react-native";
 import COLORS from "../../consts/colors";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import {
-  auth,
-  firestore,
-  getStorage,
-  ref,
-  getDownloadURL,
-} from "../../../firebase";
+import { firestore } from "../../../firebase";
 
 const AdminCatDetails = ({ navigation, route }) => {
   const [catData, setCatData] = useState("");
@@ -94,6 +84,18 @@ const AdminCatDetails = ({ navigation, route }) => {
         </View>
       </ImageBackground>
       <View>
+        <View style={style.iconContainer}>
+          <Icon
+            name="edit"
+            color={COLORS.white}
+            size={28}
+            onPress={() =>
+              navigation.replace("AdminEditCats", {
+                paramkey: route.params.paramkey,
+              })
+            }
+          />
+        </View>
         <View style={style.header2}>
           <Text style={{ fontSize: 26, fontWeight: "bold" }}>
             {catData.name}
@@ -105,16 +107,6 @@ const AdminCatDetails = ({ navigation, route }) => {
               justifyContent: "space-between",
             }}
           ></View>
-          <Icon2
-            name="edit"
-            size={23}
-            color={"#665444"}
-            onPress={() =>
-              navigation.replace("AdminEditCats", {
-                paramkey: route.params.paramkey,
-              })
-            }
-          />
         </View>
         <View
           style={{
@@ -131,7 +123,7 @@ const AdminCatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: COLORS.adminFont,
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -155,7 +147,7 @@ const AdminCatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: COLORS.adminFont,
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -179,7 +171,7 @@ const AdminCatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: COLORS.adminFont,
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -203,7 +195,7 @@ const AdminCatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: COLORS.adminFont,
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -229,7 +221,7 @@ const AdminCatDetails = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: COLORS.adminFont,
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -247,13 +239,15 @@ const AdminCatDetails = ({ navigation, route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Owner</Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "black" }}>
+            Owner
+          </Text>
           <View>
             <Text
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#665444",
+                color: COLORS.adminFont,
                 marginLeft: 5,
                 marginRight: 15,
               }}
@@ -273,33 +267,12 @@ const AdminCatDetails = ({ navigation, route }) => {
 };
 
 const style = StyleSheet.create({
-  btn: {
-    height: 55,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-
-  ages: {
-    height: 40,
-    alignItems: "center",
-    marginLeft: 40,
-    paddingLeft: 20,
-    flex: 1,
-    backgroundColor: COLORS.secondary,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    flexDirection: "row",
-  },
   iconContainer: {
     position: "absolute",
     height: 60,
     width: 60,
-    backgroundColor: COLORS.primary,
-    top: -30,
+    backgroundColor: COLORS.adminPrimary,
+    top: -20,
     right: 20,
     borderRadius: 30,
     justifyContent: "center",
@@ -323,7 +296,6 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
-    // marginHorizontal: 20,
     justifyContent: "space-between",
   },
   container: {

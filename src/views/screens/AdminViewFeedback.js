@@ -10,10 +10,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Icon3 from "react-native-vector-icons/FontAwesome5";
 import COLORS from "../../consts/colors";
-// import { PrimaryButton } from "../../consts/button";
 import { firestore } from "../../../firebase";
 
 const AdminViewFeedback = ({ navigation }) => {
@@ -112,14 +109,8 @@ const AdminViewFeedback = ({ navigation }) => {
   );
 };
 const style = StyleSheet.create({
-  header: {
-    paddingVertical: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-  },
   cartCard: {
-    height: 250,
+    height: 200,
     width: Dimensions.get("window").width / 2.4,
     elevation: 10,
     borderRadius: 10,
@@ -130,16 +121,6 @@ const style = StyleSheet.create({
     marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
-  },
-  actionBtn: {
-    width: 80,
-    height: 30,
-    backgroundColor: COLORS.primary,
-    borderRadius: 30,
-    paddingHorizontal: 5,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
   },
 });
 
