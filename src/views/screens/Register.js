@@ -10,8 +10,6 @@ import {
 } from "react-native";
 import { auth, firestore, updateProfile } from "../../../firebase";
 import firebaseErrors from "../../../firebaseErrors";
-// import PasswordInput from "../../consts/passwordCondition";
-// import RNPasswordStrengthMeter from 'react-native-password-strength-meter';
 import PasswordStrengthMeterBar from 'react-native-password-strength-meter-bar';
 
 const Register = () => {
