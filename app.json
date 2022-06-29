@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/assets/applogo.png",
     "splash": {
-      "image": "./src/assets/catsplash.png",
+      "image": "./src/assets/nekologo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
