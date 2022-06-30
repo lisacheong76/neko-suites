@@ -31,7 +31,7 @@ const CatDetails = ({ navigation, route }) => {
         console.error("Error removing document: ", error);
       });
 
-    navigation.replace("CatPage");
+    navigation.replace("Homepage");
   };
 
   const getCat = async () => {

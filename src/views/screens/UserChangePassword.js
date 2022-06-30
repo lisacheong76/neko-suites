@@ -12,6 +12,7 @@ import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import firebaseErrors from "../../../firebaseErrors";
 import { auth, firestore, updatePassword } from "../../../firebase";
+import PasswordStrengthMeterBar from "react-native-password-strength-meter-bar";
 
 const UserChangePassword = () => {
   const navigation = useNavigation();
@@ -114,6 +115,7 @@ const UserChangePassword = () => {
               ></TextInput>
             </View>
           </View>
+          <PasswordStrengthMeterBar password={password} />
           <View style={styles.row}>
             <View style={styles.textBox}>
               <Icon name="key-change" color="#665444" size={20} />

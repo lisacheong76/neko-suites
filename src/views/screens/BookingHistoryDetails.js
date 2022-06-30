@@ -12,7 +12,7 @@ import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { firestore } from "../../../firebase";
 
-const CatDetails = ({ navigation, route }) => {
+const BookingHistoryDetails = ({ navigation, route }) => {
   const [bookingData, setBookingData] = useState("");
   const [imageData, setImageData] = useState("");
   const [userData, setUserData] = useState("");
@@ -357,4 +357,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default CatDetails;
+export default BookingHistoryDetails;

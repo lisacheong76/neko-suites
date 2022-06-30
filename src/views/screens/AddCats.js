@@ -78,9 +78,20 @@ const AddCats = () => {
       neutered: catData.neutered,
       owner: auth.currentUser.uid,
       image: image,
+    })
+    .then(() => {
+      console.log("Cat Added!");
+      Alert.alert(
+        "Cat Added!",
+        "Your cat has been added successfully :3"
+      );
+    })
+    .catch((error) => {
+      alert(firebaseErrors[error.code] || error.message);
     });
 
-    navigation.replace("CatPage");
+    navigation.replace("Homepage");
+
   };
 
   async function uploadImageAsync(uri) {

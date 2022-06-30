@@ -109,7 +109,7 @@ const EditCatDetails = ({ navigation, route }) => {
         image: image,
       })
       .then(() => {
-        console.log("User Updated!");
+        console.log("Cat Updated!");
         Alert.alert(
           "Cat Details Updated!",
           "Your cat details has been updated successfully :3"

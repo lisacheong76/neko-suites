@@ -11,6 +11,7 @@ import { Avatar, Title, Caption, Text, TextInput } from "react-native-paper";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import firebaseErrors from "../../../firebaseErrors";
+import PasswordStrengthMeterBar from "react-native-password-strength-meter-bar";
 import {
   auth,
   firestore,
@@ -133,6 +134,7 @@ const AdminChangePassword = () => {
               ></TextInput>
             </View>
           </View>
+          <PasswordStrengthMeterBar password={password} />
           <View style={styles.row}>
             <View style={styles.textBox}>
               <Icon name="key-change" color={COLORS.adminFont} size={20} />
